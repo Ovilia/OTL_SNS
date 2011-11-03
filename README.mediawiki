@@ -1,0 +1,6 @@
+== About ==
+
+This is a PHP project for OO course in SE, SJTU.
+
+<a href="www.yiiframework.com>Yii framework</a> is used.
+
