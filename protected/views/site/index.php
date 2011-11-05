@@ -1,16 +1,34 @@
 <?php $this->pageTitle=Yii::app()->name; ?>
+<div id="loginDiv">
+    <form id="loginForm">
+        <table id="loginTable">
+            <tr>
+                <td>
+                    <label for="email">邮箱：</label>
+                </td>
+                <td>
+                    <input id="email" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="password">密码：</label>
+                </td>
+                <td>
+                    <input id="password" type="password" />
+                </td>
+            </tr>
+        </table>
+        <table id="buttonTable">
+            <tr>
+                <td>
+                    <button class="button small green" type="submit" id="loginBtn">登录</button>
+                </td>
+                <td>
+                    <button class="button small green" type="button" id="registerBtn">注册</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div><!-- End of loginDiv -->
 
-<h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
-
-<p>Congratulations! You have successfully created your Yii application.</p>
-
-<p>You may change the content of this page by modifying the following two files:</p>
-<ul>
-	<li>View file: <tt><?php echo __FILE__; ?></tt></li>
-	<li>Layout file: <tt><?php echo $this->getLayoutFile('main'); ?></tt></li>
-</ul>
-
-<p>For more details on how to further develop this application, please read
-the <a href="http://www.yiiframework.com/doc/">documentation</a>.
-Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
-should you have any questions.</p>
