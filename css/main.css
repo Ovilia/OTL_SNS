@@ -75,8 +75,8 @@ body
 
 #mainmenu ul li a:hover, #mainmenu ul li.active a
 {
-	color: #6399cd;
-	background-color:#EFF4FA;
+	color: #06450c;
+	background-color:#eee;
 	text-decoration:none;
 }
 
@@ -179,7 +179,7 @@ div.search-form
 	font-size:0.9em;
 	margin: 0 0 15px 0;
 	padding: 5px 8px;
-	background:#EFFDFF;
+	background:#f8ffef;
 }
 
 .portlet-content ul
@@ -211,7 +211,7 @@ div.search-form
 .operations li a
 {
 	font: bold 12px Arial;
-	color: #0066A4;
+	color: #7cbd2f;
 	display: block;
 	padding: 2px 0 2px 8px;
 	line-height: 15px;
@@ -220,10 +220,10 @@ div.search-form
 
 .operations li a:visited
 {
-	color: #0066A4;
+	color: #7cbd2f;
 }
 
 .operations li a:hover
 {
-	background: #80CFFF;
+	background: #d1ff80;
 }

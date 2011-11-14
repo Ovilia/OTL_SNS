@@ -1,4 +1,7 @@
 <?php $this->pageTitle=Yii::app()->name; ?>
+<a href="./page?view=about">
+    This is only a temporary link to About page.
+</a>
 <div id="loginDiv">
     <form id="loginForm">
         <table id="loginTable">
