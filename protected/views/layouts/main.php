@@ -8,41 +8,49 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/buttons.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/heading.css" />
 	<!--[if lt IE 8]>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
 	<![endif]-->
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+    <link href='http://fonts.googleapis.com/css?family=Julee' rel='stylesheet' type='text/css'>
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
 <body>
+    <div id="floatHeader">
+        <div id="heading-back" class="transparent_class"></div>
+        <div id="heading-content">
+            <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" style="float: left; margin-right: 20px; " />
+            <div class="heading-nav">
+                <a href="../" class="selected">Home</a>
+            </div>
+            <span class="heading-span">|</span>
+            <div class="heading-nav">
+                <a href="#">Profile</a>
+            </div>
+            <span class="heading-span">|</span>
+            <div class="heading-nav">
+                <a href="#">Friend Feeds</a>
+            </div>
+            <span class="heading-span">|</span>
+            <div class="heading-nav">
+                <a href="#">Message</a>
+            </div>
+            <span class="heading-span">|</span>
+            <div class="heading-nav">
+                <a href="#">Logout</a>
+            </div>
+            <div class="heading-ava">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/ava.jpeg" />
+            </div>
+        </div><!-- End of heading-content -->
+    </div><!-- End of floatHeader -->
 
 <div class="container" id="page">
-
-	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-	</div><!-- header -->
-
-	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		)); ?>
-	</div><!-- mainmenu -->
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
-
 	<?php echo $content; ?>
 
 	<div id="footer">

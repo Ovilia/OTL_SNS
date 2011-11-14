@@ -1,5 +1,5 @@
 <?php $this->pageTitle=Yii::app()->name; ?>
-<a href="./page?view=about">
+<a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/site/page?view=about">
     This is only a temporary link to About page.
 </a>
 <div id="loginDiv">
