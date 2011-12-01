@@ -56,7 +56,8 @@ class SiteController extends Controller
 	 * This is the action to handle search operations in the site.
 	 * It would render a normal search page if a un-ajax request is passed,
 	 * or simply return an array of results if the request is an ajax one.
-	 * $items should be passed with 'courses' or 'users' keys if search on this model is required.
+	 * $items should be passed with 'courses' or 'users' (or both) key(s) if
+	 * search on this(these) model(s) is(are) required.
 	 */
 	public function actionSearch($name, $items)
 	{
@@ -149,5 +150,27 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
+	}
+
+	/**
+	 * The function to create roles of this application.
+	 * It should be run one and only one time.
+	 * Make sure you delete or comment this function before you get make this
+	 * application public.
+	 */
+	public function actionCreateRoles()
+	{
+		$auth = Yii::app()->authManager;
+
+		$bizRule = 'return !Yii->app()->user->isGuest;';
+		$auth->createRole('authenticated', 'authenticated user', $bizRule);
+
+		$bizRule = 'return Yii->app()->user->isGuest;';
+		$auth->createRole('guest', 'guest user', $bizRule);
+
+		$bizRule = 'return User::model()->findByPk(Yii->app()->user->id)->ISADMIN == "Y";';
+		$auth->createRole('admin', 'administrator', $bizRule);
+
+		echo "success!";
 	}
 }

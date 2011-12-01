@@ -34,7 +34,6 @@ return array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
-		// uncomment the following to enable URLs in path-format
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
@@ -44,20 +43,20 @@ return array(
 			),
 		),
 		'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),
-		// uncomment the following to use a MySQL database
-		'db'=>array(
-			'connectionString' => 'mysql:host=127.0.0.1:3306:/var/lib/mysql/mysql.sock;dbname=OTL_DB',
+			'connectionString' => 'mysql:host=localhost;dbname=otl_sns',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'stonesoup',
+			'password' => '31415',
 			'charset' => 'utf8',
+		),
+		'authManager'=>array(
+			'class' => 'CDbAuthManager',
+			'connectionID' => 'db'
 		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
-        ),
+	    	),
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
