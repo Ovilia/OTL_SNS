@@ -85,6 +85,12 @@ class UserController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+		// Check if the user is authorized to update this profile.
+		$params = array("user_id"=>$id);
+		if (!Yii::app()->user->checkAccess('updateProfile', $params)) {
+			$this->redirect(array('profile', 'id'=>$params["user_id"]));
+		}
+
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -162,7 +168,7 @@ class UserController extends Controller
 				$this->redirect(array('view','id'=>$model->UID));
 		}
 
-		$this->render('profile',array(
+		$this->render('view',array(
 			'model'=>$model,
 		));
 	}

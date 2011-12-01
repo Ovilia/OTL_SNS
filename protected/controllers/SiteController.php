@@ -187,21 +187,30 @@ class SiteController extends Controller
 	public function actionCreateRoles()
 	{
 		$auth = Yii::app()->authManager;
-		$bizRule = null;
 
 		// Guests are those who have not been logged in yet.
-		// $bizRule = 'return Yii->app()->user->isGuest;';
+		$bizRule = null;
 		$role = $auth->createRole('guest', 'guest user', $bizRule);
 
 		// Authenticated users are those normal users who have successfully logged in.
-		// $bizRule = 'return !Yii->app()->user->isGuest;';
+		$bizRule = null;
 		$role = $auth->createRole('authenticated', 'authenticated user', $bizRule);
 		$role->addChild('guest'); // an authenticated user can do whatever a guest can do
 
+		// An authenticated user can only update a profile of his/herself.
+		$bizRule = 'return Yii::app()->user->id==$params["user_id"];';
+		$task = $auth->createTask('updateOwnProfile', 'update the profile of oneself', $bizRule);
+		$role->addChild('updateOwnProfile');
+
 		// Admins are those who can manage the website.
-		// $bizRule = 'return User::model()->findByPk(Yii->app()->user->id)->ISADMIN == "Y";';
+		$bizRule = null;
 		$role = $auth->createRole('admin', 'administrator', $bizRule);
 		$role->addChild('authenticated'); // an admin can do whatever an authenticated user can do
+
+		// Admins can update the profile of anyone.
+		$opt  = $auth->createOperation('updateProfile', 'update the profile of a user');
+		$task->addChild('updateProfile');
+		$role->addChild('updateProfile');
 
 		echo "success!";
 	}

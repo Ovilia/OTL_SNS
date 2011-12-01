@@ -71,7 +71,7 @@ class User extends CActiveRecord
 			'EMAIL' => 'Email',
 			'PASSWORD' => 'Password',
 			'REGISTER_TIME' => 'Register Time',
-			'ISADMIN' => 'Isadmin',
+			'ISADMIN' => 'Is Admin?',
 		);
 	}
 
