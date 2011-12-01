@@ -3,6 +3,32 @@
 class SiteController extends Controller
 {
 	/**
+	 * @return array action filters
+	 */
+	public function filters()
+	{
+		return array(
+			'accessControl',
+		);
+	}
+
+	/**
+	 * Specifies the access control rules.
+	 */
+	public function accessRules()
+	{
+		return array(
+			array('allow', // the create action can only be executed by a local user
+				'actions'=>array('create'),
+				'ips'=>array('127.0.0.1'),
+			),
+			array('allow', // allow all users to perform all other actions
+				'users'=>array('*'),
+			),
+		);
+	}
+
+	/**
 	 * Declares class-based actions.
 	 */
 	public function actions()
@@ -120,7 +146,7 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/index.php'
-        $this->layout = 'index';
+		$this->layout = 'index';
 		//$this->render('index');
 		$model=new LoginForm;
 
@@ -161,15 +187,21 @@ class SiteController extends Controller
 	public function actionCreateRoles()
 	{
 		$auth = Yii::app()->authManager;
+		$bizRule = null;
 
-		$bizRule = 'return !Yii->app()->user->isGuest;';
-		$auth->createRole('authenticated', 'authenticated user', $bizRule);
+		// Guests are those who have not been logged in yet.
+		// $bizRule = 'return Yii->app()->user->isGuest;';
+		$role = $auth->createRole('guest', 'guest user', $bizRule);
 
-		$bizRule = 'return Yii->app()->user->isGuest;';
-		$auth->createRole('guest', 'guest user', $bizRule);
+		// Authenticated users are those normal users who have successfully logged in.
+		// $bizRule = 'return !Yii->app()->user->isGuest;';
+		$role = $auth->createRole('authenticated', 'authenticated user', $bizRule);
+		$role->addChild('guest'); // an authenticated user can do whatever a guest can do
 
-		$bizRule = 'return User::model()->findByPk(Yii->app()->user->id)->ISADMIN == "Y";';
-		$auth->createRole('admin', 'administrator', $bizRule);
+		// Admins are those who can manage the website.
+		// $bizRule = 'return User::model()->findByPk(Yii->app()->user->id)->ISADMIN == "Y";';
+		$role = $auth->createRole('admin', 'administrator', $bizRule);
+		$role->addChild('authenticated'); // an admin can do whatever an authenticated user can do
 
 		echo "success!";
 	}

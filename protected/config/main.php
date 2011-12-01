@@ -51,11 +51,12 @@ return array(
 		),
 		'authManager'=>array(
 			'class' => 'CDbAuthManager',
-			'connectionID' => 'db'
+			'connectionID' => 'db',
+			//'defaultRoles' => array('admin', 'authenticated', 'guest'),
 		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
-            'errorAction'=>'site/error',
+			'errorAction'=>'site/error',
 	    	),
 		'log'=>array(
 			'class'=>'CLogRouter',
@@ -78,6 +79,6 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
+		'adminEmail'=>'hnkfliyao@gmail.com',
 	),
 );
