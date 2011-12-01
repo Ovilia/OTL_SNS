@@ -151,19 +151,38 @@ class UserController extends Controller
 	public function actionProfile($id)
 	{
 		$model=$this->loadModel($id);
-
+		$profile = new ProfileForm;
+		$profile->username = $model->USER_NAME;
+		$profile->email = $model->EMAIL;
+		$profile->isAdmin = $model->ISADMIN;
+		$profile->register_time = $model->REGISTER_TIME;
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['User']))
+	
+		if(isset($_POST['ProfileForm']))
 		{
-			$model->attributes=$_POST['User'];
+			$profile->attributes=$_POST['ProfileForm'];
+			if($profile->old_password !== ""
+			   && $profile->new_password !== ""
+			   && $profile->new_password_repeat !== ""
+			   && $profile->new_password === $profile->new_password_repeat)
+			{
+				if (!$model->validatePassword($profile->old_password))
+				{
+					//$model->USER_NAME = $profile->new_password;
+					$model->PASSWORD = "ac79a44df4561ebca33e43f3890bf541";
+				}
+				else
+					$model->PASSWORD = "11edbf240c921a81abbbf84c34c2a68f";
+			}
+			if(isset($profile->username))
+				$model->USER_NAME = $profile->username;
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->UID));
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 		}
 
 		$this->render('profile',array(
-			'model'=>$model,
+			'model'=>$profile,
 		));
 	}
 
