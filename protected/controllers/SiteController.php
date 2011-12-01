@@ -29,7 +29,7 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/index.php'
-        $this->layout = 'index';
+		$this->layout = 'index';
 		//$this->render('index');
 		$model=new LoginForm;
 
@@ -50,6 +50,32 @@ class SiteController extends Controller
 		}
 		// display the login form
 		$this->render('index',array('model'=>$model));
+	}
+
+	/**
+	 * This is the action to handle search operations in the site.
+	 * It would render a normal search page if a un-ajax request is passed,
+	 * or simply return an array of results if the request is an ajax one.
+	 * $items should be passed with 'courses' or 'users' keys if search on this model is required.
+	 */
+	public function actionSearch($name, $items)
+	{
+		if (!isset($_POST['ajax'])) {
+			//Render a search page?
+		} else {
+			$courses = array();
+			$users = array();
+
+			if (isset($items['courses']))
+				$courses = Course::model()->find('COURSE_NAME=?', array($name));
+			if (isset($items['users']))
+				$users = User::model()->find('USER_NAME=?', array($name));
+
+			return CJSON::encode(array(
+				'courses' => $courses,
+				'users' => $users,
+				));
+		}
 	}
 
 	/**

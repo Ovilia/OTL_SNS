@@ -144,7 +144,7 @@ class UserController extends Controller
 			$model->attributes=$_GET['User'];
 
 		$this->render('admin',array(
-            'model'=>$model,
+				'model'=>$model,
 		));
 	}
 
