@@ -16,9 +16,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'LOGIN_NAME'); ?>
-		<?php echo $form->textField($model,'LOGIN_NAME',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'LOGIN_NAME'); ?>
+		<?php echo $form->labelEx($model,'USER_NAME'); ?>
+		<?php echo $form->textField($model,'USER_NAME',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->error($model,'USER_NAME'); ?>
 	</div>
 
 	<div class="row">
@@ -29,7 +29,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'PASSWORD'); ?>
-		<?php echo $form->passwordField($model,'PASSWORD',array('size'=>20,'maxlength'=>64)); ?>
+		<?php echo $form->passwordField($model,'PASSWORD',array('size'=>60,'maxlength'=>64)); ?>
 		<?php echo $form->error($model,'PASSWORD'); ?>
 	</div>
 
@@ -40,14 +40,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'NICK_NAME'); ?>
-		<?php echo $form->textField($model,'NICK_NAME',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'NICK_NAME'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'ISADMIN'); ?>
-		<?php echo $form->textField($model,'ISADMIN'); ?>
+		<?php echo $form->textField($model,'ISADMIN',array('size'=>1,'maxlength'=>1)); ?>
 		<?php echo $form->error($model,'ISADMIN'); ?>
 	</div>
 

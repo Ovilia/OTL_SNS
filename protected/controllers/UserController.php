@@ -31,12 +31,12 @@ class UserController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','feed','search'),
+				'actions'=>array('create','update','feed','search','profile'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('@'),
+				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -127,7 +127,6 @@ class UserController extends Controller
 	 */
 	public function actionIndex()
 	{
-		//$this->layout='//layouts/custom1';
 		$dataProvider=new CActiveDataProvider('User');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
@@ -145,6 +144,25 @@ class UserController extends Controller
 			$model->attributes=$_GET['User'];
 
 		$this->render('admin',array(
+            'model'=>$model,
+		));
+	}
+
+	public function actionProfile($id)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['User']))
+		{
+			$model->attributes=$_POST['User'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->UID));
+		}
+
+		$this->render('profile',array(
 			'model'=>$model,
 		));
 	}

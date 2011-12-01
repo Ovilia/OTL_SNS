@@ -48,7 +48,7 @@ return array(
 		),
 		// uncomment the following to use a MySQL database
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=OTL_DB',
+			'connectionString' => 'mysql:host=127.0.0.1:3306:/var/lib/mysql/mysql.sock;dbname=OTL_DB',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => 'stonesoup',

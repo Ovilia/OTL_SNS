@@ -2,6 +2,14 @@
 <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/site/page?view=about">
     This is only a temporary link to About page.
 </a>
+<div class="form">
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'login-form',
+	'enableClientValidation'=>true,
+	'clientOptions'=>array(
+		'validateOnSubmit'=>true,
+	),
+)); ?>
 <div id="loginDiv">
     <form id="loginForm">
         <table id="loginTable">
@@ -10,7 +18,7 @@
                     <label for="email">邮箱：</label>
                 </td>
                 <td>
-                    <input id="email" />
+                    <?php echo $form->textField($model,'email'); ?>
                 </td>
             </tr>
             <tr>
@@ -18,7 +26,7 @@
                     <label for="password">密码：</label>
                 </td>
                 <td>
-                    <input id="password" type="password" />
+                    <?php echo $form->passwordField($model,'password'); ?>
                 </td>
             </tr>
         </table>
@@ -33,5 +41,6 @@
             </tr>
         </table>
     </form>
+<?php $this->endWidget(); ?>
 </div><!-- End of loginDiv -->
 

@@ -5,12 +5,11 @@
  *
  * The followings are the available columns in table 'user':
  * @property integer $UID
- * @property string $LOGIN_NAME
+ * @property string $USER_NAME
  * @property string $EMAIL
  * @property string $PASSWORD
  * @property string $REGISTER_TIME
- * @property string $NICK_NAME
- * @property integer $ISADMIN
+ * @property string $ISADMIN
  */
 class User extends CActiveRecord
 {
@@ -39,14 +38,14 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('UID, LOGIN_NAME, EMAIL, PASSWORD, REGISTER_TIME', 'required'),
-			array('UID, ISADMIN', 'numerical', 'integerOnly'=>true),
-			array('LOGIN_NAME, NICK_NAME', 'length', 'max'=>32),
-			array('EMAIL', 'length', 'max'=>64),
-			array('PASSWORD', 'length', 'max'=>20),
+			array('UID, USER_NAME, EMAIL, PASSWORD, REGISTER_TIME, ISADMIN', 'required'),
+			array('UID', 'numerical', 'integerOnly'=>true),
+			array('USER_NAME', 'length', 'max'=>32),
+			array('EMAIL, PASSWORD', 'length', 'max'=>64),
+			array('ISADMIN', 'length', 'max'=>1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('UID, LOGIN_NAME, EMAIL, PASSWORD, REGISTER_TIME, NICK_NAME, ISADMIN', 'safe', 'on'=>'search'),
+			array('UID, USER_NAME, EMAIL, PASSWORD, REGISTER_TIME, ISADMIN', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,11 +67,10 @@ class User extends CActiveRecord
 	{
 		return array(
 			'UID' => 'Uid',
-			'LOGIN_NAME' => 'Login Name',
+			'USER_NAME' => 'User Name',
 			'EMAIL' => 'Email',
 			'PASSWORD' => 'Password',
 			'REGISTER_TIME' => 'Register Time',
-			'NICK_NAME' => 'Nick Name',
 			'ISADMIN' => 'Isadmin',
 		);
 	}
@@ -89,20 +87,20 @@ class User extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('UID',$this->UID);
-		$criteria->compare('LOGIN_NAME',$this->LOGIN_NAME,true);
+		$criteria->compare('USER_NAME',$this->USER_NAME,true);
 		$criteria->compare('EMAIL',$this->EMAIL,true);
 		$criteria->compare('PASSWORD',$this->PASSWORD,true);
 		$criteria->compare('REGISTER_TIME',$this->REGISTER_TIME,true);
-		$criteria->compare('NICK_NAME',$this->NICK_NAME,true);
-		$criteria->compare('ISADMIN',$this->ISADMIN);
+		$criteria->compare('ISADMIN',$this->ISADMIN,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-	
-	public function validatePassword($password)
+
+    public function validatePassword($password)
 	{
 		return (md5($password) === $this->PASSWORD);
 	}
+
 }

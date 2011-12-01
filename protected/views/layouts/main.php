@@ -26,7 +26,7 @@
         <div id="heading-content">
             <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" style="float: left; margin-right: 20px; " />
             <div class="heading-nav">
-                <a href="#" class="selected">首页</a>
+                <a href="<?php echo Yii::app()->request->baseUrl; ?>" class="selected">首页</a>
             </div>
             <span class="heading-span">|</span>
             <div class="heading-nav">
@@ -42,11 +42,13 @@
             </div>
             <span class="heading-span">|</span>
             <div class="heading-nav">
-                <a href="../">登出</a>
+                <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php?logout">登出</a>
             </div>
 
             <div class="heading-ava">
-                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/ava.jpeg" />
+				<a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/user/profile/<?php echo Yii::app()->user->id; ?>">
+                	<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/ava.jpeg"/>
+				</a>
             </div>
 
             <div class="search">
