@@ -46,13 +46,10 @@
             </div>
 
             <div class="heading-ava">
-<<<<<<< HEAD
                 <!--img src="<!?php echo loadImage("zwl.sjtu@gmail.com");?>"/-->
-=======
 				<a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/user/profile/<?php echo Yii::app()->user->id; ?>">
                 	<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/ava.jpeg"/>
 				</a>
->>>>>>> 0c52f59a6b99a999cffe7ad4bdf80e5b12b4b6dd
             </div>
 
             <div class="search">
