@@ -46,7 +46,7 @@
             </div>
 
             <div class="heading-ava">
-                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/ava.jpeg" />
+                <!--img src="<!?php echo loadImage("zwl.sjtu@gmail.com");?>"/-->
             </div>
 
             <div class="search">
