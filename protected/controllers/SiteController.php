@@ -185,7 +185,7 @@ class SiteController extends Controller
 	/**
 	 * The function to create roles of this application.
 	 * It should be run one and only one time.
-	 * Make sure you delete or comment this function before you get make this
+	 * Make sure you delete or comment this function before you get this
 	 * application public.
 	 */
 	public function actionCreateRoles()

@@ -85,13 +85,15 @@ class UserController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+		$model=$this->loadModel($id);
+
 		// Check if the user is authorized to update this profile.
 		$params = array("user_id"=>$id);
 		if (!Yii::app()->user->checkAccess('updateProfile', $params)) {
-			$this->redirect(array('profile', 'id'=>$params["user_id"]));
+			Yii::app()->user->setFlash('error',
+				"抱歉，你无权修改$model->USER_NAME 的个人资料！");
+			$this->redirect(array('view', 'id'=>$params["user_id"]));
 		}
-
-		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
