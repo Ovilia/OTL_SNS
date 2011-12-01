@@ -1,21 +1,18 @@
 <?php
 
 /**
- * This is the model class for table "user".
+ * This is the model class for table "feeds".
  *
- * The followings are the available columns in table 'user':
+ * The followings are the available columns in table 'feeds':
  * @property integer $UID
- * @property string $USER_NAME
- * @property string $EMAIL
- * @property string $PASSWORD
- * @property string $REGISTER_TIME
- * @property string $ISADMIN
+ * @property integer $USE_UID
+ * @property string $FEED_TIME
  */
-class User extends CActiveRecord
+class Feeds extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return User the static model class
+	 * @return Feeds the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -27,7 +24,7 @@ class User extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'user';
+		return 'feeds';
 	}
 
 	/**
@@ -38,14 +35,11 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('UID, USER_NAME, EMAIL, PASSWORD, REGISTER_TIME, ISADMIN', 'required'),
-			array('UID', 'numerical', 'integerOnly'=>true),
-			array('USER_NAME', 'length', 'max'=>32),
-			array('EMAIL, PASSWORD', 'length', 'max'=>64),
-			array('ISADMIN', 'length', 'max'=>1),
+			array('UID, USE_UID, FEED_TIME', 'required'),
+			array('UID, USE_UID', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('UID, USER_NAME, EMAIL, PASSWORD, REGISTER_TIME, ISADMIN', 'safe', 'on'=>'search'),
+			array('UID, USE_UID, FEED_TIME', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,11 +61,8 @@ class User extends CActiveRecord
 	{
 		return array(
 			'UID' => 'Uid',
-			'USER_NAME' => 'User Name',
-			'EMAIL' => 'Email',
-			'PASSWORD' => 'Password',
-			'REGISTER_TIME' => 'Register Time',
-			'ISADMIN' => 'Isadmin',
+			'USE_UID' => 'Use Uid',
+			'FEED_TIME' => 'Feed Time',
 		);
 	}
 
@@ -87,20 +78,11 @@ class User extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('UID',$this->UID);
-		$criteria->compare('USER_NAME',$this->USER_NAME,true);
-		$criteria->compare('EMAIL',$this->EMAIL,true);
-		$criteria->compare('PASSWORD',$this->PASSWORD,true);
-		$criteria->compare('REGISTER_TIME',$this->REGISTER_TIME,true);
-		$criteria->compare('ISADMIN',$this->ISADMIN,true);
+		$criteria->compare('USE_UID',$this->USE_UID);
+		$criteria->compare('FEED_TIME',$this->FEED_TIME,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-
-    public function validatePassword($password)
-	{
-		return (md5($password) === $this->PASSWORD);
-	}
-
 }

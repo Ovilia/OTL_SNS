@@ -11,8 +11,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'LOGIN_NAME'); ?>
-		<?php echo $form->textField($model,'LOGIN_NAME',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->label($model,'USER_NAME'); ?>
+		<?php echo $form->textField($model,'USER_NAME',array('size'=>32,'maxlength'=>32)); ?>
 	</div>
 
 	<div class="row">
@@ -22,7 +22,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'PASSWORD'); ?>
-		<?php echo $form->passwordField($model,'PASSWORD',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->passwordField($model,'PASSWORD',array('size'=>60,'maxlength'=>64)); ?>
 	</div>
 
 	<div class="row">
@@ -31,13 +31,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'NICK_NAME'); ?>
-		<?php echo $form->textField($model,'NICK_NAME',array('size'=>32,'maxlength'=>32)); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'ISADMIN'); ?>
-		<?php echo $form->textField($model,'ISADMIN'); ?>
+		<?php echo $form->textField($model,'ISADMIN',array('size'=>1,'maxlength'=>1)); ?>
 	</div>
 
 	<div class="row buttons">

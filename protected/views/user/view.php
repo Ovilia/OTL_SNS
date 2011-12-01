@@ -10,7 +10,7 @@ $this->menu=array(
 	array('label'=>'Update User', 'url'=>array('update', 'id'=>$model->UID)),
 	array('label'=>'Delete User', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->UID),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage User', 'url'=>array('admin')),
-	array('label'=>'Feed User', 'url'=>'#', 'linkOptions'=>array('submit'=>array('feed', 'uid'=>$model->UID),'confirm'=>'Are you sure you want to feed this guy?')),
+    array('label'=>'Feed User', 'url'=>'#', 'linkOptions'=>array('submit'=>array('feed', 'uid'=>$model->UID),'confirm'=>'Are you sure you want to feed this guy?')),
 );
 ?>
 
@@ -20,11 +20,10 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'UID',
-		'LOGIN_NAME',
+		'USER_NAME',
 		'EMAIL',
 		'PASSWORD',
 		'REGISTER_TIME',
-		'NICK_NAME',
 		'ISADMIN',
 	),
 )); ?>
