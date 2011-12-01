@@ -19,8 +19,12 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow', // the create action can only be executed by a local user
-				'actions'=>array('create'),
+				'actions'=>array('createRoles'),
 				'ips'=>array('127.0.0.1'),
+			),
+			array('deny',  // all users not on localhost cannot perform create action
+				'actions'=>array('createRoles'),
+				'users'=>array('*'),
 			),
 			array('allow', // allow all users to perform all other actions
 				'users'=>array('*'),
