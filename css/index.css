@@ -26,9 +26,13 @@ table{
     margin: 20px;
 }
 
+#buttonTable{
+    margin: 2px;
+}
+
 #otlDiv{
     float: left;
-    margin: 20px 60px 20px 60px;
+    margin: 20px 40px 20px 40px;
 }
 
 #main_content{
