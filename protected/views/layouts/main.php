@@ -47,7 +47,7 @@
 
             <div class="heading-ava">
                 <!--img src="<!?php echo loadImage("zwl.sjtu@gmail.com");?>"/-->
-				<a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/user/profile/<?php echo Yii::app()->user->id; ?>">
+				<a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/user/updateProfile/<?php echo Yii::app()->user->id; ?>">
                 	<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/ava.jpeg"/>
 				</a>
             </div>

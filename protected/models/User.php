@@ -102,5 +102,4 @@ class User extends CActiveRecord
 	{
 		return (md5($password) === $this->PASSWORD);
 	}
-
 }

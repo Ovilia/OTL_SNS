@@ -31,7 +31,7 @@ class UserController extends Controller
 				'roles'=>array('guest'),
 			),
 			array('allow', // allow authenticated user to perform 'create', 'update' and other actions
-				'actions'=>array('create','update','feed','search','profile'),
+				'actions'=>array('create','update','feed','search','updateProfile'),
 				'roles'=>array('authenticated'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -156,7 +156,7 @@ class UserController extends Controller
 		));
 	}
 
-	public function actionProfile($id)
+	public function actionUpdateProfile($id)
 	{
 		$model=$this->loadModel($id);
 		$profile = new ProfileForm;
@@ -164,6 +164,7 @@ class UserController extends Controller
 		$profile->email = $model->EMAIL;
 		$profile->isAdmin = $model->ISADMIN;
 		$profile->register_time = $model->REGISTER_TIME;
+        
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 	
@@ -175,13 +176,10 @@ class UserController extends Controller
 			   && $profile->new_password_repeat !== ""
 			   && $profile->new_password === $profile->new_password_repeat)
 			{
-				if (!$model->validatePassword($profile->old_password))
+				if ($model->validatePassword($profile->old_password))
 				{
-					//$model->USER_NAME = $profile->new_password;
-					$model->PASSWORD = "ac79a44df4561ebca33e43f3890bf541";
+                    $model->PASSWORD = md5($profile->new_password);
 				}
-				else
-					$model->PASSWORD = "11edbf240c921a81abbbf84c34c2a68f";
 			}
 			if(isset($profile->username))
 				$model->USER_NAME = $profile->username;
@@ -189,7 +187,7 @@ class UserController extends Controller
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 		}
 
-		$this->render('profile',array(
+		$this->render('updateProfile',array(
 			'model'=>$profile,
 		));
 	}
