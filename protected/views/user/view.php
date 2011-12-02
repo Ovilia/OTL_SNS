@@ -14,8 +14,8 @@ $this->menu=array(
 );
 ?>
 
-<!-- Display all flash messages -->
 <?php
+// Display all flash messages.
 $flashMessages = Yii::app()->user->getFlashes();
 if ($flashMessages) {
 	echo '<ul class="flashes">';
@@ -26,10 +26,10 @@ if ($flashMessages) {
 }
 ?>
 
-<!-- An animation for displaying flash messages -->
 <?php
+// An animation for displaying flash messages.
 Yii::app()->clientScript->registerScript(
-	'myHideEffect',
+	'flashMsgHideEffect',
 	'$(".flashes").animate({opacity: 1.0}, 3000).fadeOut("slow");',
 	CClientScript::POS_READY
 );
