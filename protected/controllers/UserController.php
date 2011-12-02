@@ -159,6 +159,15 @@ class UserController extends Controller
 	public function actionUpdateProfile($id)
 	{
 		$model=$this->loadModel($id);
+
+		// Check if the user is authorized to update this profile.
+		$params = array("user_id"=>$id);
+		if (!Yii::app()->user->checkAccess('updateProfile', $params)) {
+			Yii::app()->user->setFlash('error',
+				"抱歉，你无权修改$model->USER_NAME 的个人资料！");
+			$this->redirect(array('view', 'id'=>Yii::app()->user->id));
+		}
+
 		$profile = new ProfileForm;
 		$profile->username = $model->USER_NAME;
 		$profile->email = $model->EMAIL;

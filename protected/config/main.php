@@ -43,10 +43,10 @@ return array(
 			),
 		),
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=OTL_DB',
+			'connectionString' => 'mysql:host=localhost;dbname=otl_sns',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'stonesoup',
+			'password' => '31415',
 			'charset' => 'utf8',
 		),
 		'authManager'=>array(
