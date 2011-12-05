@@ -78,6 +78,7 @@ class SiteController extends Controller
 			if($model->validate() && $model->login()){
                 // TODO: get real email from database
                 Yii::app()->session['email'] = 'zwl.sjtu@gmail.com';
+                Yii::app()->session['username'] = 'Ovilia';
 				$this->redirect(Yii::app()->baseUrl."/index.php/user");
             }
 		}
