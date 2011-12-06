@@ -135,7 +135,17 @@ class UserController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('User');
+		//$dataProvider=new CActiveDataProvider('User');
+		$id = Yii::app()->user->id;
+		$dataProvider=new CActiveDataProvider('Status', array(
+			'criteria'=>array(
+				'condition'=>"UID=$id",
+				'order'=>'UPDATE_TIME DESC',
+			),
+			'pagination'=>array(
+				'pageSize'=>20,
+			),
+		));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
