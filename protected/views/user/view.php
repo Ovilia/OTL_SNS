@@ -66,6 +66,6 @@ Yii::app()->clientScript->registerScript(
 // send an message to this user
 echo CHtml::button('发送私信', array(
 	'submit'=>array('message/create', 'id'=>$model->UID)
-	),
+	)
 );
 ?>
