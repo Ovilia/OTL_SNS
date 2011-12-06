@@ -22,10 +22,14 @@ class SiteController extends Controller
 				'actions'=>array('createRoles'),
 				'ips'=>array('127.0.0.1'),
 			),
+			// It's weired this piece of code would deny every one including localhost user.
+			// TODO: Fix this.
+			/*
 			array('deny',  // all users not on localhost cannot perform create action
 				'actions'=>array('createRoles'),
 				'users'=>array('*'),
 			),
+			*/
 			array('allow', // allow all users to perform all other actions
 				'users'=>array('*'),
 			),
@@ -192,6 +196,8 @@ class SiteController extends Controller
 	{
 		$auth = Yii::app()->authManager;
 
+		// Uncomment the following piece of code if you haven't execute it.
+		/*
 		// Guests are those who have not been logged in yet.
 		$bizRule = null;
 		$role = $auth->createRole('guest', 'guest user', $bizRule);
@@ -215,6 +221,18 @@ class SiteController extends Controller
 		$opt  = $auth->createOperation('updateProfile', 'update the profile of a user');
 		$task->addChild('updateProfile');
 		$role->addChild('updateProfile');
+		*/
+
+		// A message can only be viewed by the sender or receiver.
+		$bizRule = 'return Yii::app()->user->id==$params["sender_id"];';
+		$auth->createTask('viewSentMsgs', 'check messages sent by oneself', $bizRule);
+		$auth->addItemChild('authenticated', 'viewSentMsgs');
+		$bizRule = 'return Yii::app()->user->id==$params["receiver_id"];';
+		$auth->createTask('viewReceivedMsgs', 'check messages received', $bizRule);
+		$auth->addItemChild('authenticated', 'viewReceivedMsgs');
+		$auth->createOperation('viewMsgs', 'check messages');
+		$auth->addItemChild('viewSentMsgs', 'viewMsgs');
+		$auth->addItemChild('viewReceivedMsgs', 'viewMsgs');
 
 		echo "success!";
 	}

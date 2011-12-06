@@ -34,7 +34,7 @@
             </div>
             <span class="heading-span">|</span>
             <div class="heading-nav">
-                <a href="#">私信</a>
+		<?php echo CHtml::link("私信", "message/index"); ?>
             </div>
             <span class="heading-span">|</span>
             <div class="heading-nav">
