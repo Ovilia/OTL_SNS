@@ -43,6 +43,8 @@ class Message extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('UID, USE_UID, CONTENT', 'required'),
+			array('UID, USE_UID', 'exist', 'allowEmpty'=>false,
+				'attributeName'=>'UID', 'className'=>'User'),
 			array('UID, USE_UID, ISREAD', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -55,11 +57,9 @@ class Message extends CActiveRecord
 	 */
 	public function relations()
 	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
 		return array(
-			'uSEU' => array(self::BELONGS_TO, 'User', 'USE_UID'),
-			'u' => array(self::BELONGS_TO, 'User', 'UID'),
+			'Receiver' => array(self::BELONGS_TO, 'User', 'USE_UID'),
+			'Sender' => array(self::BELONGS_TO, 'User', 'UID'),
 		);
 	}
 
@@ -101,10 +101,16 @@ class Message extends CActiveRecord
 		));
 	}
 
+	/**
+	 * Handle the ISREAD column.
+	 */
 	public function beRead()
 	{
-		if ($this->ISREAD == 0)
+		// set ISREAD 1 if it's not
+		if ($this->ISREAD == 0) {
 			$this->ISREAD = 1;
-		$this->save();
+			// save this back to the database
+			$this->save();
+		}
 	}
 }

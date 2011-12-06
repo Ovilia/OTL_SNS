@@ -27,7 +27,7 @@ class MessageController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','view', 'index'),
+				'actions'=>array('create','view', 'inbox', 'sentbox'),
 				'roles'=>array('authenticated'),
 			),
 			array('deny',  // deny all users
@@ -44,6 +44,7 @@ class MessageController extends Controller
 	{
 		$model=$this->loadModel($id);
 
+		// A user can only view a message he/she sent or received
 		$params = array("sender_id" => $model->UID,
 				"receiver_id" => $model->USE_UID);
 		if (!Yii::app()->user->checkAccess('viewMsgs', $params)) {
@@ -51,7 +52,10 @@ class MessageController extends Controller
 				"抱歉，那条消息不是你的哦！");
 			$this->redirect(array('index'));
 		}
-		$model->beRead();
+
+		// Handle the message's ISREAD column
+		if (Yii::app()->user->id == $model->USE_UID)
+			$model->beRead();
 
 		$this->render('view',array(
 			'model'=>$model,
@@ -83,14 +87,14 @@ class MessageController extends Controller
 	}
 
 	/**
-	 * Lists all models.
+	 * Lists all messages received.
 	 */
-	public function actionIndex()
+	public function actionInbox()
 	{
 		$id = Yii::app()->user->id;
 		$dataProvider=new CActiveDataProvider('Message', array(
 			'criteria'=>array(
-				'condition'=>"UID=$id or USE_UID=$id",
+				'condition'=>"USE_UID=$id",
 			),
 			'pagination'=>array(
 				'pageSize'=>20,
@@ -98,6 +102,27 @@ class MessageController extends Controller
 		));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+			'name'=>'收件箱',
+		));
+	}
+
+	/**
+	 * Lists all messages sent.
+	 */
+	public function actionSentbox()
+	{
+		$id = Yii::app()->user->id;
+		$dataProvider=new CActiveDataProvider('Message', array(
+			'criteria'=>array(
+				'condition'=>"UID=$id",
+			),
+			'pagination'=>array(
+				'pageSize'=>20,
+			),
+		));
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+			'name'=>'已发送',
 		));
 	}
 

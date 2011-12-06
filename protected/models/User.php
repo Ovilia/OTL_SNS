@@ -57,6 +57,8 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'ReceivedMsgs' => array(self::HAS_MANY, 'Message', 'USE_UID'),
+			'SentMsgs' => array(self::HAS_MANY, 'Message', 'UID'),
 		);
 	}
 

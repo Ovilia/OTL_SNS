@@ -1,14 +1,17 @@
 <?php
+$this->pageTitle=Yii::app()->name . ' - ' . $name;
 $this->breadcrumbs=array(
 	'Messages',
 );
 
 $this->menu=array(
-	array('label'=>'Create Message', 'url'=>array('create')),
+	array('label'=>'新私信', 'url'=>array('create')),
+	array('label'=>'收件箱', 'url'=>array('inbox')),
+	array('label'=>'已发送', 'url'=>array('sentbox')),
 );
 ?>
 
-<h1>Messages</h1>
+<h1><?php echo $name; ?></h1>
 
 <?php
 // Display all flash messages.
