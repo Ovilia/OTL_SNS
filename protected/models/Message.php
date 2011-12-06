@@ -42,10 +42,13 @@ class Message extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('UID, USE_UID, CONTENT', 'required'),
+			array('UID, USE_UID, CONTENT', 'required',
+				'message'=>'{attribute}不能为空'),
 			array('UID, USE_UID', 'exist', 'allowEmpty'=>false,
-				'attributeName'=>'UID', 'className'=>'User'),
-			array('UID, USE_UID, ISREAD', 'numerical', 'integerOnly'=>true),
+				'attributeName'=>'UID', 'className'=>'User',
+				'message'=>'抱歉，该{attribute}不存在'),
+			array('UID, USE_UID, ISREAD', 'numerical', 'integerOnly'=>true,
+				'message'=>'{attribute}必须为整数'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('MID, UID, USE_UID, SEND_TIME, ISREAD, CONTENT', 'safe', 'on'=>'search'),

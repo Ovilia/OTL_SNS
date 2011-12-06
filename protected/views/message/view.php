@@ -17,8 +17,16 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'MID',
-		'UID',
-		'USE_UID',
+		array(
+			'label'=>'发件人',
+			'type'=>'raw',
+			'value'=>$model->Sender->USER_NAME
+		),
+		array(
+			'label'=>'收件人',
+			'type'=>'raw',
+			'value'=>$model->Receiver->USER_NAME
+		),
 		'SEND_TIME',
 		'ISREAD',
 		'CONTENT',
