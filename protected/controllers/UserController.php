@@ -204,7 +204,8 @@ class UserController extends Controller
 
 	public function actionFeed($uid)
 	{
-		if(Yii::app()->request->isPostRequest)
+		if(Yii::app()->request->isPostRequest
+		   && $uid !== Yii::app()->user->id)
 		{
 			// we only allow deletion via POST request
 			//$this->loadModel($id)->delete();

@@ -50,7 +50,7 @@ class MessageController extends Controller
 		if (!Yii::app()->user->checkAccess('viewMsgs', $params)) {
 			Yii::app()->user->setFlash('error',
 				"抱歉，那条消息不是你的哦！");
-			$this->redirect(array('index'));
+			$this->redirect(array('inbox'));
 		}
 
 		// Handle the message's ISREAD column
@@ -148,7 +148,8 @@ class MessageController extends Controller
 	{
 		$model=Message::model()->findByPk($id);
 		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
+			//throw new CHttpException(404,'The requested page does not exist.');
+			$this->redirect(array('inbox'));
 		return $model;
 	}
 
