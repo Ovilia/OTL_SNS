@@ -1,5 +1,6 @@
 ALTER table USER CHANGE UID UID int not null AUTO_INCREMENT;
 ALTER table USER CHANGE EMAIL EMAIL varchar(64) not null unique;
+ALTER table USER CHANGE USER_NAME USER_NAME varchar(32) not null unique;
 insert into user(USER_NAME, EMAIL, PASSWORD, ISADMIN) values("tecton", "tecton69@gmail.com","11edbf240c921a81abbbf84c34c2a68f", "N");
 insert into user(USER_NAME, EMAIL, PASSWORD, ISADMIN) values("lastland", "hnkfliyao@gmail.com","21232f297a57a5a743894a0e4a801fc3", "Y");
 insert into user(USER_NAME, EMAIL, PASSWORD, ISADMIN) values("ovilia", "zwl.sjtu@gmail.com","d279355d571f249141fc5b860ff23636", "N");
@@ -21,7 +22,7 @@ insert into STATUS(UID, content) values(3, "Ordinary --");
 insert into STATUS(UID, content) values(3, "Boring..");
 insert into STATUS(UID, content) values(3, "Bad!");
 
-insert into COMMENTS(UID, SID, COMID, content) values(1, 0, 0, "Agree");
+insert into COMMENTS(UID, SID, COMID, content) values(1, 15, 0, "Agree");
 insert into COMMENTS(UID, SID, COMID, content) values(1, 1, 1, "Disagree");
 insert into COMMENTS(UID, SID, COMID, content) values(1, 2, 2, "Jiangyou..");
 insert into COMMENTS(UID, SID, COMID, content) values(1, 3, 3, "Agree");

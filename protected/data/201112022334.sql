@@ -1,8 +1,0 @@
-ALTER table MESSAGE
-CHANGE MID MID int not null AUTO_INCREMENT;
-
-ALTER table STATUS
-CHANGE SID SID int not null AUTO_INCREMENT;
-
-ALTER table USER
-CHANGE USER_NAME USER_NAME varchar(32) not null unique;
