@@ -65,8 +65,9 @@ class MessageController extends Controller
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * @param $id means the receiver's UID, NULL if not decided yet.
 	 */
-	public function actionCreate()
+	public function actionCreate($id=NULL)
 	{
 		$model=new Message;
 
@@ -75,11 +76,21 @@ class MessageController extends Controller
 		if(isset($_POST['Message']))
 		{
 			$model->attributes=$_POST['Message'];
+
+			// in case someone hack the post form 
+			if($model->UID != Yii::app()->user->id)
+				$this->redirect(array('inbox'));
+
+			// save and show
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->MID));
 		}
 
+		// the message UID should be the current authenticated user UID
 		$model->UID = Yii::app()->user->id;
+
+		if (isset($id))
+			$model->USE_UID = $id;
 
 		$this->render('create',array(
 			'model'=>$model,
@@ -95,6 +106,7 @@ class MessageController extends Controller
 		$dataProvider=new CActiveDataProvider('Message', array(
 			'criteria'=>array(
 				'condition'=>"USE_UID=$id",
+				'order'=>'SEND_TIME DESC',
 			),
 			'pagination'=>array(
 				'pageSize'=>20,
@@ -115,6 +127,7 @@ class MessageController extends Controller
 		$dataProvider=new CActiveDataProvider('Message', array(
 			'criteria'=>array(
 				'condition'=>"UID=$id",
+				'order'=>'SEND_TIME DESC',
 			),
 			'pagination'=>array(
 				'pageSize'=>20,

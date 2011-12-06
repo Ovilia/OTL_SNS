@@ -1,4 +1,17 @@
 <?php
+/**
+ * This piece of code is copied from index.php which may be written by Ovilia,
+ * please remove it once the static siderbars becoming dynamic.
+ * -- lastland
+ */
+$this->sidebar=array(
+    'feedAmt'=>12,
+    'beFedAmt'=>3,
+    'recentStatus'=>'This is Ovilia\'s recent status.'
+);
+
+?>
+<?php
 $this->breadcrumbs=array(
 	'Users'=>array('index'),
 	$model->UID,
@@ -48,3 +61,11 @@ Yii::app()->clientScript->registerScript(
 		'ISADMIN',
 	),
 )); ?>
+
+<?php
+// send an message to this user
+echo CHtml::button('发送私信', array(
+	'submit'=>array('message/create', 'id'=>$model->UID)
+	),
+);
+?>

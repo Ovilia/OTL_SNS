@@ -70,11 +70,11 @@ class Message extends CActiveRecord
 	{
 		return array(
 			'MID' => 'Message ID',
-			'UID' => 'Sender ID',
-			'USE_UID' => 'Receiver ID',
-			'SEND_TIME' => 'Send Time',
+			'UID' => '发件人ID',
+			'USE_UID' => '收件人ID',
+			'SEND_TIME' => '发送时间',
 			'ISREAD' => 'Is Read?',
-			'CONTENT' => 'Content',
+			'CONTENT' => '内容',
 		);
 	}
 
