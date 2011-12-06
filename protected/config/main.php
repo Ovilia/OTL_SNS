@@ -16,12 +16,16 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'ext.giix-components.*', // giix components
 	),
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
+			'generatorPaths' => array(
+				'ext.giix-core',
+			),
 			'password'=>'stonesoup',
 		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
@@ -43,7 +47,7 @@ return array(
 			),
 		),
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=otl_sns',
+			'connectionString' => 'mysql:host=127.0.0.1:3306:/var/lib/mysql/mysql.sock;dbname=otl_sns',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => '31415',

@@ -201,7 +201,7 @@ class SiteController extends Controller
 		$auth = Yii::app()->authManager;
 
 		// Uncomment the following piece of code if you haven't execute it.
-		/*
+		
 		// Guests are those who have not been logged in yet.
 		$bizRule = null;
 		$role = $auth->createRole('guest', 'guest user', $bizRule);
@@ -225,7 +225,7 @@ class SiteController extends Controller
 		$opt  = $auth->createOperation('updateProfile', 'update the profile of a user');
 		$task->addChild('updateProfile');
 		$role->addChild('updateProfile');
-		*/
+		
 
 		// A message can only be viewed by the sender or receiver.
 		$bizRule = 'return Yii::app()->user->id==$params["sender_id"];';

@@ -158,6 +158,7 @@ class UserController extends Controller
 
 	public function actionUpdateProfile($id)
 	{
+		$this->layout = "//layouts/column1";
 		$model=$this->loadModel($id);
 
 		// Check if the user is authorized to update this profile.

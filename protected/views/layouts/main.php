@@ -26,7 +26,7 @@
         <div id="heading-content">
             <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" style="float: left; margin-right: 20px; " />
             <div class="heading-nav">
-                <a href="<?php echo Yii::app()->request->baseUrl; ?>" class="selected">首页</a>
+                <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/user/index" class="selected">首页</a>
             </div>
             <span class="heading-span">|</span>
             <div class="heading-nav">
@@ -34,7 +34,7 @@
             </div>
             <span class="heading-span">|</span>
             <div class="heading-nav">
-		<?php echo CHtml::link("私信", array("message/inbox")); ?>
+				<?php echo CHtml::link("私信", array("message/inbox")); ?>
             </div>
             <span class="heading-span">|</span>
             <div class="heading-nav">

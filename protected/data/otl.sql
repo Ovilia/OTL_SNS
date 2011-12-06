@@ -87,7 +87,7 @@ create table COMMENTS
    SID                  int not null,
    COMID                int not null,
    COMMENT_TIME         timestamp not null,
-   COTENT               text not null,
+   CONTENT               text not null,
    primary key (UID, SID)
 );
 
