@@ -16,7 +16,7 @@
 <body>
 
 <div class="container" id="page">
-    <div id="main_content">
+    <div id="content">
 	    <?php echo $content; ?>
         <div id="otlDiv">
             <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/otl.png" />

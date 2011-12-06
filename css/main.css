@@ -22,13 +22,15 @@ body
 	border-top: 3px solid #7cbd2f;
 }
 
-#main_content{
+#content{
     padding: 20px;
 }
 
 #sidebar
 {
-	padding: 20px 20px 20px 0;
+    margin: 20px 20px 20px 0px;
+	padding: 20px;
+    background-color: #dfa;
 }
 
 #footer
@@ -225,4 +227,31 @@ div.search-form
 .operations li a:hover
 {
 	background: #d1ff80;
+}
+
+#side_avatar
+{
+    float: left;
+    margin: 0px 10px 10px 0px;
+}
+
+#side_username
+{
+    float: left;
+    font-size: 18px;
+}
+
+#side_feed_avatar_panel
+{
+    margin: 5px 0px 10px 0px;
+}
+
+#side_befed_avatar_panel
+{
+    margin: 5px 0px 10px 0px;
+}
+
+#side_status
+{
+    margin: 3px;
 }

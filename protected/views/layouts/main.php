@@ -46,9 +46,19 @@
             </div>
 
             <div class="heading-ava">
-                <!--img src="<!?php echo loadImage("zwl.sjtu@gmail.com");?>"/-->
 				<a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/user/updateProfile/<?php echo Yii::app()->user->id; ?>">
-                	<img src="<?php echo Yii::app()->request->baseUrl; ?>/images/ava.jpeg"/>
+                	<?php
+                        $this->widget('application.extensions.VGGravatarWidget', array(
+                            'email' => Yii::app()->session['email'], // email to display the gravatar belonging to it
+                            'hashed' => false, // if the email provided above is already md5 hashed then set this property to true, defaults to false
+                            'default' => 'identicon', // if an email is not associated with a gravatar this image will be displayed,
+                            // by default this is omitted so the Blue Gravatar icon will be displayed you can also set this to
+                            // "identicon" "monsterid" and "wavatar" which are default gravatar icons
+                            'size' => 25, // the gravatar icon size in px defaults to 40
+                            'rating' => 'PG', // the Gravatar ratings, Can be G, PG, R, X, Defaults to G
+                            'htmlOptions' => array( 'alt' => 'Gravatar Icon' ), // Html options that will be appended to the image tag
+                        ));
+                    ?>
 				</a>
             </div>
 

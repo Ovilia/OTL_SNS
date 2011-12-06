@@ -1,11 +1,8 @@
 <?php
-$this->breadcrumbs=array(
-	'Users',
-);
-
-$this->menu=array(
-	array('label'=>'Create User', 'url'=>array('create')),
-	array('label'=>'Manage User', 'url'=>array('admin')),
+$this->sidebar=array(
+    'feedAmt'=>12,
+    'beFedAmt'=>3,
+    'recentStatus'=>'This is Ovilia\'s recent status.'
 );
 ?>
 
