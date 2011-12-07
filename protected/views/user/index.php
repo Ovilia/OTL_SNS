@@ -1,8 +1,19 @@
 <?php
+$recentStatus = $dataProvider->getData();
+$fed = array();
+for ($i = 0; $i < count($fedUser); ++$i){
+	$fed[$i] = User::model()->findByPk($fedUser[$i]->USE_UID)->EMAIL;
+}
+$feed = array();
+for ($i = 0; $i < count($feedUser); ++$i){
+	$feed[$i] = User::model()->findByPk($feedUser[$i]->UID)->EMAIL;
+}
 $this->sidebar=array(
-    'feedAmt'=>12,
-    'beFedAmt'=>3,
-    'recentStatus'=>'This is Ovilia\'s recent status.'
+    'feedAmt'=>count($fedUser),
+	'fed'=>$fed,
+    'beFedAmt'=>count($feedUser),
+	'feed'=>$feed,
+    'recentStatus'=>$recentStatus[0]->CONTENT,
 );
 ?>
 

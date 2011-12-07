@@ -135,9 +135,42 @@ class UserController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('User');
+		//$dataProvider=new CActiveDataProvider('User');
+		$id = Yii::app()->user->id;
+		$dataProvider=new CActiveDataProvider('Status', array(
+			'criteria'=>array(
+				'condition'=>"UID=$id",
+				'order'=>'UPDATE_TIME DESC',
+			),
+			'pagination'=>array(
+				'pageSize'=>20,
+			),
+		));
+        $fedDataProvider=new CActiveDataProvider('Feeds', array(
+            'criteria'=>array(
+                'condition'=>"UID=$id",
+                'order'=>'FEED_TIME DESC',
+            ),
+            'pagination'=>array(
+                'pageSize'=>10,
+            ),
+        ));
+        $feedDataProvider=new CActiveDataProvider('Feeds', array(
+            'criteria'=>array(
+				// WHY USE_UID is WRONG!!
+                'condition'=>"UID=$id",
+                'order'=>'FEED_TIME DESC',
+            ),
+            'pagination'=>array(
+                'pageSize'=>10,
+            ),
+        ));
+        $fedUser = $fedDataProvider->getData();
+        $feedUser = $feedDataProvider->getData();
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+            'feedUser'=>$feedUser,
+			'fedUser'=>$fedUser,
 		));
 	}
 
