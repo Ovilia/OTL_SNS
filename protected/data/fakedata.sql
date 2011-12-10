@@ -47,8 +47,8 @@ insert into MESSAGE(UID, Use_UID, isRead, content) values(2, 3, false, "Ohaiyo")
 insert into MESSAGE(UID, Use_UID, isRead, content) values(3, 1, false, "Hi");
 insert into MESSAGE(UID, Use_UID, isRead, content) values(3, 2, false, "Ohaiyo");
 
-insert into FEEDS(UID, USE_UID) values(1, 2);
-insert into FEEDS(UID, USE_UID) values(1, 3);
+insert into FEEDS(FEEDER_ID, FED_ID) values(1, 2);
+insert into FEEDS(FEEDER_ID, FED_ID) values(1, 3);
 
 ALTER table TEACHER CHANGE TID TID int not null AUTO_INCREMENT;
 insert into TEACHER(teacher_name) values("teacher1");

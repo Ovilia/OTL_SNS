@@ -2,7 +2,9 @@
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     2011/11/30 21:46:14                          */
 /*==============================================================*/
-
+drop database OTL_SNS;
+create database OTL_SNS;
+use OTL_SNS;
 
 drop table if exists ATOMCLASS;
 
@@ -108,10 +110,10 @@ create table COURSE
 /*==============================================================*/
 create table FEEDS
 (
-   UID                  int not null,
-   USE_UID              int not null,
+   FEEDER_ID            int not null,
+   FED_ID               int not null,
    FEED_TIME            timestamp not null,
-   primary key (UID, USE_UID)
+   primary key (FEEDER_ID, FED_ID)
 );
 
 /*==============================================================*/
@@ -205,10 +207,10 @@ alter table COMMENTS add constraint FK_COMMENTS foreign key (UID)
 alter table COMMENTS add constraint FK_COMMENTS2 foreign key (SID)
       references STATUS (SID) on delete restrict on update restrict;
 
-alter table FEEDS add constraint FK_FEEDS foreign key (UID)
+alter table FEEDS add constraint FK_FEEDS foreign key (FEEDER_ID)
       references USER (UID) on delete restrict on update restrict;
 
-alter table FEEDS add constraint FK_FEEDS2 foreign key (USE_UID)
+alter table FEEDS add constraint FK_FEEDS2 foreign key (FED_ID)
       references USER (UID) on delete restrict on update restrict;
 
 alter table MESSAGE add constraint FK_RECEIVE foreign key (USE_UID)
