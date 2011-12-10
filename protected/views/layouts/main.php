@@ -17,6 +17,36 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
     <link href='http://fonts.googleapis.com/css?family=Julee' rel='stylesheet' type='text/css'>
 
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+    <!-- For search menu -->
+    <script type="text/javascript">
+        var tip = function(q, for_q){
+            q = document.getElementById(q);
+            for_q = document.getElementById(for_q);
+            q.onfocus = function(){
+                for_q.style.display = 'none';
+                q.style.backgroundPosition = "right -17px";
+                $("#search_suggest").slideDown();
+            }
+            q.onblur = function(){
+                if(!this.value) for_q.style.display = 'block';
+                q.style.backgroundPosition = "right 0";
+                $("#search_suggest").slideUp();
+            }
+            for_q.onclick = function(){
+                this.style.display = 'none';
+                q.focus();
+            }
+        };
+        $(document).ready(function(){
+            tip('keyword','for-keyword');
+            $("#keyword").keyup(function(){
+                $("#search_suggest").html("<a href='#'><span class='search_type'>搜索用户" + "</span>" + $("#keyword").val() + "</a><br><a href='#'><span class='search_type'>搜索课程" + "</span>" + $("#keyword").val() + "</a>");
+            });
+        });
+    </script>
+
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
@@ -68,6 +98,9 @@
                     <label for="keyword" id="for-keyword" class="label">我要搜索</label>
                     <span class="submit" onclick="return formSubmit('frmsearch');">搜索</span>
                 </form>
+                <div id="search_suggest">
+                    Content of search suggest.
+                </div><!-- End of search_suggest -->
             </div><!-- End of search -->
         </div><!-- End of heading-content -->
     </div><!-- End of floatHeader -->
@@ -82,32 +115,6 @@
 	</div><!-- footer -->
 
 </div><!-- page -->
-
-    <!-- For search menu -->
-    <script type="text/javascript">
-        var $ = function(id){return document.getElementById(id);}
-        var formSubmit = function(id){
-            document.forms[id].submit();
-            return false;
-        }
-        var tip = function(q, for_q){
-            q = $(q);
-            for_q = $(for_q);
-            q.onfocus = function(){
-                for_q.style.display = 'none';
-                q.style.backgroundPosition = "right -17px";
-            }
-            q.onblur = function(){
-                if(!this.value) for_q.style.display = 'block';
-                q.style.backgroundPosition = "right 0";
-            }
-            for_q.onclick = function(){
-                this.style.display = 'none';
-                q.focus();
-            }
-        };
-        tip('keyword','for-keyword');
-    </script>
     
 </body>
 </html>
