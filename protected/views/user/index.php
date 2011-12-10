@@ -5,13 +5,15 @@ $recentStatus = $dataProvider->getData();
 $fed = array();
 $fedAmt = count($fedUser);
 for ($i = 0; $i < $fedAmt; ++$i){
-	$fed[$i] = User::model()->findByPk($fedUser[$i]->FEEDER_ID)->EMAIL;
+    $fed[$i]['UID'] = $fedUser[$i]->FEEDER_ID;
+	$fed[$i]['email'] = User::model()->findByPk($fedUser[$i]->FEEDER_ID)->EMAIL;
 }
 // Feed
 $feed = array();
 $feedAmt = count($feedUser);
 for ($i = 0; $i < $feedAmt; ++$i){
-	$feed[$i] = User::model()->findByPk($feedUser[$i]->FED_ID)->EMAIL;
+    $feed[$i]['UID'] = $feedUser[$i]->FED_ID;
+	$feed[$i]['email'] = User::model()->findByPk($feedUser[$i]->FED_ID)->EMAIL;
 }
 $this->sidebar=array(
 	'fed'=>$fed,
