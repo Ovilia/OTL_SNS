@@ -34,10 +34,14 @@
 			</div>
             <hr>
             <div id="side_feed">
-                喂了几口：<?php echo $this->sidebar['feedAmt']; ?>
+                喂了几口：
+                    <?php 
+                    $feedAmt = count($this->sidebar['feed']); 
+                    echo $feedAmt;
+                    ?>
 				<div id="side_feed_avatar_panel">
 			    	<?php
-					for ($i = 0; $i < $this->sidebar['feedAmt'] && $i < 20; ++$i){
+					for ($i = 0; $i < $feedAmt && $i < 20; ++$i){
 						$this->widget('application.extensions.VGGravatarWidget', array(
 			                'email' => $this->sidebar['feed'][$i], // email to display the gravatar belonging to it
 			                'hashed' => false, // if the email provided above is already md5 hashed then set this property to true, defaults to false
@@ -51,10 +55,14 @@
 					}
 		            ?>
 				</div><!-- side_feed_avatar_panel -->
-                被喂几口：<?php echo $this->sidebar['beFedAmt']; ?>
+                被喂几口：
+                    <?php
+                    $fedAmt = count($this->sidebar['fed']);
+                    echo $fedAmt;
+                    ?>
 				<div id="side_befed_avatar_panel">
 			    	<?php
-					for ($i = 0; $i < $this->sidebar['beFedAmt'] && $i < 20; ++$i){
+					for ($i = 0; $i < $fedAmt && $i < 20; ++$i){
 						$this->widget('application.extensions.VGGravatarWidget', array(
 			                'email' => $this->sidebar['fed'][$i], // email to display the gravatar belonging to it
 			                'hashed' => false, // if the email provided above is already md5 hashed then set this property to true, defaults to false

@@ -50,6 +50,7 @@ class UserController extends Controller
 	 */
 	public function actionView($id)
 	{
+        $this->layout = '//layouts/columns2';
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -148,21 +149,20 @@ class UserController extends Controller
 		));
         $fedDataProvider=new CActiveDataProvider('Feeds', array(
             'criteria'=>array(
-                'condition'=>"UID=$id",
+                'condition'=>"FED_ID=$id",
                 'order'=>'FEED_TIME DESC',
             ),
             'pagination'=>array(
-                'pageSize'=>10,
+                'pageSize'=>20,
             ),
         ));
         $feedDataProvider=new CActiveDataProvider('Feeds', array(
             'criteria'=>array(
-				// WHY USE_UID is WRONG!!
-                'condition'=>"UID=$id",
+                'condition'=>"FEEDER_ID=$id",
                 'order'=>'FEED_TIME DESC',
             ),
             'pagination'=>array(
-                'pageSize'=>10,
+                'pageSize'=>20,
             ),
         ));
         $fedUser = $fedDataProvider->getData();
@@ -243,8 +243,8 @@ class UserController extends Controller
 			// we only allow deletion via POST request
 			//$this->loadModel($id)->delete();
 			$feed = new Feeds;
-			$feed->UID = $uid;
-			$feed->USE_UID = Yii::app()->user->id;
+			$feed->FED_ID = $uid;
+			$feed->FEEDER_ID = Yii::app()->user->id;
 			$feed->FEED_TIME = "2011-11-9";
 			$feed->save();
 

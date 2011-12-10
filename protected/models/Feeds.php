@@ -4,8 +4,8 @@
  * This is the model class for table "feeds".
  *
  * The followings are the available columns in table 'feeds':
- * @property integer $UID
- * @property integer $USE_UID
+ * @property integer $FEEDER_ID
+ * @property integer $FED_ID
  * @property string $FEED_TIME
  */
 class Feeds extends CActiveRecord
@@ -35,11 +35,11 @@ class Feeds extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('UID, USE_UID, FEED_TIME', 'required'),
-			array('UID, USE_UID', 'numerical', 'integerOnly'=>true),
+			array('FEEDER_ID, FED_ID, FEED_TIME', 'required'),
+			array('FEEDER_ID, FED_ID', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('UID, USE_UID, FEED_TIME', 'safe', 'on'=>'search'),
+			array('FEEDER_ID, FED_UID, FEED_TIME', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,8 +60,8 @@ class Feeds extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'UID' => 'Uid',
-			'USE_UID' => 'Use Uid',
+			'FEEDER_ID' => 'Uid',
+			'FED_ID' => 'Use Uid',
 			'FEED_TIME' => 'Feed Time',
 		);
 	}
@@ -77,8 +77,8 @@ class Feeds extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('UID',$this->UID);
-		$criteria->compare('USE_UID',$this->USE_UID);
+		$criteria->compare('FEEDER_ID',$this->FEEDER_ID);
+		$criteria->compare('FED_ID',$this->FED_ID);
 		$criteria->compare('FEED_TIME',$this->FEED_TIME,true);
 
 		return new CActiveDataProvider($this, array(

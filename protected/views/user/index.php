@@ -1,17 +1,20 @@
 <?php
+// Status
 $recentStatus = $dataProvider->getData();
+// Be fed
 $fed = array();
-for ($i = 0; $i < count($fedUser); ++$i){
-	$fed[$i] = User::model()->findByPk($fedUser[$i]->USE_UID)->EMAIL;
+$fedAmt = count($fedUser);
+for ($i = 0; $i < $fedAmt; ++$i){
+	$fed[$i] = User::model()->findByPk($fedUser[$i]->FEEDER_ID)->EMAIL;
 }
+// Feed
 $feed = array();
-for ($i = 0; $i < count($feedUser); ++$i){
-	$feed[$i] = User::model()->findByPk($feedUser[$i]->UID)->EMAIL;
+$feedAmt = count($feedUser);
+for ($i = 0; $i < $feedAmt; ++$i){
+	$feed[$i] = User::model()->findByPk($feedUser[$i]->FED_ID)->EMAIL;
 }
 $this->sidebar=array(
-    'feedAmt'=>count($fedUser),
 	'fed'=>$fed,
-    'beFedAmt'=>count($feedUser),
 	'feed'=>$feed,
     'recentStatus'=>$recentStatus[0]->CONTENT,
 );
