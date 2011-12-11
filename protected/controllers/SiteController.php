@@ -97,26 +97,26 @@ class SiteController extends Controller
 	 * $items should be passed with 'courses' or 'users' (or both) key(s) if
 	 * search on this(these) model(s) is(are) required.
 	 */
-	public function actionSearch($name, $items)
+	public function actionSearch()
 	{
 		if (!isset($_POST['ajax'])) {
 			//Render a search page?
 		} else {
+			$name = $_POST['name'];
 			$courses = array();
 			$users = array();
 
-			if (isset($items['courses']))
-				$courses = Course::model()->find('COURSE_NAME=?', array($name));
-			if (isset($items['users']))
-				$users = User::model()->find('USER_NAME=?', array($name));
+			$courses = Course::model()->findAll("LOCATE($name, COURSE_NAME)>0");
+			$users = User::model()->findAll("LOCATE($name, USER_NAME)>0");
+			$test = "hello!";
 
-			return CJSON::encode(array(
+			echo CJSON::encode(array(
 				'courses' => $courses,
 				'users' => $users,
+				'test' => $test,
 				));
 		}
-	}
-
+	} 
 	/**
 	 * This is the action to handle external exceptions.
 	 */

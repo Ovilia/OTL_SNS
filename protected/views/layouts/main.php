@@ -40,11 +40,30 @@
             }
         };
         $(document).ready(function(){
+	    MAXSHOWNUM=5;
             tip('keyword','for-keyword');
             $("#keyword").keyup(function(){
-                $("#search_suggest").html("<a href='#'><span class='search_type'>搜索用户" + "</span>" + $("#keyword").val() + "</a><br><a href='#'><span class='search_type'>搜索课程" + "</span>" + $("#keyword").val() + "</a>");
-            });
-        });
+	    	keywordval=$('#keyword').val();
+	    	$.ajax({
+			type:"POST",
+			url:"<?php echo CHtml::normalizeUrl(array('site/search')); ?>",
+			data:"ajax='ajax'&name='"+keywordval+"'",
+			dataType:"json",
+			success:function(result) {
+				$("#search_suggest").html("<a href='#'><span class='search_type'>搜索用户" + "</span>" + $("#keyword").val() + "</a>");
+				for (x in result.users) {
+					if (x >= MAXSHOWNUM) break;
+					$("#search_suggest").append("<br>"+result.users[x].USER_NAME);
+				}
+				$("#search_suggest").append("<br><a href='#'><span class='search_type'>搜索课程" + "</span>" + $("#keyword").val() + "</a>");
+				for (x in result.courses) {
+					if (x >= MAXSHOWNUM) break;
+					$("#search_suggest").append("<br>"+result.courses[x].COURSE_NAME);
+				}
+			}
+			});
+		});
+	});
     </script>
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
