@@ -102,18 +102,28 @@ class SiteController extends Controller
 		if (!isset($_POST['ajax'])) {
 			//Render a search page?
 		} else {
+			$resultNum = 5;
 			$name = $_POST['name'];
 			$courses = array();
 			$users = array();
+			$coursesResult = array();
+			$usersResult = array();
 
-			$courses = Course::model()->findAll("LOCATE($name, COURSE_NAME)>0");
-			$users = User::model()->findAll("LOCATE($name, USER_NAME)>0");
-			$test = "hello!";
+			$courses = Course::model()->findAll("LOCATE($name, COURSE_NAME)>0 LIMIT $resultNum");
+			$users = User::model()->findAll("LOCATE($name, USER_NAME)>0 LIMIT $resultNum");
+
+			foreach ($courses as $course) {
+				array_push($coursesResult, array('code'=>$course->COURSE_CODE,
+					'coursename'=>$course->COURSE_NAME));
+			}
+			foreach ($users as $user) {
+				array_push($usersResult, array('uid'=>$user->UID,
+					'username'=>$user->USER_NAME));
+			}
 
 			echo CJSON::encode(array(
-				'courses' => $courses,
-				'users' => $users,
-				'test' => $test,
+				'courses' => $coursesResult,
+				'users' => $usersResult,
 				));
 		}
 	} 

@@ -40,7 +40,6 @@
             }
         };
         $(document).ready(function(){
-	    MAXSHOWNUM=5;
             tip('keyword','for-keyword');
             $("#keyword").keyup(function(){
 	    	keywordval=$('#keyword').val();
@@ -50,15 +49,13 @@
 			data:"ajax='ajax'&name='"+keywordval+"'",
 			dataType:"json",
 			success:function(result) {
-				$("#search_suggest").html("<a href='#'><span class='search_type'>搜索用户" + "</span>" + $("#keyword").val() + "</a>");
-				for (x in result.users) {
-					if (x >= MAXSHOWNUM) break;
-					$("#search_suggest").append("<br>"+result.users[x].USER_NAME);
+				$("#search_suggest").html("<a href='#'><span class='search_type'>搜索用户" + "</span>" + keywordval + "</a>");
+				for (i in result.users) {
+					$("#search_suggest").append("<br>"+result.users[i].username);
 				}
-				$("#search_suggest").append("<br><a href='#'><span class='search_type'>搜索课程" + "</span>" + $("#keyword").val() + "</a>");
-				for (x in result.courses) {
-					if (x >= MAXSHOWNUM) break;
-					$("#search_suggest").append("<br>"+result.courses[x].COURSE_NAME);
+				$("#search_suggest").append("<br><a href='#'><span class='search_type'>搜索课程" + "</span>" + keywordval + "</a>");
+				for (i in result.courses) {
+					$("#search_suggest").append("<br>"+result.courses[i].coursename);
 				}
 			}
 			});
