@@ -1,29 +1,24 @@
 <?php
-/**
- * This piece of code is copied from index.php which may be written by Ovilia,
- * please remove it once the static siderbars becoming dynamic.
- * -- lastland
- */
+// Status
+$recentStatus = $dataProvider->getData();
+// Be fed
+$fed = array();
+$fedAmt = count($fedUser);
+for ($i = 0; $i < $fedAmt; ++$i){
+    $fed[$i]['UID'] = $fedUser[$i]->FEEDER_ID;
+	$fed[$i]['email'] = User::model()->findByPk($fedUser[$i]->FEEDER_ID)->EMAIL;
+}
+// Feed
+$feed = array();
+$feedAmt = count($feedUser);
+for ($i = 0; $i < $feedAmt; ++$i){
+    $feed[$i]['UID'] = $feedUser[$i]->FED_ID;
+	$feed[$i]['email'] = User::model()->findByPk($feedUser[$i]->FED_ID)->EMAIL;
+}
 $this->sidebar=array(
-    'feedAmt'=>12,
-    'beFedAmt'=>3,
-    'recentStatus'=>'This is Ovilia\'s recent status.'
-);
-
-?>
-<?php
-$this->breadcrumbs=array(
-	'Users'=>array('index'),
-	$model->UID,
-);
-
-$this->menu=array(
-	array('label'=>'List User', 'url'=>array('index')),
-	array('label'=>'Create User', 'url'=>array('create')),
-	array('label'=>'Update User', 'url'=>array('update', 'id'=>$model->UID)),
-	array('label'=>'Delete User', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->UID),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage User', 'url'=>array('admin')),
-    array('label'=>'Feed User', 'url'=>'#', 'linkOptions'=>array('submit'=>array('feed', 'uid'=>$model->UID),'confirm'=>'Are you sure you want to feed this guy?')),
+	'fed'=>$fed,
+	'feed'=>$feed,
+    'recentStatus'=>$recentStatus[0]->CONTENT,
 );
 ?>
 
@@ -48,18 +43,11 @@ Yii::app()->clientScript->registerScript(
 );
 ?>
 
-<h1>View User #<?php echo $model->UID; ?></h1>
+<h1>Hello! <?php echo $model->USER_NAME; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'UID',
-		'USER_NAME',
-		'EMAIL',
-		'PASSWORD',
-		'REGISTER_TIME',
-		'ISADMIN',
-	),
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_view',
 )); ?>
 
 <?php

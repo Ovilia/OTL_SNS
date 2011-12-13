@@ -51,7 +51,7 @@
 			success:function(result) {
 				$("#search_suggest").html("<a href='#'><span class='search_type'>搜索用户" + "</span>" + keywordval + "</a>");
 				for (i in result.users) {
-					$("#search_suggest").append("<br>"+result.users[i].username);
+					$("#search_suggest").append("<a href='<?php echo Yii::app()->baseUrl.'/index.php/user/'; ?>" + result.users[i].uid + "'><br>"+result.users[i].username + "</a>");
 				}
 				$("#search_suggest").append("<br><a href='#'><span class='search_type'>搜索课程" + "</span>" + keywordval + "</a>");
 				for (i in result.courses) {

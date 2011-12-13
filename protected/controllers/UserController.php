@@ -50,10 +50,42 @@ class UserController extends Controller
 	 */
 	public function actionView($id)
 	{
-        $this->layout = '//layouts/columns2';
+		$dataProvider=new CActiveDataProvider('Status', array(
+			'criteria'=>array(
+				'condition'=>"UID=$id",
+				'order'=>'UPDATE_TIME DESC',
+			),
+			'pagination'=>array(
+				'pageSize'=>20,
+			),
+		));
+        $fedDataProvider=new CActiveDataProvider('Feeds', array(
+            'criteria'=>array(
+                'condition'=>"FED_ID=$id",
+                'order'=>'FEED_TIME DESC',
+            ),
+            'pagination'=>array(
+                'pageSize'=>20,
+            ),
+        ));
+        $feedDataProvider=new CActiveDataProvider('Feeds', array(
+            'criteria'=>array(
+                'condition'=>"FEEDER_ID=$id",
+                'order'=>'FEED_TIME DESC',
+            ),
+            'pagination'=>array(
+                'pageSize'=>20,
+            ),
+        ));
+        $fedUser = $fedDataProvider->getData();
+        $feedUser = $feedDataProvider->getData();
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+			'dataProvider'=>$dataProvider,
+            'feedUser'=>$feedUser,
+			'fedUser'=>$fedUser,
 		));
+
 	}
 
 	/**
