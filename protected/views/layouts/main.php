@@ -32,7 +32,7 @@
             q.onblur = function(){
                 if(!this.value) for_q.style.display = 'block';
                 q.style.backgroundPosition = "right 0";
-                $("#search_suggest").slideUp();
+                //$("#search_suggest").slideUp();
             }
             for_q.onclick = function(){
                 this.style.display = 'none';
@@ -49,13 +49,13 @@
 			data:"ajax='ajax'&name='"+keywordval+"'",
 			dataType:"json",
 			success:function(result) {
-				$("#search_suggest").html("<a href='#'><span class='search_type'>搜索用户" + "</span>" + keywordval + "</a>");
+				$("#search_suggest").html("<a href='#'><div class='search_type'>搜索用户 " + keywordval + "</div></a>");
 				for (i in result.users) {
-					$("#search_suggest").append("<a href='<?php echo Yii::app()->baseUrl.'/index.php/user/'; ?>" + result.users[i].uid + "'><br>"+result.users[i].username + "</a>");
+					$("#search_suggest").append("<div class='search_suggest_result'><a href='<?php echo Yii::app()->baseUrl.'/index.php/user/'; ?>" + result.users[i].uid + "'>"+result.users[i].username + "</a></div>");
 				}
-				$("#search_suggest").append("<br><a href='#'><span class='search_type'>搜索课程" + "</span>" + keywordval + "</a>");
+				$("#search_suggest").append("<a href='#'><div class='search_type'>搜索课程 " + keywordval + "</div></a>");
 				for (i in result.courses) {
-					$("#search_suggest").append("<br>"+result.courses[i].coursename);
+					$("#search_suggest").append("<div class='search_suggest_result'>"+result.courses[i].coursename + "</div>");
 				}
 			}
 			});
