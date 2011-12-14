@@ -29,6 +29,7 @@
     -moz-box-shadow: 0 0 5px 5px #888;
     -webkit-box-shadow: 0 0 5px 5px #888;
     box-shadow: 0 0 5px 5px #888;
+    z-index: 1;
 }
 
 #heading-content{
@@ -49,6 +50,7 @@
     position: fixed;
     left: 0px;
     top: 0px;
+    z-index: 1;
 }
 
 .heading-nav{
