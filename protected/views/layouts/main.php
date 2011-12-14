@@ -43,6 +43,10 @@
             tip('keyword','for-keyword');
             $("#keyword").keyup(function(){
 	    		keywordval=$('#keyword').val();
+				if (keywordval == null || keywordval == ''){
+					$('#search_suggest').html('');
+					return;
+				}
 	    		$.ajax({
 					type:"POST",
 					url:"<?php echo CHtml::normalizeUrl(array('site/search')); ?>",
