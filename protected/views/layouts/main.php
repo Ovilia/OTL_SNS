@@ -32,7 +32,7 @@
             q.onblur = function(){
                 if(!this.value) for_q.style.display = 'block';
                 q.style.backgroundPosition = "right 0";
-                //$("#search_suggest").slideUp();
+                $("#search_suggest").slideUp();
             }
             for_q.onclick = function(){
                 this.style.display = 'none';
@@ -42,25 +42,25 @@
         $(document).ready(function(){
             tip('keyword','for-keyword');
             $("#keyword").keyup(function(){
-	    	keywordval=$('#keyword').val();
-	    	$.ajax({
-			type:"POST",
-			url:"<?php echo CHtml::normalizeUrl(array('site/search')); ?>",
-			data:"ajax='ajax'&name='"+keywordval+"'",
-			dataType:"json",
-			success:function(result) {
-				$("#search_suggest").html("<a href='#'><div class='search_type'>搜索用户 " + keywordval + "</div></a>");
-				for (i in result.users) {
-					$("#search_suggest").append("<div class='search_suggest_result'><a href='<?php echo Yii::app()->baseUrl.'/index.php/user/'; ?>" + result.users[i].uid + "'>"+result.users[i].username + "</a></div>");
-				}
-				$("#search_suggest").append("<a href='#'><div class='search_type'>搜索课程 " + keywordval + "</div></a>");
-				for (i in result.courses) {
-					$("#search_suggest").append("<div class='search_suggest_result'>"+result.courses[i].coursename + "</div>");
-				}
-			}
+	    		keywordval=$('#keyword').val();
+	    		$.ajax({
+					type:"POST",
+					url:"<?php echo CHtml::normalizeUrl(array('site/search')); ?>",
+					data:"ajax='ajax'&name='"+keywordval+"'",
+					dataType:"json",
+					success:function(result) {
+						$("#search_suggest").html("<a href='#'><div class='search_type'>搜索用户 " + keywordval + "</div></a>");
+						for (i in result.users) {
+							$("#search_suggest").append("<div class='search_suggest_result'><a href='<?php echo Yii::app()->baseUrl.'/index.php/user/'; ?>" + result.users[i].uid + "'>"+result.users[i].username + "</a></div>");
+						}
+						$("#search_suggest").append("<a href='#'><div class='search_type'>搜索课程 " + keywordval + "</div></a>");
+						for (i in result.courses) {
+							$("#search_suggest").append("<div class='search_suggest_result'>"+result.courses[i].coursename + "</div>");
+						}
+					}
+				});
 			});
 		});
-	});
     </script>
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
