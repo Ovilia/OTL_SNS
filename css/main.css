@@ -25,6 +25,7 @@ body
     position: absolute;
     top: 25px;
     width: 174px;
+	min-height: 16px;
     display: none;
 
 	/* for box shadow */
