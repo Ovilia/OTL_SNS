@@ -19,6 +19,9 @@ $this->sidebar=array(
 	'fed'=>$fed,
 	'feed'=>$feed,
     'recentStatus'=>$recentStatus[0]->CONTENT,
+	'UID'=>$model->UID,
+	'email'=>$model->EMAIL,
+	'user_name'=>$model->USER_NAME,
 );
 ?>
 

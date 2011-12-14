@@ -200,6 +200,7 @@ class UserController extends Controller
         $fedUser = $fedDataProvider->getData();
         $feedUser = $feedDataProvider->getData();
 		$this->render('index',array(
+			'model'=>$this->loadModel(Yii::app()->user->id),
 			'dataProvider'=>$dataProvider,
             'feedUser'=>$feedUser,
 			'fedUser'=>$fedUser,

@@ -10,7 +10,7 @@
             <div id="side_avatar">
 			    <?php
 	            $this->widget('application.extensions.VGGravatarWidget', array(
-	                'email' => Yii::app()->session['email'], // email to display the gravatar belonging to it
+	                'email' => $this->sidebar['email'], // email to display the gravatar belonging to it
 	                'hashed' => false, // if the email provided above is already md5 hashed then set this property to true, defaults to false
 	                'default' => 'identicon', // if an email is not associated with a gravatar this image will be displayed,
 	                // by default this is omitted so the Blue Gravatar icon will be displayed you can also set this to
@@ -23,7 +23,7 @@
             </div><!-- avatar -->
             <div id="side_username">
                 <?php
-                echo Yii::app()->session['username'];
+                echo $this->sidebar['user_name'];
                 ?>
             </div>
 			<div id="side_status">
