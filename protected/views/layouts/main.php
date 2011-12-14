@@ -17,7 +17,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
     <link href='http://fonts.googleapis.com/css?family=Julee' rel='stylesheet' type='text/css'>
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.7.1.min.js"></script>
 
     <!-- For search menu -->
     <script type="text/javascript">
