@@ -65,6 +65,15 @@
 				});
 			});
 		});
+
+        <!-- for comment -->
+        function comment(id){
+            alert("Comment on " + id + "!");
+        }
+        
+        function show_comment(id){
+            alert("Show " + id + "'s comment!");
+        }
     </script>
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>

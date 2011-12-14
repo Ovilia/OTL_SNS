@@ -7,6 +7,12 @@ body
 	background: #EFEFEF;
 }
 
+.status_time
+{
+    float: right;
+    color: #999;
+}
+
 #page
 {
 	margin-top: 50px;
