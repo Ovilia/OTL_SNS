@@ -15,7 +15,7 @@
 <body>
 
 <div class="container" id="page">
-    <div id="main_content">
+    <div id="content">
 	    <?php echo $content; ?>
     </div><!-- main_content -->
 
