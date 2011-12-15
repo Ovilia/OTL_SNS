@@ -173,7 +173,6 @@ class UserController extends Controller
 		$dataProvider=new CActiveDataProvider('Status', array(
 			'criteria'=>array(
 				'condition'=>"UID = $id OR UID in (SELECT FEEDER_ID FROM FEEDS WHERE FED_ID = $id)",
-                //'select'=>"
 				'order'=>'UPDATE_TIME DESC',
 			),
 			'pagination'=>array(
