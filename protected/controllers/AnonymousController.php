@@ -11,8 +11,8 @@ class AnonymousController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow guests to perform 'resetPassword' actions
-				'actions'=>array('resetPassword'),
+			array('allow',  // allow guests to perform 'resetPassword', 'sendPassword' actions
+				'actions'=>array('resetPassword', 'sendPassword'),
 				'roles'=>array('guest'),
 			),
             array('deny',  // deny all users
@@ -25,4 +25,9 @@ class AnonymousController extends Controller
 	{
 		$this->render('ResetPassword');
 	}
+
+    public function actionSendPassword($email)
+    {
+        $this->render('SendPassword');
+    }
 }

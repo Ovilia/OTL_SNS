@@ -39,7 +39,7 @@
                     <button class="button small green" type="button" id="registerBtn" onclick="self.location='<?php echo Yii::app()->request->baseUrl; ?>/index.php/site/page?view=register'">注册</button>
                 </td>
                 <td>
-                    <button class="button small green" type="button" id="forgetBtn">忘记密码</button>
+                    <button class="button small green" type="button" id="forgetBtn" onclick="self.location='<?php echo Yii::app()->request->baseUrl; ?>/index.php/Anonymous/resetPassword'">忘记密码</button>
                 </td>
             </tr>
         </table>
