@@ -71,10 +71,10 @@ class Course extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'COURSE_CODE' => 'Course Code',
-			'YEAR' => 'Year',
-			'SEMESTER' => 'Semester',
-			'COURSE_NAME' => 'Course Name',
+			'COURSE_CODE' => '课程代码',
+			'YEAR' => '学年',
+			'SEMESTER' => '学期',
+			'COURSE_NAME' => '课程名称',
 		);
 	}
 
