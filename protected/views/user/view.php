@@ -60,3 +60,11 @@ echo CHtml::button('发送私信', array(
 	)
 );
 ?>
+
+<?php
+// send an message to this user
+echo CHtml::button('喂一下', array(
+	'submit'=>array('user/feed', 'uid'=>$model->UID)
+	)
+);
+?>

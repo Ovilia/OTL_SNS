@@ -114,6 +114,8 @@ class SiteController extends Controller
 
 			foreach ($courses as $course) {
 				array_push($coursesResult, array('code'=>$course->COURSE_CODE,
+					'year'=>$course->YEAR,
+					'semester'=>$course->SEMESTER,
 					'coursename'=>$course->COURSE_NAME));
 			}
 			foreach ($users as $user) {
