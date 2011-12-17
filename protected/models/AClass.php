@@ -88,4 +88,20 @@ class AClass extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public function getClassesOfACourse($course_code, $year, $semester)
+	{
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('COURSE_CODE', $course_code);
+		$criteria->compare('YEAR', $year);
+		$criteria->compare('SEMESTER', $semester);
+
+		return new CActiveDataProvider('AClass', array(
+			'criteria'=>$criteria,
+			'pagination'=>array(
+				'pageSize'=>20,
+			),
+		));
+	}
 }

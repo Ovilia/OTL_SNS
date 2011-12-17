@@ -24,6 +24,16 @@ $('.search-form form').submit(function(){
 		'COURSE_CODE',
 		'YEAR',
 		'SEMESTER',
-		'COURSE_NAME'
+		'COURSE_NAME',
+		array(
+			'class'=>'CLinkColumn',
+			'label'=>'浏览',
+			'urlExpression'=>'CHtml::normalizeUrl(array(
+				"course/view",
+				"course_code"=>$data->COURSE_CODE,
+				"year"=>$data->YEAR,
+				"semester"=>$data->SEMESTER,
+			))',
+		),
 	),
 )); ?>
