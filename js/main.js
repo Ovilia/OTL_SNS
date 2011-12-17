@@ -17,32 +17,6 @@ var tip = function(q, for_q){
         q.focus();
     }
 };
-$(document).ready(function(){
-    tip('keyword','for-keyword');
-    $("#keyword").keyup(function(){
-        keywordval=$('#keyword').val();
-        if (keywordval == null || keywordval == ''){
-            $('#search_suggest').html('');
-            return;
-        }
-        $.ajax({
-            type:"POST",
-            url:"<?php echo CHtml::normalizeUrl(array('site/search')); ?>",
-            data:"ajax='ajax'&name='"+keywordval+"'",
-            dataType:"json",
-            success:function(result) {
-                $("#search_suggest").html("<a href='#'><div class='search_type'>搜索用户 " + keywordval + "</div></a>");
-                for (i in result.users) {
-                    $("#search_suggest").append("<div class='search_suggest_result'><a href='<?php echo CHtml::normalizeUrl(array('user/view')); ?>/" + result.users[i].uid + "'><br>"+result.users[i].username + "</a></div>");
-                }
-                $("#search_suggest").append("<a href='#'><div class='search_type'>搜索课程 " + keywordval + "</div></a>");
-                for (i in result.courses) {
-                    $("#search_suggest").append("<div class='search_suggest_result'>"+result.courses[i].coursename + "</div>");
-                }
-            }
-        });
-    });
-});
 
 /* for comment */
 function comment(id){
