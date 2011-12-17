@@ -31,7 +31,7 @@ class ClassController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','rate'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -146,6 +146,39 @@ class ClassController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 		));
+	}
+
+	/**
+	 * Rate a class.
+	 */
+	public function actionRate()
+	{
+	    if (!isset($_POST['ajax'])) {
+			// Do nothing
+		} else {
+		    $cid = $_POST['cid'];
+		    $star = $_POST['star'];
+		    $id = Yii::app()->user->id;
+    		$model=Takes::model()->findByAttributes(array('UID'=>$id, 'CID'=>$cid));
+    		if ($model === null)
+    		{
+    			//$model = new Takes;
+    			//$model->UID = $id;
+    			//$model->CID = $cid;
+    			//$model->RATE = $star;
+    			//$model->save();
+    			echo -1;
+    		}
+    		else {
+    		    if ($model->RATE == 0) {
+    		        $model->RATE = $star;
+    		        $model->save();
+    		        echo 1;
+    		    }
+    		    else
+    		        echo 0;
+    		}
+		}
 	}
 
 	/**

@@ -25,9 +25,9 @@ $this->menu=array(
 	),
 )); ?>
 
-<h2></h2>
+<h2>Rate this class</h2>
+
 <script language="javascript">
-<!--
 
 function ChangeState(index, isfixed){
     var colStars = divStars.getElementsByTagName("input");
@@ -41,7 +41,21 @@ function ChangeState(index, isfixed){
 
 function Click(index)
 {
-    alert("Star: " + index);
+    //alert("Star: " + index);
+	$.ajax({
+            type:"POST",
+            url:"<?php echo CHtml::normalizeUrl(array('class/rate')); ?>",
+            data:"ajax='ajax'&star="+index+"&cid="+<?php echo $model->CID ?>,
+            dataType:"json",
+            success:function(result) {
+                if (result == 1)
+                    alert("Rate success. Star: " + index);// + " Rate: " + result.model.RATE + "CID: " + result.model.CID + "UID: " + result.model.UID);
+                else if (result == 0)
+                    alert("You have rated this class");
+                else
+                    alert("You haven't take this class.");
+            }
+        });
 }
 
 function MouseOver(index){
