@@ -102,4 +102,33 @@ class Atomclass extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public function getAtomClassesOfAClass($cid)
+	{
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('CID', $cid);
+
+		return new CActiveDataProvider('Atomclass', array(
+			'criteria'=>$criteria,
+			'pagination'=>array(
+				'pageSize'=>20,
+			),
+		));
+	}
+
+	public function classLocationToString()
+	{
+		return $this->BUILDING_NUMBER . "号楼, " . $this->CLASSROOM . '教室';
+	}
+	
+	public function classTimeToString()
+	{
+		$string = "";
+		$classtime = $this->classtime;
+		$string .= "第" . $classtime->WEEK_OF_SEMESTER . "周";
+		$string .= $classtime->dayOfWeek($classtime->DAY_OF_WEEK) . ", ";
+		$string .= $classtime->START_TIME . "-" . $classtime->END_TIME;
+		return $string;
+	}
 }

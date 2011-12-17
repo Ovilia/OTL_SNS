@@ -1,5 +1,5 @@
 <div class="wide form">
-<h2>搜索课程</h2>
+<h2>查找课程</h2>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route) . '#',
@@ -27,7 +27,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('搜索课程'); ?>
+		<?php echo CHtml::submitButton('查找'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

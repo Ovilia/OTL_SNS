@@ -48,6 +48,12 @@ $this->menu=array(
 			'label'=>'任课教师',
 			'value'=>$model->teachersToString(),
 		),
+		array(
+			'type'=>'raw',
+			'value'=>CHtml::link("修改课程安排", array(
+				'update', 'id'=>$model->CID,
+			)),
+		),
 	),
 )); ?>
 

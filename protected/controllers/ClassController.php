@@ -64,9 +64,13 @@ class ClassController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($course_code, $year, $semester)
 	{
 		$model=new AClass;
+		$model->COURSE_CODE = $course_code;
+		$model->YEAR = $year;
+		$model->SEMESTER = $semester;
+		$model->save();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -74,12 +78,14 @@ class ClassController extends Controller
 		if(isset($_POST['AClass']))
 		{
 			$model->attributes=$_POST['AClass'];
+			// TODO: save classlocation and classtime
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->CID));
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+			'atomclasses'=>$model->getAtomClasses(),
 		));
 	}
 
@@ -98,12 +104,14 @@ class ClassController extends Controller
 		if(isset($_POST['AClass']))
 		{
 			$model->attributes=$_POST['AClass'];
+			// TODO: save classlocation and classtime
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->CID));
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
+			'atomclasses'=>$model->getAtomClasses(),
 		));
 	}
 

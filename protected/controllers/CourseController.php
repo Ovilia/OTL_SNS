@@ -49,6 +49,48 @@ class CourseController extends Controller
 		));
 	}
 
+	public function actionCreate()
+	{
+		$model=new Course;
+
+		if(isset($_POST['Course']))
+		{
+			$model->attributes=$_POST['Course'];
+			if($model->save())
+				$this->redirect(array('view',
+					'course_code'=>$model->COURSE_CODE,
+					'year'=>$model->YEAR,
+					'semester'=>$model->SEMESTER));
+		}
+
+		$this->render('create',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionUpdate($course_code, $year, $semester)
+	{
+		$model=$this->loadModel($course_code, $year, $semester);
+
+		if (isset($_POST['Course']))
+		{
+			$model->attributes=$_POST['Course'];
+			if ($model->save()) {
+				$this->redirect(array('view',
+					'course_code'=>$course_code,
+					'year'=>$year,
+					'semester'=>$semester,
+				));
+			}
+		}
+		$classes=$model->getClasses();
+
+		$this->render('update', array(
+			'model'=>$model,
+			'classes'=>$classes,
+		));
+	}
+
 	public function loadModel($code, $year, $semester)
 	{
 		$model=Course::model()->find(

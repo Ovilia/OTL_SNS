@@ -1,6 +1,6 @@
 <?php
 $this->menu=array(
-	array('label'=>'查找', 'url'=>array('search')),
+	array('label'=>'查找课程', 'url'=>array('search')),
 );
 ?>
 
@@ -14,38 +14,29 @@ $this->menu=array(
 		'COURSE_CODE',
 		'YEAR',
 		'SEMESTER',
+		array(
+			'type'=>'raw',
+			'value'=>CHtml::link('编辑该课程', array(
+				'update',
+				'course_code'=>$course->COURSE_CODE,
+				'year'=>$course->YEAR,
+				'semester'=>$course->SEMESTER,
+			)),
+		),
+		array(
+			'type'=>'raw',
+			'value'=>CHtml::link('为该课程添加一项安排', array(
+				'class/create',
+				'course_code'=>$course->COURSE_CODE,
+				'year'=>$course->YEAR,
+				'semester'=>$course->SEMESTER,
+			)),
+		),
 	),
 )); ?>
 </div>
 
 <div id="classes-form">
 <h2>该课程可供选择的课程安排如下:</h2>
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'summaryText'=>'共有{count}个结果，下面显示{start}-{end}个:',
-	'dataProvider'=>$classes,
-	'columns'=>array(
-		'CID',
-		array(
-			// I've wasted hours for the function implemented by
-			// the next single line, goddamn it!
-			'type'=>'raw',
-			'name'=>'课程安排',
-			'value'=>'$data->classAtomClassesToString()',
-		),
-		array(
-			// Goddamn it again!
-			'type'=>'raw',
-			'name'=>'任课教师',
-			'value'=>'$data->teachersToString()',
-		),
-		array(
-			'class'=>'CLinkColumn',
-			'label'=>'浏览',
-			'urlExpression'=>'CHtml::normalizeUrl(array(
-				"class/view",
-				"id"=>$data->CID,
-			))',
-		),
-	),
-)); ?>
+<?php echo $this->renderPartial('_list', array('classes'=>$classes)); ?>
 </div>

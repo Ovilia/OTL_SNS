@@ -6,13 +6,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List AClass', 'url'=>array('index')),
-	array('label'=>'Create AClass', 'url'=>array('create')),
-	array('label'=>'View AClass', 'url'=>array('view', 'id'=>$model->CID)),
-	array('label'=>'Manage AClass', 'url'=>array('admin')),
+	array('label'=>'查找课程', 'url'=>array('course/search')),
 );
 ?>
 
-<h1>Update AClass <?php echo $model->CID; ?></h1>
+<h1>修改课程安排</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'atomclasses'=>$atomclasses)); ?>

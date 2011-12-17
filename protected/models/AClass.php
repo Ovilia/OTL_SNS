@@ -112,6 +112,11 @@ class AClass extends CActiveRecord
 		));
 	}
 
+	public function getAtomClasses()
+	{
+		return Atomclass::getAtomClassesOfAClass($this->CID);
+	}
+
 	public function teachersToString()
 	{
 		$string = "";
@@ -130,11 +135,8 @@ class AClass extends CActiveRecord
 		$string = "";
 		if (!empty($this->atomclasses)) {
 			foreach ($this->atomclasses as $atom) {
-				$classtime = $atom->classtime;
-				$string .= "第" . $classtime->WEEK_OF_SEMESTER . "周";
-				$string .= $classtime->dayOfWeek($classtime->DAY_OF_WEEK) . ", ";
-				$string .= $classtime->START_TIME . "-" . $classtime->END_TIME . ", ";
-				$string .= $atom->BUILDING_NUMBER . "号楼, " . $atom->CLASSROOM . '教室;<br>';
+				$string .= $atom->classTimeToString() . ", ";
+				$string .= $atom->classLocationToString() . ";<br>";
 			}
 		} else {
 			$string = "暂无安排";

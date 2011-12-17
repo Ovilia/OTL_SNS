@@ -5,11 +5,13 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List AClass', 'url'=>array('index')),
-	array('label'=>'Manage AClass', 'url'=>array('admin')),
+	array('label'=>'查找课程', 'url'=>array('course/search')),
 );
 ?>
 
 <h1>Create AClass</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array(
+	'model'=>$model, 'atomclasses'=>$atomclasses
+	)
+); ?>
