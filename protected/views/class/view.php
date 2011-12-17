@@ -29,6 +29,11 @@ $this->menu=array(
 
 <script language="javascript">
 
+window.onload = function(){
+   var star = <?php echo $star ?>;
+   ChangeState(star, false);
+}
+
 function ChangeState(index, isfixed){
     var colStars = divStars.getElementsByTagName("input");
     var i = 0;

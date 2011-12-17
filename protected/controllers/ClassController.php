@@ -50,8 +50,17 @@ class ClassController extends Controller
 	 */
 	public function actionView($id)
 	{
+	    $uid = Yii::app()->user->id;
+	    $takes=Takes::model()->findByAttributes(array('UID'=>$uid, 'CID'=>$id));
+	    $rate = -1;
+	    if ($takes === null)
+	       $rate = 0;
+	    else {
+	       $rate = $takes->RATE;
+	    }
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+			'star'=>$rate,
 		));
 	}
 
