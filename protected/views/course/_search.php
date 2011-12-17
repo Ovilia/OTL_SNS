@@ -2,7 +2,7 @@
 <h2>搜索课程</h2>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
+	'action'=>Yii::app()->createUrl($this->route) . '#',
 	'method'=>'get',
 )); ?>
 

@@ -4,7 +4,7 @@ $('.search-form form').submit(function(){
 	$.fn.yiiGridView.update('course-grid', {
 		data: $(this).serialize()
 	});
-	return false;
+	return true;
 });
 ");
 ?>

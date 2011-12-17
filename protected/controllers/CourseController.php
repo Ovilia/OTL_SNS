@@ -15,7 +15,7 @@ class CourseController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('index', 'view', 'search'),
+				'actions'=>array('view', 'search'),
 				'roles'=>array('authenticated'),
 			),
 			array('allow',
