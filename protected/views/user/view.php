@@ -46,25 +46,35 @@ Yii::app()->clientScript->registerScript(
 );
 ?>
 
-<h1>Hello! <?php echo $model->USER_NAME; ?></h1>
+<h1><?php echo $model->USER_NAME; ?>的主页</h1>
+
+<?php
+// send an message to this user
+echo CHtml::button('发送私信', array(
+	'submit'=>array('message/create', 'id'=>$model->UID),
+    'class'=>'button green medium'
+	)
+);
+?>
+
+<?php
+// Check if is already fed
+$isFed = Feeds::model()->find("FED_ID = $model->UID AND FEEDER_ID = " . Yii::app()->user->id);
+if ($isFed){
+    echo CHtml::button('饿一下', array(
+                'submit'=>array('user/unfeed', 'uid'=>$model->UID),
+                'class'=>'button gray medium'
+    ));
+}else{
+    echo CHtml::button('喂一下', array(
+	            'submit'=>array('user/feed', 'uid'=>$model->UID),
+                'class'=>'button green medium'
+	));
+}
+?>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',
 )); ?>
 
-<?php
-// send an message to this user
-echo CHtml::button('发送私信', array(
-	'submit'=>array('message/create', 'id'=>$model->UID)
-	)
-);
-?>
-
-<?php
-// send an message to this user
-echo CHtml::button('喂一下', array(
-	'submit'=>array('user/feed', 'uid'=>$model->UID)
-	)
-);
-?>

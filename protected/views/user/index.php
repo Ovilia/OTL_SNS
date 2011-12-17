@@ -25,7 +25,7 @@ $this->sidebar=array(
 );
 ?>
 
-<h1>Users</h1>
+<h1>我的首页</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

@@ -31,7 +31,7 @@ class ClassController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','rate'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -50,8 +50,17 @@ class ClassController extends Controller
 	 */
 	public function actionView($id)
 	{
+	    $uid = Yii::app()->user->id;
+	    $takes=Takes::model()->findByAttributes(array('UID'=>$uid, 'CID'=>$id));
+	    $rate = -1;
+	    if ($takes === null)
+	       $rate = 0;
+	    else {
+	       $rate = $takes->RATE;
+	    }
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+			'star'=>$rate,
 		));
 	}
 
@@ -146,6 +155,39 @@ class ClassController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 		));
+	}
+
+	/**
+	 * Rate a class.
+	 */
+	public function actionRate()
+	{
+	    if (!isset($_POST['ajax'])) {
+			// Do nothing
+		} else {
+		    $cid = $_POST['cid'];
+		    $star = $_POST['star'];
+		    $id = Yii::app()->user->id;
+    		$model=Takes::model()->findByAttributes(array('UID'=>$id, 'CID'=>$cid));
+    		if ($model === null)
+    		{
+    			//$model = new Takes;
+    			//$model->UID = $id;
+    			//$model->CID = $cid;
+    			//$model->RATE = $star;
+    			//$model->save();
+    			echo -1;
+    		}
+    		else {
+    		    if ($model->RATE == 0) {
+    		        $model->RATE = $star;
+    		        $model->save();
+    		        echo 1;
+    		    }
+    		    else
+    		        echo 0;
+    		}
+		}
 	}
 
 	/**
