@@ -34,6 +34,12 @@
                 </td>
                 <td>
                     <button class="button small green" type="button" id="registerBtn" onclick="self.location='<?php echo Yii::app()->request->baseUrl; ?>/index.php/site/page?view=register'">注册</button>
+                    <?php 
+                        echo CHtml::button('注册', array(
+                            'submit'=>array('site/register'),
+                            'class'=>'button small green'
+                    ));
+                    ?>
                 </td>
                 <td>
                     <button class="button small green" type="button" id="forgetBtn" onclick="self.location='<?php echo Yii::app()->request->baseUrl; ?>/index.php/Anonymous/resetPassword'">忘记密码</button>
