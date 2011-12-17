@@ -301,19 +301,20 @@ class UserController extends Controller
 
     public function actionTakes($uid)
     {
+        $this->layout='//layouts/column1';
         $heFeedsMe= Feeds::model()->find("FEEDER_ID = $uid AND FED_ID = " . Yii::app()->user->id);
-        if ($heFeedsMe){
-            $dataProvider = new CActiveDataProvider('Takes', array(
+        if ($heFeedsMe || $uid == Yii::app()->user->id){
+            $dataProvider = new CActiveDataProvider('AClass', array(
                 'criteria'=>array(
-                    'condition'=>"UID=$uid",
+                    'condition'=>"CID in (select CID from Takes where UID=$uid)",
                 ),
                 'pagination'=>array(
                     'pageSize'=>20,
                 ),
             ));
-            $this->layout='//layouts/column1';
             $this->render('takes', array(
                 'dataProvider'=>$dataProvider,
+                'uid'=>$uid,
             ));
         }else{
             throw new CHttpException(400,'别想偷看别人上什么课程哦，私信ta，让ta喂你吧！');

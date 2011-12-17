@@ -63,7 +63,7 @@ if ($model->UID != Yii::app()->user->id){
     $heFeedsMe = Feeds::model()->find("FEEDER_ID = $model->UID AND FED_ID = " . Yii::app()->user->id);
     if ($heFeedsMe){
         echo CHtml::button('ta的课程', array(
-                    'submit'=>array(''),
+                    'submit'=>array('user/takes', 'uid'=>$model->UID),
                     'class'=>'button green medium'
         ));
     }

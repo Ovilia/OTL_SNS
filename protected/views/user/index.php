@@ -18,7 +18,7 @@ for ($i = 0; $i < $feedAmt; ++$i){
 $this->sidebar=array(
 	'fed'=>$fed,
 	'feed'=>$feed,
-    'recentStatus'=>$recentStatus[0]->CONTENT,
+    'recentStatus'=> $recentStatus == null ? 'ta很懒，什么都没说' : $recentStatus[0]->CONTENT,
 	'UID'=>$model->UID,
 	'email'=>$model->EMAIL,
 	'user_name'=>$model->USER_NAME,
