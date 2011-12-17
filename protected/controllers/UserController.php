@@ -295,7 +295,7 @@ class UserController extends Controller
 
 	public function actionSearch()
 	{
-		$this->layout='//layouts/custom1';
+		$this->layout='//layouts/column2';
 		$model=new User('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['User']))

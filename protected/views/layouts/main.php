@@ -104,7 +104,7 @@ $(document).ready(function(){
             data:"ajax='ajax'&name='"+keywordval+"'",
             dataType:"json",
             success:function(result) {
-                $("#search_suggest").html("<a href='#'><div class='search_type'>搜索用户 " + keywordval + "</div></a>");
+                $("#search_suggest").html("<a href='<?php echo CHtml::normalizeUrl(array('user/search')); ?>?User[USER_NAME]=" + keywordval + "'><div class='search_type'>搜索用户 " + keywordval + "</div></a>");
                 for (i in result.users) {
                     $("#search_suggest").append("<div class='search_suggest_result'><a href='<?php echo CHtml::normalizeUrl(array('user/view')); ?>/" + result.users[i].uid + "'>"+result.users[i].username + "</a></div>");
                 }

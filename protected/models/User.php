@@ -91,9 +91,6 @@ class User extends CActiveRecord
 		$criteria->compare('UID',$this->UID);
 		$criteria->compare('USER_NAME',$this->USER_NAME,true);
 		$criteria->compare('EMAIL',$this->EMAIL,true);
-		$criteria->compare('PASSWORD',$this->PASSWORD,true);
-		$criteria->compare('REGISTER_TIME',$this->REGISTER_TIME,true);
-		$criteria->compare('ISADMIN',$this->ISADMIN,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
