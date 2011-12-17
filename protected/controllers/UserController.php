@@ -268,10 +268,6 @@ class UserController extends Controller
 		));
 	}
 
-    public function actionResetPassword($email){
-
-    }
-
 	public function actionFeed($uid)
 	{
 		if(Yii::app()->request->isPostRequest
