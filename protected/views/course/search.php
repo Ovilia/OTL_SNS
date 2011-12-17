@@ -18,12 +18,23 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
+	'summaryText'=>'共有{count}个结果，下面显示{start}-{end}个:',
 	'id'=>'course-grid',
 	'dataProvider'=>$model->search(),
 	'columns'=>array(
 		'COURSE_CODE',
 		'YEAR',
 		'SEMESTER',
-		'COURSE_NAME'
+		'COURSE_NAME',
+		array(
+			'class'=>'CLinkColumn',
+			'label'=>'浏览',
+			'urlExpression'=>'CHtml::normalizeUrl(array(
+				"course/view",
+				"course_code"=>$data->COURSE_CODE,
+				"year"=>$data->YEAR,
+				"semester"=>$data->SEMESTER,
+			))',
+		),
 	),
 )); ?>

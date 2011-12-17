@@ -28,6 +28,16 @@ class CourseController extends Controller
 		);
 	}
 
+	public function actionView($course_code, $year, $semester)
+	{
+		$course=$this->loadModel($course_code, $year, $semester);
+		$classes=$course->getClasses();
+		$this->render('view', array(
+			'course'=>$course,
+			'classes'=>$classes,
+		));
+	}
+
 	public function actionSearch()
 	{
 		$model=new Course('search');
@@ -41,8 +51,8 @@ class CourseController extends Controller
 
 	public function loadModel($code, $year, $semester)
 	{
-		$model=Course::model()->find('COURSE_CODE=? and YEAR=? and SEMESTER=?',
-			$code, $year, $semester);
+		$model=Course::model()->find(
+			"COURSE_CODE='$code' and YEAR=$year and SEMESTER=$semester");
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

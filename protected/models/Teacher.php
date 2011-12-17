@@ -1,23 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "classtime".
+ * This is the model class for table "teacher".
  *
- * The followings are the available columns in table 'classtime':
- * @property integer $TIMEID
- * @property string $START_TIME
- * @property string $END_TIME
- * @property integer $DAY_OF_WEEK
- * @property integer $WEEK_OF_SEMESTER
+ * The followings are the available columns in table 'teacher':
+ * @property integer $TID
+ * @property string $TEACHER_NAME
  *
  * The followings are the available model relations:
- * @property Atomclass[] $atomclasses
+ * @property Class[] $classes
  */
-class Classtime extends CActiveRecord
+class Teacher extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return Classtime the static model class
+	 * @return Teacher the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -29,7 +26,7 @@ class Classtime extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'classtime';
+		return 'teacher';
 	}
 
 	/**
@@ -40,11 +37,11 @@ class Classtime extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('START_TIME, END_TIME', 'required'),
-			array('DAY_OF_WEEK, WEEK_OF_SEMESTER', 'numerical', 'integerOnly'=>true),
+			array('TEACHER_NAME', 'required'),
+			array('TEACHER_NAME', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('TIMEID, START_TIME, END_TIME, DAY_OF_WEEK, WEEK_OF_SEMESTER', 'safe', 'on'=>'search'),
+			array('TID, TEACHER_NAME', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,7 +53,7 @@ class Classtime extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'atomclasses' => array(self::HAS_MANY, 'Atomclass', 'TIMEID'),
+			'classes' => array(self::MANY_MANY, 'Class', 'teaches(TID, CID)'),
 		);
 	}
 
@@ -66,11 +63,8 @@ class Classtime extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'TIMEID' => 'Timeid',
-			'START_TIME' => 'Start Time',
-			'END_TIME' => 'End Time',
-			'DAY_OF_WEEK' => 'Day Of Week',
-			'WEEK_OF_SEMESTER' => 'Week Of Semester',
+			'TID' => 'Tid',
+			'TEACHER_NAME' => 'Teacher Name',
 		);
 	}
 
@@ -85,19 +79,11 @@ class Classtime extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('TIMEID',$this->TIMEID);
-		$criteria->compare('START_TIME',$this->START_TIME,true);
-		$criteria->compare('END_TIME',$this->END_TIME,true);
-		$criteria->compare('DAY_OF_WEEK',$this->DAY_OF_WEEK);
-		$criteria->compare('WEEK_OF_SEMESTER',$this->WEEK_OF_SEMESTER);
+		$criteria->compare('TID',$this->TID);
+		$criteria->compare('TEACHER_NAME',$this->TEACHER_NAME,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-
-	public function dayOfWeek($day) {
-		$days = array('周一', '周二', '周三', '周四', '周五', '周六', '周日');
-		return $days[$day - 1];
 	}
 }

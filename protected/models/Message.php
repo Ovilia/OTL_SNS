@@ -72,11 +72,11 @@ class Message extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'MID' => 'Message ID',
+			'MID' => '信息ID',
 			'UID' => '发件人ID',
 			'USE_UID' => '收件人ID',
 			'SEND_TIME' => '发送时间',
-			'ISREAD' => 'Is Read?',
+			'ISREAD' => '已读？',
 			'CONTENT' => '内容',
 		);
 	}

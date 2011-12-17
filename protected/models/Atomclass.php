@@ -1,23 +1,26 @@
 <?php
 
 /**
- * This is the model class for table "classtime".
+ * This is the model class for table "atomclass".
  *
- * The followings are the available columns in table 'classtime':
+ * The followings are the available columns in table 'atomclass':
+ * @property integer $ACID
+ * @property integer $CID
+ * @property integer $BUILDING_NUMBER
+ * @property string $CLASSROOM
  * @property integer $TIMEID
- * @property string $START_TIME
- * @property string $END_TIME
- * @property integer $DAY_OF_WEEK
- * @property integer $WEEK_OF_SEMESTER
  *
  * The followings are the available model relations:
- * @property Atomclass[] $atomclasses
+ * @property Classtime $tIME
+ * @property Classlocation $bUILDINGNUMBER
+ * @property Classlocation $cLASSROOM
+ * @property Class $c
  */
-class Classtime extends CActiveRecord
+class Atomclass extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return Classtime the static model class
+	 * @return Atomclass the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -29,7 +32,7 @@ class Classtime extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'classtime';
+		return 'atomclass';
 	}
 
 	/**
@@ -40,11 +43,12 @@ class Classtime extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('START_TIME, END_TIME', 'required'),
-			array('DAY_OF_WEEK, WEEK_OF_SEMESTER', 'numerical', 'integerOnly'=>true),
+			array('BUILDING_NUMBER, CLASSROOM, TIMEID', 'required'),
+			array('CID, BUILDING_NUMBER, TIMEID', 'numerical', 'integerOnly'=>true),
+			array('CLASSROOM', 'length', 'max'=>8),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('TIMEID, START_TIME, END_TIME, DAY_OF_WEEK, WEEK_OF_SEMESTER', 'safe', 'on'=>'search'),
+			array('ACID, CID, BUILDING_NUMBER, CLASSROOM, TIMEID', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,7 +60,10 @@ class Classtime extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'atomclasses' => array(self::HAS_MANY, 'Atomclass', 'TIMEID'),
+			'classtime' => array(self::BELONGS_TO, 'Classtime', 'TIMEID'),
+			'buildingNumber' => array(self::BELONGS_TO, 'Classlocation', 'BUILDING_NUMBER'),
+			'classRoom' => array(self::BELONGS_TO, 'Classlocation', 'CLASSROOM'),
+			'theClass' => array(self::BELONGS_TO, 'Class', 'CID'),
 		);
 	}
 
@@ -66,11 +73,11 @@ class Classtime extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'ACID' => 'Acid',
+			'CID' => 'Cid',
+			'BUILDING_NUMBER' => 'Building Number',
+			'CLASSROOM' => 'Classroom',
 			'TIMEID' => 'Timeid',
-			'START_TIME' => 'Start Time',
-			'END_TIME' => 'End Time',
-			'DAY_OF_WEEK' => 'Day Of Week',
-			'WEEK_OF_SEMESTER' => 'Week Of Semester',
 		);
 	}
 
@@ -85,19 +92,14 @@ class Classtime extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('ACID',$this->ACID);
+		$criteria->compare('CID',$this->CID);
+		$criteria->compare('BUILDING_NUMBER',$this->BUILDING_NUMBER);
+		$criteria->compare('CLASSROOM',$this->CLASSROOM,true);
 		$criteria->compare('TIMEID',$this->TIMEID);
-		$criteria->compare('START_TIME',$this->START_TIME,true);
-		$criteria->compare('END_TIME',$this->END_TIME,true);
-		$criteria->compare('DAY_OF_WEEK',$this->DAY_OF_WEEK);
-		$criteria->compare('WEEK_OF_SEMESTER',$this->WEEK_OF_SEMESTER);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-
-	public function dayOfWeek($day) {
-		$days = array('周一', '周二', '周三', '周四', '周五', '周六', '周日');
-		return $days[$day - 1];
 	}
 }

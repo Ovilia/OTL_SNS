@@ -96,6 +96,16 @@ class Course extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination'=>array(
+				'pageSize'=>20,
+			),
 		));
+	}
+
+	public function getClasses()
+	{
+		return AClass::getClassesOfACourse(
+			$this->COURSE_CODE, $this->YEAR, $this->SEMESTER
+		);
 	}
 }

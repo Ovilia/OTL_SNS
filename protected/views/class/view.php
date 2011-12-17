@@ -13,15 +13,41 @@ $this->menu=array(
 );
 ?>
 
-<h1>View AClass #<?php echo $model->CID; ?></h1>
+<h1>课程<?php echo $model->course->COURSE_NAME; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'CID',
-		'COURSE_CODE',
-		'YEAR',
-		'SEMESTER',
+		array(
+			'type'=>'raw',
+			'label'=>'课程代号',
+			'value'=>$model->course->COURSE_CODE,
+		),
+		array(
+			'type'=>'raw',
+			'label'=>'课程名称',
+			'value'=>$model->course->COURSE_NAME,
+		),
+		array(
+			'type'=>'raw',
+			'label'=>'学年',
+			'value'=>$model->course->YEAR,
+		),
+		array(
+			'type'=>'raw',
+			'label'=>'学期',
+			'value'=>$model->course->SEMESTER,
+		),
+		array(
+			'type'=>'raw',
+			'label'=>'课程安排',
+			'value'=>$model->classAtomClassesToString(),
+		),
+		array(
+			'type'=>'raw',
+			'label'=>'任课教师',
+			'value'=>$model->teachersToString(),
+		),
 	),
 )); ?>
 

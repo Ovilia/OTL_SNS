@@ -49,9 +49,16 @@ class AClass extends CActiveRecord
 	 */
 	public function relations()
 	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
 		return array(
+			'teachers' => array(self::MANY_MANY, 'Teacher', 'teaches(TID, CID)'),
+			'course' => array(self::BELONGS_TO, 'Course', 'COURSE_CODE, YEAR, SEMESTER'),
+			'atomclasses' => array(self::HAS_MANY, 'Atomclass', 'CID',
+			// the following code is ugly, but it's the only way I can figure out to implement this,
+			// modify it if you found a better solution.
+				'order'=>'(select WEEK_OF_SEMESTER from classtime
+					WHERE classtime.TIMEID=atomclasses.TIMEID),
+					(select DAY_OF_WEEK from classtime
+					WHERE classtime.TIMEID=atomclasses.TIMEID)'),
 		);
 	}
 
@@ -87,5 +94,51 @@ class AClass extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function getClassesOfACourse($course_code, $year, $semester)
+	{
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('COURSE_CODE', $course_code);
+		$criteria->compare('YEAR', $year);
+		$criteria->compare('SEMESTER', $semester);
+
+		return new CActiveDataProvider('AClass', array(
+			'criteria'=>$criteria,
+			'pagination'=>array(
+				'pageSize'=>20,
+			),
+		));
+	}
+
+	public function teachersToString()
+	{
+		$string = "";
+		if (!empty($this->teachers)) {
+			foreach ($this->teachers as $teacher) {
+				$string .= $teacher . ", <br>";
+			}
+		} else {
+			$string = "暂无教师";
+		}
+		return $string;
+	}
+
+	public function classAtomClassesToString()
+	{
+		$string = "";
+		if (!empty($this->atomclasses)) {
+			foreach ($this->atomclasses as $atom) {
+				$classtime = $atom->classtime;
+				$string .= "第" . $classtime->WEEK_OF_SEMESTER . "周";
+				$string .= $classtime->dayOfWeek($classtime->DAY_OF_WEEK) . ", ";
+				$string .= $classtime->START_TIME . "-" . $classtime->END_TIME . ", ";
+				$string .= $atom->BUILDING_NUMBER . "号楼, " . $atom->CLASSROOM . '教室;<br>';
+			}
+		} else {
+			$string = "暂无安排";
+		}
+		return $string;
 	}
 }

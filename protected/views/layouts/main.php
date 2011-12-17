@@ -37,11 +37,11 @@
             </div>
             <span class="heading-span">|</span>
             <div class="heading-nav">
-				<?php echo CHtml::link("私信", array("message/inbox")); ?>
+		<?php echo CHtml::link("私信", array("message/inbox")); ?>
             </div>
             <span class="heading-span">|</span>
             <div class="heading-nav">
-                <a href="#">课程</a>
+		<?php echo CHtml::link("课程", array("course/search")); ?>
             </div>
             <span class="heading-span">|</span>
             <div class="heading-nav">
