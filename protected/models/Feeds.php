@@ -35,7 +35,7 @@ class Feeds extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('FEEDER_ID, FED_ID, FEED_TIME', 'required'),
+			array('FEEDER_ID, FED_ID', 'required'),
 			array('FEEDER_ID, FED_ID', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

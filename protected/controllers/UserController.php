@@ -278,7 +278,6 @@ class UserController extends Controller
 			$feed = new Feeds;
 			$feed->FED_ID = $uid;
 			$feed->FEEDER_ID = Yii::app()->user->id;
-			$feed->FEED_TIME = "2011-11-9";
 			$feed->save();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
