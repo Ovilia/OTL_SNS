@@ -227,7 +227,7 @@ class SiteController extends Controller
             $mailer->IsSMTP();
             $mailer->IsHTML(true);
             $mailer->From = 'admin@otl.com';
-            $mailer->AddAddress($email);
+            $mailer->AddAddress($regForm->email);
             $mailer->FromName = 'OTL SNS';
             $mailer->CharSet = 'UTF-8';
             $mailer->Subject = Yii::t('demo', 'OTL SNS 注册用户初始密码');
