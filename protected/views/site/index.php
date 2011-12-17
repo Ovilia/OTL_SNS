@@ -1,7 +1,4 @@
 <?php $this->pageTitle=Yii::app()->name; ?>
-<a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/site/page?view=about">
-    This is only a temporary link to About page.
-</a>
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',

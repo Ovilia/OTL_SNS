@@ -31,7 +31,7 @@ class UserController extends Controller
 				'roles'=>array('guest'),
 			),
 			array('allow', // allow authenticated user to perform 'create', 'update' and other actions
-				'actions'=>array('create','update','feed','search','updateProfile'),
+				'actions'=>array('create','update','feed','unfeed','search','updateProfile'),
 				'roles'=>array('authenticated'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -282,11 +282,24 @@ class UserController extends Controller
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('view','id'=>$uid));
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
+
+    public function actionUnfeed($uid)
+    {
+        if(Yii::app()->request->isPostRequest
+                && $uid !== Yii::app()->user->id)
+        {
+            $this->loadFeedModel(Yii::app()->user->id, $uid)->delete();
+            if(!isset($_GET['ajax']))
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('view','id'=>$uid));
+        }
+        else
+            throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+    }
 
 	public function actionSearch()
 	{
@@ -300,6 +313,17 @@ class UserController extends Controller
 			'model'=>$model,
 		));
 	}
+
+    /**
+     * Returns feed model
+     */
+    public function loadFeedModel($feeder_id, $fed_id)
+    {
+        $model=Feeds::model()->find("FEEDER_ID=$feeder_id AND FED_ID=$fed_id");
+        if($model===null)
+            throw new CHttpException(404,'The requested page does not exist.');
+        return $model;
+    }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
