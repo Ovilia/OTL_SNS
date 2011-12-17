@@ -28,15 +28,6 @@ class CourseController extends Controller
 		);
 	}
 
-	public function actionIndex()
-	{
-		$model=new Course('search');
-		$model->unsetAttributes();
-		$this->render('search', array(
-			'model'=>$model,
-		));
-	}
-
 	public function actionView($course_code, $year, $semester)
 	{
 		$course=$this->loadModel($course_code, $year, $semester);

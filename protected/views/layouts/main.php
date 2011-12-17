@@ -41,7 +41,7 @@
             </div>
             <span class="heading-span">|</span>
             <div class="heading-nav">
-		<?php echo CHtml::link("课程", array("course/index")); ?>
+		<?php echo CHtml::link("课程", array("course/search")); ?>
             </div>
             <span class="heading-span">|</span>
             <div class="heading-nav">

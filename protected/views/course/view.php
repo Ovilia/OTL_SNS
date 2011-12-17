@@ -1,6 +1,6 @@
 <?php
 $this->menu=array(
-	array('label'=>'查找', 'url'=>array('index')),
+	array('label'=>'查找', 'url'=>array('search')),
 );
 ?>
 
