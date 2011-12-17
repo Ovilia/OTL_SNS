@@ -21,7 +21,7 @@ $this->menu=array(
 <div id="classes-form">
 <h2>该课程可供选择的课程安排如下:</h2>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'summaryText'=>'共有{count}个结果，下面显示{start}-{end}页:',
+	'summaryText'=>'共有{count}个结果，下面显示{start}-{end}个:',
 	'dataProvider'=>$classes,
 	'columns'=>array(
 		'CID',
@@ -37,6 +37,14 @@ $this->menu=array(
 			'type'=>'raw',
 			'name'=>'任课教师',
 			'value'=>'$data->teachersToString()',
+		),
+		array(
+			'class'=>'CLinkColumn',
+			'label'=>'浏览',
+			'urlExpression'=>'CHtml::normalizeUrl(array(
+				"class/view",
+				"id"=>$data->CID,
+			))',
 		),
 	),
 )); ?>

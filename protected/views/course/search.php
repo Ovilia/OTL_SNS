@@ -18,6 +18,7 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
+	'summaryText'=>'共有{count}个结果，下面显示{start}-{end}个:',
 	'id'=>'course-grid',
 	'dataProvider'=>$model->search(),
 	'columns'=>array(

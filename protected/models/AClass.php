@@ -51,6 +51,7 @@ class AClass extends CActiveRecord
 	{
 		return array(
 			'teachers' => array(self::MANY_MANY, 'Teacher', 'teaches(TID, CID)'),
+			'course' => array(self::BELONGS_TO, 'Course', 'COURSE_CODE, YEAR, SEMESTER'),
 			'atomclasses' => array(self::HAS_MANY, 'Atomclass', 'CID',
 			// the following code is ugly, but it's the only way I can figure out to implement this,
 			// modify it if you found a better solution.
