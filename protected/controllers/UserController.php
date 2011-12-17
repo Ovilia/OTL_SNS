@@ -31,7 +31,7 @@ class UserController extends Controller
 				'roles'=>array('guest'),
 			),
 			array('allow', // allow authenticated user to perform 'create', 'update' and other actions
-				'actions'=>array('create','update','feed','unfeed','search','updateProfile'),
+				'actions'=>array('create','update','feed','unfeed','search','updateProfile','takes'),
 				'roles'=>array('authenticated'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -273,8 +273,6 @@ class UserController extends Controller
 		if(Yii::app()->request->isPostRequest
 		   && $uid !== Yii::app()->user->id)
 		{
-			// we only allow deletion via POST request
-			//$this->loadModel($id)->delete();
 			$feed = new Feeds;
 			$feed->FED_ID = $uid;
 			$feed->FEEDER_ID = Yii::app()->user->id;
@@ -301,6 +299,27 @@ class UserController extends Controller
             throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
     }
 
+    public function actionTakes($uid)
+    {
+        $heFeedsMe= Feeds::model()->find("FEEDER_ID = $uid AND FED_ID = " . Yii::app()->user->id);
+        if ($heFeedsMe){
+            $dataProvider = new CActiveDataProvider('Takes', array(
+                'criteria'=>array(
+                    'condition'=>"UID=$uid",
+                ),
+                'pagination'=>array(
+                    'pageSize'=>20,
+                ),
+            ));
+            $this->layout='//layouts/column1';
+            $this->render('takes', array(
+                'dataProvider'=>$dataProvider,
+            ));
+        }else{
+            throw new CHttpException(400,'别想偷看别人上什么课程哦，私信ta，让ta喂你吧！');
+        }
+    }
+
 	public function actionSearch()
 	{
 		$this->layout='//layouts/column2';
@@ -314,8 +333,19 @@ class UserController extends Controller
 		));
 	}
 
+    /** 
+     * Returns takes model
+     */
+    public function loadTakeModel($uid)
+    {
+        $model=Takes::model()->findAll("UID=$uid");
+        if($model===null)
+            throw new CHttpException(404,'The requested page does not exist.');
+        return $model;
+    }
+
     /**
-     * Returns feed model
+     * Returns feeds model
      */
     public function loadFeedModel($feeder_id, $fed_id)
     {

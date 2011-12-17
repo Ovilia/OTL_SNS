@@ -18,7 +18,7 @@ for ($i = 0; $i < $feedAmt; ++$i){
 $this->sidebar=array(
 	'fed'=>$fed,
 	'feed'=>$feed,
-    'recentStatus'=>$recentStatus[0]->CONTENT,
+    'recentStatus'=>$recentStatus == null ? 'ta很懒，什么都没说' : $recentStatus[0]->CONTENT,
 	'UID'=>$model->UID,
 	'email'=>$model->EMAIL,
 	'user_name'=>$model->USER_NAME,
@@ -49,27 +49,35 @@ Yii::app()->clientScript->registerScript(
 <h1><?php echo $model->USER_NAME; ?>的主页</h1>
 
 <?php
-// send an message to this user
-echo CHtml::button('发送私信', array(
-	'submit'=>array('message/create', 'id'=>$model->UID),
-    'class'=>'button green medium'
-	)
-);
-?>
 
-<?php
-// Check if is already fed
-$isFed = Feeds::model()->find("FED_ID = $model->UID AND FEEDER_ID = " . Yii::app()->user->id);
-if ($isFed){
-    echo CHtml::button('饿一下', array(
-                'submit'=>array('user/unfeed', 'uid'=>$model->UID),
-                'class'=>'button gray medium'
-    ));
-}else{
-    echo CHtml::button('喂一下', array(
-	            'submit'=>array('user/feed', 'uid'=>$model->UID),
-                'class'=>'button green medium'
+// One can't feed or send message to himself
+if ($model->UID != Yii::app()->user->id){
+    // send an message to this user
+    echo CHtml::button('发送私信', array(
+	    'submit'=>array('message/create', 'id'=>$model->UID),
+        'class'=>'button green medium'
 	));
+
+    // Check if is already fed
+    $iFeedHim = Feeds::model()->find("FED_ID = $model->UID AND FEEDER_ID = " . Yii::app()->user->id);
+    $heFeedsMe = Feeds::model()->find("FEEDER_ID = $model->UID AND FED_ID = " . Yii::app()->user->id);
+    if ($heFeedsMe){
+        echo CHtml::button('ta的课程', array(
+                    'submit'=>array(''),
+                    'class'=>'button green medium'
+        ));
+    }
+    if ($iFeedHim){
+        echo CHtml::button('饿一下', array(
+                    'submit'=>array('user/unfeed', 'uid'=>$model->UID),
+                    'class'=>'button gray medium'
+        ));
+    }else{
+        echo CHtml::button('喂一下', array(
+	                'submit'=>array('user/feed', 'uid'=>$model->UID),
+                    'class'=>'button green medium'
+	    ));
+    }
 }
 ?>
 
