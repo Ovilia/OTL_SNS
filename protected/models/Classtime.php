@@ -96,8 +96,41 @@ class Classtime extends CActiveRecord
 		));
 	}
 
+	public function decodeTimeDurations($string)
+	{
+		$sep = strpos($string, '-');
+		return array("start"=>substr($string, 0, $sep - 1),
+			"end"=>substr($string, $sep, $sep + 2),
+		);
+	}
+
+	public function getDayOfWeekName()
+	{
+		return array('周一', '周二', '周三', '周四', '周五', '周六', '周日');
+	}
+
+	public function getClassDurations()
+	{
+		return $this->findAllBySql("select DISTINCT START_TIME, END_TIME from Classtime;");
+	}
+
 	public function dayOfWeek($day) {
-		$days = array('周一', '周二', '周三', '周四', '周五', '周六', '周日');
+		$days = $this->getDayOfWeekName();
 		return $days[$day - 1];
+	}
+
+	public function getDayOfWeekOptions() {
+		$daysName = $this->getDayOfWeekName();
+		return $daysName;
+	}
+
+	public function getClassDurationOptions() {
+		$classDurations = $this->getClassDurations();
+		$options = array();
+		foreach ($classDurations as $duration) {
+			$name = $duration->START_TIME . " - " . $duration->END_TIME;
+			$options[$name] = $name;
+		}
+		return $options;
 	}
 }

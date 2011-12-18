@@ -58,7 +58,7 @@ class AClass extends CActiveRecord
 				'order'=>'(select WEEK_OF_SEMESTER from classtime
 					WHERE classtime.TIMEID=atomclasses.TIMEID),
 					(select DAY_OF_WEEK from classtime
-					WHERE classtime.TIMEID=atomclasses.TIMEID)'),
+					WHERE classtime.TIMEID=atomclasses.TIMEID) ASC'),
 		);
 	}
 
