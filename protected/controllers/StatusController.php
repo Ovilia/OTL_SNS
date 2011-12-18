@@ -15,12 +15,12 @@ public function accessRules() {
 				'roles'=>array('*'),
 				),
 			array('allow', 
-				'actions'=>array('minicreate', 'create','update'),
-				'roles'=>array('UserCreator'),
+				'actions'=>array('minicreate', 'create','update','comment'),
+				'roles'=>array('authenticated'),
 				),
 			array('allow', 
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'roles'=>array('admin'),
 				),
 			array('deny', 
 				'users'=>array('*'),
@@ -34,6 +34,26 @@ public function accessRules() {
 		));
 	}
 
+    /**
+	 * Comment on a status.
+	 */
+	public function actionComment()
+	{
+	    if (!isset($_POST['ajax'])) {
+			// Do nothing
+		} else {
+		    $sid = $_POST['sid'];
+		    $content = $_POST['content'];
+		    $uid = Yii::app()->user->id;
+    		$model= new Comments;
+    		$model->UID = $uid;
+    		$model->SID = $sid;
+    		$model->CONTENT = $content;
+    		if ($model->save())
+    		  echo 1;
+		}
+	}
+    
 	public function actionCreate() {
 		$model = new Status;
 
