@@ -83,7 +83,7 @@ class ClassController extends Controller
 				$this->redirect(array('view','id'=>$model->CID));
 		}
 
-		$this->render('create',array(
+		$this->render('update',array(
 			'model'=>$model,
 			'atomclasses'=>$model->getAtomClasses(),
 		));
@@ -162,46 +162,6 @@ class ClassController extends Controller
 	}
 
 	/**
-	 * Add an atom class to the class.
-	 * Create the classtime and classlocation it belongs to if they don't exist.
-	 * TODO: This action is not finished!
-	 */
-	public function actionAddAtomClass()
-	{
-		$week = $_POST['week'];
-		$day = $_POST['day'];
-		$duration = $_POST['duration'];
-		$building = $_POST['building'];
-		$classroom = $_POST['classroom'];
-
-		$classtime = new Classtime;
-		$classtime->WEEK_OF_SEMESTER = $week;
-		$classtime->DAY_OF_WEEK = $day;
-		$times = Classtime::model()->decodeTimeDurations($duration);
-		$classtime->START_TIME = $times['start'];
-		$classtime->END_TIME = $times['end'];
-
-		$this->performAjaxValidationForClasstime($classtime);
-
-		$classlocation = new Classlocation;
-		$classlocation->BUILDING_NUMBER = $building;
-		$classlocation->CLASSROOM = $classroom;
-
-		$this->performAjaxValidationForClasslocation($classlocation);
-
-		if (isset($_POST['week']) &&
-			isset($_POST['day'] &&
-			isset($_POST['duration']) &&
-			isset($_POST['building']) &&
-			isset($_POST['classroom']))
-		{
-		}
-		else
-		{
-		}
-	}
-
-	/**
 	 * Rate a class.
 	 */
 	public function actionRate()
@@ -256,46 +216,6 @@ class ClassController extends Controller
 		if(isset($_POST['ajax']) && $_POST['ajax']==='aclass-form')
 		{
 			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-	}
-
-	protected function performAjaxValidationForClasstime($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='class-arrangement-form')
-		{
-			$model->validate();
-			foreach($model->getErrors() as $attribute=>$errors)
-			{
-				if ($attribute==="WEEK_OF_SEMESTER") {
-					$result['week']=$errors;
-				} elseif ($attribute==="DAY_OF_WEEK") {
-					$result['day']=$errors;
-				} else {
-					$result['duration']=$errors;
-				}
-			}
-			echo function_exists('json_encode') ?
-				json_encode($result) : CJSON::encode($result);
-			Yii::app()->end();
-		}
-	}
-
-	public function performAjaxValidationForClasslocation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='class-arrangement-form')
-		{
-			$model->validate();
-			foreach($model->getErrors() as $attribute=>$errors)
-			{
-				if ($attribute==="BUILDING_NUMBER") {
-					$result['building']=$errors;
-				} else ($attribute==="CLASSROOM") {
-					$result['classroom']=$errors;
-				}
-			}
-			echo function_exists('json_encode') ?
-				json_encode($result) : CJSON::encode($result);
 			Yii::app()->end();
 		}
 	}

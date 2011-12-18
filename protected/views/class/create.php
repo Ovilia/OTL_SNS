@@ -11,7 +11,4 @@ $this->menu=array(
 
 <h1>Create AClass</h1>
 
-<?php echo $this->renderPartial('_form', array(
-	'model'=>$model, 'atomclasses'=>$atomclasses
-	)
-); ?>
+<?php echo $this->renderPartial('_info', array('model'=>$model)); ?>

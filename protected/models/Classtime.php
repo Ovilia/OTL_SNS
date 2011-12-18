@@ -66,11 +66,11 @@ class Classtime extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'TIMEID' => 'Timeid',
-			'START_TIME' => 'Start Time',
-			'END_TIME' => 'End Time',
-			'DAY_OF_WEEK' => 'Day Of Week',
-			'WEEK_OF_SEMESTER' => 'Week Of Semester',
+			'TIMEID' => '时间ID',
+			'START_TIME' => '开始时间',
+			'END_TIME' => '结束时间',
+			'DAY_OF_WEEK' => '日期',
+			'WEEK_OF_SEMESTER' => '周数',
 		);
 	}
 
@@ -112,6 +112,15 @@ class Classtime extends CActiveRecord
 	public function getClassDurations()
 	{
 		return $this->findAllBySql("select DISTINCT START_TIME, END_TIME from Classtime;");
+	}
+
+	public function getWeekOfSemester() {
+		return "第" . $this->WEEK_OF_SEMESTER . "周";
+	}
+
+	public function getDayOfWeek() {
+		$days = $this->getDayOfWeekName();
+		return $days[$this->DAY_OF_WEEK - 1];
 	}
 
 	public function dayOfWeek($day) {
