@@ -33,7 +33,6 @@
                     <button class="button small green" type="submit" id="loginBtn">登录</button>
                 </td>
                 <td>
-                    <button class="button small green" type="button" id="registerBtn" onclick="self.location='<?php echo Yii::app()->request->baseUrl; ?>/index.php/site/page?view=register'">注册</button>
                     <?php 
                         echo CHtml::button('注册', array(
                             'submit'=>array('site/register'),

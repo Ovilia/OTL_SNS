@@ -19,7 +19,11 @@
         <?php echo CHtml::encode($data->UPDATE_TIME); ?>
     </div>
     <br>
-    <button class="button small gray" type="button" onclick="comment(<?php echo CHtml::encode($data->SID); ?>)">回复</button>
+    <?php echo CHtml::button('回复',array('class'=>'button small gray comment-button', 'id'=>$data->SID)); ?>
+    <div class="comment-form" style="display:none" id="form<?php echo $data->SID ?>">
+        <input id="comment<?php echo $data->SID ?>">
+        <?php echo CHtml::button('确认',array('class'=>'button small green submit-button', 'id'=>'button'.$data->SID, 'onclick'=>'submitComment('.$data->SID.')')); ?>
+    </div><!-- comment-form -->
     <button class="button small gray" type="button" onclick="show_comment(<?php echo CHtml::encode($data->SID); ?>)">查看评论</button>
 
 </div>

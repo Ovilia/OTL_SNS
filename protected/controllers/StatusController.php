@@ -15,12 +15,12 @@ public function accessRules() {
 				'roles'=>array('*'),
 				),
 			array('allow', 
-				'actions'=>array('minicreate', 'create','update'),
-				'roles'=>array('UserCreator'),
+				'actions'=>array('minicreate', 'create','update','comment','publish'),
+				'roles'=>array('authenticated'),
 				),
 			array('allow', 
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'roles'=>array('admin'),
 				),
 			array('deny', 
 				'users'=>array('*'),
@@ -34,6 +34,43 @@ public function accessRules() {
 		));
 	}
 
+    /**
+	 * Comment on a status.
+	 */
+	public function actionComment()
+	{
+	    if (!isset($_POST['ajax'])) {
+			// Do nothing
+		} else {
+		    $sid = $_POST['sid'];
+		    $content = $_POST['content'];
+		    $uid = Yii::app()->user->id;
+    		$model= new Comments;
+    		$model->UID = $uid;
+    		$model->SID = $sid;
+    		$model->CONTENT = $content;
+    		if ($model->save())
+    		  echo 1;
+		}
+	}
+    
+    public function actionPublish() {
+        if (isset($_GET['contents'])) {
+			$contents = $_GET['contents'];
+            $uid = Yii::app()->user->id;
+            $model = new Status;
+            $model->UID = $uid;
+            $model->CONTENT = $contents;
+			if ($model->save()) {
+			     $this->redirect(array('user/view', 'id' => $uid));
+			}
+		}
+		else {
+		    $this->redirect(array('user/view', 'id' => $uid));
+            return 1;
+        }
+    }
+    
 	public function actionCreate() {
 		$model = new Status;
 
@@ -45,7 +82,7 @@ public function accessRules() {
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
 					Yii::app()->end();
 				else
-					$this->redirect(array('view', 'id' => $model->SID));
+					$this->redirect(array('user/view', 'id' => $uid));
 			}
 		}
 
