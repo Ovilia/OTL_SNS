@@ -10,37 +10,8 @@
             'rating' => 'PG', // the Gravatar ratings, Can be G, PG, R, X, Defaults to G
             'htmlOptions' => array( 'alt' => 'Gravatar Icon' ), // Html options that will be appended to the image tag
         ));
-        Yii::app()->clientScript->registerScript('comment', "
-        $('.comment-button').click(function(){
-            formID = '#form' + this.id;
-        	$(formID).toggle();
-        	return false;
-        });
-        ");
-        
     ?>
-    <script type='text/javascript'>
-        function submitComment(id){
-                var commentID='#comment' + id;
-        	    var contents=$(commentID).val();
-            	$('#form' + id).toggle();
-            	$.ajax({
-                    type:"POST",
-                    url:"<?php echo CHtml::normalizeUrl(array('status/comment')); ?>",
-                    data:"ajax='ajax'&sid="+id+"&content="+contents,
-                    dataType:"json",
-                    success:function(result) {
-                        if (result == 1)
-                            alert(contents);
-                        else if (result == 0)
-                            alert("You have rated this class");
-                        else
-                            alert("You haven't take this class.");
-                    }
-                });
-            	return false;
-            }
-    </script>
+    
     <?php echo CHtml::link(CHtml::encode(User::model()->findByPk($data->UID)->USER_NAME), array('view', 'id' => $data->UID)); ?>
     ：
 	<?php echo CHtml::encode($data->CONTENT); ?>

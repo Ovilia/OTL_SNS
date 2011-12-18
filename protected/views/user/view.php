@@ -48,6 +48,16 @@ Yii::app()->clientScript->registerScript(
 
 <h1><?php echo $model->USER_NAME; ?>的主页</h1>
 
+
+<p>说几句吧：</p>
+<div>
+   <form>
+        <input type="text" name="contents">
+        <?php echo CHtml::button('发状态', array('submit'=>array('status/publish'),
+                                         'class'=>'button small green')); ?>
+   </form>
+</div><!-- status-form -->
+
 <?php
 
 // One can't feed or send message to himself
@@ -79,8 +89,39 @@ if ($model->UID != Yii::app()->user->id){
 	    ));
     }
 }
+
+Yii::app()->clientScript->registerScript('comment', "
+    $('.comment-button').click(function(){
+        formID = '#form' + this.id;
+    	$(formID).toggle();
+    	return false;
+    });
+");
 ?>
 
+<script type='text/javascript'>
+    function submitComment(id){
+            var commentID='#comment' + id;
+    	    var contents=$(commentID).val();
+        	$('#form' + id).toggle();
+        	$.ajax({
+                type:"POST",
+                url:"<?php echo CHtml::normalizeUrl(array('status/comment')); ?>",
+                data:"ajax='ajax'&sid="+id+"&content="+contents,
+                dataType:"json",
+                success:function(result) {
+                    if (result == 1)
+                        alert(contents);
+                    else if (result == 0)
+                        alert("You have rated this class");
+                    else
+                        alert("You haven't take this class.");
+                }
+            });
+        	return false;
+        }
+</script>
+    
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',

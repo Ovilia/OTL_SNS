@@ -15,7 +15,7 @@ public function accessRules() {
 				'roles'=>array('*'),
 				),
 			array('allow', 
-				'actions'=>array('minicreate', 'create','update','comment'),
+				'actions'=>array('minicreate', 'create','update','comment','publish'),
 				'roles'=>array('authenticated'),
 				),
 			array('allow', 
@@ -54,6 +54,23 @@ public function accessRules() {
 		}
 	}
     
+    public function actionPublish() {
+        if (isset($_GET['contents'])) {
+			$contents = $_GET['contents'];
+            $uid = Yii::app()->user->id;
+            $model = new Status;
+            $model->UID = $uid;
+            $model->CONTENT = $contents;
+			if ($model->save()) {
+			     $this->redirect(array('user/view', 'id' => $uid));
+			}
+		}
+		else {
+		    $this->redirect(array('user/view', 'id' => $uid));
+            return 1;
+        }
+    }
+    
 	public function actionCreate() {
 		$model = new Status;
 
@@ -65,7 +82,7 @@ public function accessRules() {
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
 					Yii::app()->end();
 				else
-					$this->redirect(array('view', 'id' => $model->SID));
+					$this->redirect(array('user/view', 'id' => $uid));
 			}
 		}
 

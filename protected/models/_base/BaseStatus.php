@@ -35,7 +35,7 @@ abstract class BaseStatus extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('UID, UPDATE_TIME, CONTENT', 'required'),
+			array('UID, CONTENT', 'required'),
 			array('UID', 'numerical', 'integerOnly'=>true),
 			array('SID, UID, UPDATE_TIME, CONTENT', 'safe', 'on'=>'search'),
 		);
