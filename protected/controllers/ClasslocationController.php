@@ -51,7 +51,16 @@ class ClasslocationController extends Controller
 		if (isset($_POST['Classlocation']))
 		{
 			$model->attributes=$_POST['Classlocation'];
-			// TODO: a new model
+			if ($model->save())
+			{
+				$this->redirect(array(
+					'choose',
+					'class_id'=>$class_id,
+					'time_id'=>$time_id,
+					'building'=>$model->BUILDING_NUMBER,
+					'classroom'=>$model->CLASSROOM,
+				));
+			}
 		}
 
 		$this->renderPartial('_form', array(
@@ -68,10 +77,14 @@ class ClasslocationController extends Controller
 		$atomclass->TIMEID = $time_id;
 		$atomclass->BUILDING_NUMBER = $building;
 		$atomclass->CLASSROOM = $classroom;
-		if ($atomclass->exists())
+		if ($atomclass->exists(
+			"CID=$class_id and
+			TIMEID=$time_id and
+			BUILDING_NUMBER=$building and
+			CLASSROOM=$classroom"))
 		{
 			Yii::app()->user->setFlash('error',
-				"这门课已经安排在这里了，你是不是穿越了？");
+				"这门课已经安排在这里了，你不会是穿越来的吧？");
 			$this->redirect(array(
 				'selectView',
 				'class_id'=>$class_id,
