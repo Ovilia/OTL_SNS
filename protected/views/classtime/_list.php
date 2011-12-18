@@ -1,5 +1,5 @@
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'summaryText'=>'共有{count}个可供选择的时间，下面显示{start}-{end}种:',
+	'summaryText'=>'共有{count}个可供选择的时间，下面显示{start}-{end}个:',
 	'id'=>'classtime-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,

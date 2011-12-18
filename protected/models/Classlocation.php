@@ -66,8 +66,8 @@ class Classlocation extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'BUILDING_NUMBER' => 'Building Number',
-			'CLASSROOM' => 'Classroom',
+			'BUILDING_NUMBER' => '教学楼号',
+			'CLASSROOM' => '教室号',
 		);
 	}
 
