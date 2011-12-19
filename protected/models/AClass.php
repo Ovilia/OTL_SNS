@@ -50,7 +50,7 @@ class AClass extends CActiveRecord
 	public function relations()
 	{
 		return array(
-			'teachers' => array(self::MANY_MANY, 'Teacher', 'teaches(TID, CID)'),
+			'teachers' => array(self::MANY_MANY, 'Teacher', 'Teaches(TID, CID)'),
 			'course' => array(self::BELONGS_TO, 'Course', 'COURSE_CODE, YEAR, SEMESTER'),
 			'atomclasses' => array(self::HAS_MANY, 'Atomclass', 'CID',
 			// the following code is ugly, but it's the only way I can figure out to implement this,

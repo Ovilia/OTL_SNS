@@ -1,3 +1,4 @@
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/main.js"></script>
 <?php
 // Status
 $recentStatus = $dataProvider->getData();
@@ -61,10 +62,13 @@ Yii::app()->clientScript->registerScript(
 <p>说几句吧：</p>
 <div>
    <form>
-        <input type="text" name="contents">
+        <input type="text" name="contents" id="statusContent">
         <?php echo CHtml::button('发状态', array('submit'=>array('status/publish'),
                                          'class'=>'button small green')); ?>
    </form>
+   <div id="class_suggest">
+        Content of search suggest.
+   </div>
 </div><!-- status-form -->
 
 <?php
@@ -129,6 +133,48 @@ Yii::app()->clientScript->registerScript('comment', "
             });
         	return false;
         }
+        
+    function sendCourseName(course) {
+        //alert("course:" + course);
+        $.ajax({
+            type:"POST",
+            url:"<?php echo CHtml::normalizeUrl(array('class/tip')); ?>",
+            data:"ajax='ajax'&name="+course,
+            dataType:"json",
+            success:function(result) {
+                //alert(result['classes'].CID);
+                $("#course_suggest").html("<div class='search_type'>哪个课程 " + course + "</div>");
+                for (i in result.classes) {
+                    for (j in result.classes[i].teachers) {
+                        $("#course_suggest").append("<div class='course_suggest_result onclick='setCid(" + result.classes[i].cid+ ")'>教师：" + result.classes[i].teachers[j].TEACHERNAME + "</div>");
+                        alert(result.classes[i].teachers[0].TEACHER_NAME);
+                    }
+                }
+            }
+        });
+    }
+    
+    $(document).ready(function(){
+        $("#statusContent").keyup(function(){
+            keywordval=$('#statusContent').val();
+            //alert(keywordval);
+            if (keywordval == null || keywordval == ''){
+                //$('#course_suggest').html('');
+                return;
+            }
+            if (keywordval.indexOf('#') != -1) {
+                content = keywordval.substr(keywordval.indexOf('#') + 1);
+                spaceIndex = content.indexOf(' ');
+                if (spaceIndex != -1) {
+                    course = content.substr(0, spaceIndex);
+                    sendCourseName(course);
+                    //alert(course);
+                }
+                return;
+            }
+            return;
+        });
+    });
 </script>
     
 <?php $this->widget('zii.widgets.CListView', array(
