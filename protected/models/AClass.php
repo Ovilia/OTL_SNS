@@ -126,7 +126,7 @@ class AClass extends CActiveRecord
 		$string = "";
 		if (!empty($this->teachers)) {
 			foreach ($this->teachers as $teacher) {
-				$string .= $teacher . ", <br>";
+				$string .= $teacher->TEACHER_NAME . "<br>";
 			}
 		} else {
 			$string = "暂无教师";
