@@ -71,7 +71,7 @@
                     <label for="keyword" id="for-keyword" class="label">我要搜索</label>
                     <span class="submit" onclick="return formSubmit('frmsearch');">搜索</span>
                 </form>
-                <div id="search_suggest">
+                <div id="nav_search_suggest" class="search_suggest">
                     Content of search suggest.
                 </div><!-- End of search_suggest -->
             </div><!-- End of search -->
@@ -91,11 +91,11 @@
     
 <script type='text/javascript'>
 $(document).ready(function(){
-    tip('keyword','for-keyword');
+    tip('keyword','for-keyword', 'nav_search_suggest');
     $("#keyword").keyup(function(){
         keywordval=$('#keyword').val();
         if (keywordval == null || keywordval == ''){
-            $('#search_suggest').html('');
+            $('#nav_search_suggest').html('');
             return;
         }
         $.ajax({
@@ -104,13 +104,13 @@ $(document).ready(function(){
             data:"ajax='ajax'&name='"+keywordval+"'",
             dataType:"json",
             success:function(result) {
-                $("#search_suggest").html("<a href='<?php echo CHtml::normalizeUrl(array('user/search')); ?>?User[USER_NAME]=" + keywordval + "'><div class='search_type'>搜索用户 " + keywordval + "</div></a>");
+                $("#nav_search_suggest").html("<a href='<?php echo CHtml::normalizeUrl(array('user/search')); ?>?User[USER_NAME]=" + keywordval + "'><div class='search_type'>搜索用户 " + keywordval + "</div></a>");
                 for (i in result.users) {
-                    $("#search_suggest").append("<div class='search_suggest_result'><a href='<?php echo CHtml::normalizeUrl(array('user/view')); ?>/" + result.users[i].uid + "'>"+result.users[i].username + "</a></div>");
+                    $("#nav_search_suggest").append("<div class='search_suggest_result'><a href='<?php echo CHtml::normalizeUrl(array('user/view')); ?>/" + result.users[i].uid + "'>"+result.users[i].username + "</a></div>");
                 }
-                $("#search_suggest").append("<a href='<?php echo CHtml::normalizeUrl(array('course/search')); ?>?Course[COURSE_NAME]=" + keywordval + "'><div class='search_type'>搜索课程 " + keywordval + "</div></a>");
+                $("#nav_search_suggest").append("<a href='<?php echo CHtml::normalizeUrl(array('course/search')); ?>?Course[COURSE_NAME]=" + keywordval + "'><div class='search_type'>搜索课程 " + keywordval + "</div></a>");
                 for (i in result.courses) {
-                    $("#search_suggest").append("<div class='search_suggest_result'>"+result.courses[i].coursename + "</div>");
+                    $("#nav_search_suggest").append("<div class='search_suggest_result'>"+result.courses[i].coursename + "</div>");
                 }
             }
         });

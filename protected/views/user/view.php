@@ -58,19 +58,6 @@ Yii::app()->clientScript->registerScript(
 
 <h1><?php echo $model->USER_NAME; ?>的主页</h1>
 
-
-<p>说几句吧：</p>
-<div>
-   <form>
-        <input type="text" name="contents" id="statusContent">
-        <?php echo CHtml::button('发状态', array('submit'=>array('status/publish'),
-                                         'class'=>'button small green')); ?>
-   </form>
-   <div id="class_suggest">
-        Content of search suggest.
-   </div>
-</div><!-- status-form -->
-
 <?php
 
 // One can't feed or send message to himself
