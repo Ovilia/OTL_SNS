@@ -53,6 +53,8 @@ class CourseController extends Controller
 	{
 		$model=new Course;
 
+		$this->performAjaxValidation($model);
+
 		if(isset($_POST['Course']))
 		{
 			$model->attributes=$_POST['Course'];
@@ -98,5 +100,14 @@ class CourseController extends Controller
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
+	}
+
+	protected function performAjaxValidation($model)
+	{
+		if(isset($_POST['ajax']) && $_POST['ajax']==='aclass-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
 	}
 }

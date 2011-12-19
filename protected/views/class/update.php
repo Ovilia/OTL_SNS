@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Aclasses'=>array('index'),
-	$model->CID=>array('view','id'=>$model->CID),
+	'查找课程'=>array('search'),
+	$model->COURSE_CODE=>array('view','id'=>$model->CID),
 	'Update',
 );
 
