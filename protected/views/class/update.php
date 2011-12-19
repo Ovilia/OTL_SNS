@@ -49,9 +49,10 @@ $this->menu=array(
 			'type'=>'raw',
 			'label'=>"教师操作",
 			'value'=>CHtml::link("添加任课教师", array(
-					'teacher/selectView', 'class_id'=>$model->CID
+					'teacher/selectView', 'class_id'=>$model->CID,
 				)) . "<br>" .
 				CHtml::link("修改已有教师", array(
+					'teacher/admin', 'class_id'=>$model->CID,
 				)),
 		),
 		array(
