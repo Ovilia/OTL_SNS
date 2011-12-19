@@ -44,6 +44,11 @@
  */
 class VGGravatarWidget extends CWidget
 {
+    /**
+     * @var boolean - for debug off-line
+     */
+    public $isOffLine = true;
+
 	/**
 	 * @var string - Email we will use to generate the Gravatar Image  
 	 */
@@ -84,7 +89,7 @@ class VGGravatarWidget extends CWidget
 	 * X rated gravatars may contain hardcore sexual imagery or extremely disturbing violence.
 	 *
 	 */
-	public $rating = 'G';
+    public $rating = 'G';
 	
 	/**
 	 * @var array - any HTML options that will be passed to the IMG tag
@@ -140,7 +145,11 @@ class VGGravatarWidget extends CWidget
 	 */
 	public function run()
 	{
-		echo CHtml::image(self::GRAVATAR_URL . $this->url, $this->htmlOptions['alt'], $this->htmlOptions);
+        if ($this->isOffLine){
+            echo CHtml::image(Yii::app()->request->baseUrl . '/images/ava.jpeg');
+        }else{
+		    echo CHtml::image(self::GRAVATAR_URL . $this->url, $this->htmlOptions['alt'], $this->htmlOptions);
+        }
 	}
 	
 }
