@@ -57,6 +57,8 @@ public function accessRules() {
     public function actionPublish() {
         if (isset($_GET['contents'])) {
 			$contents = $_GET['contents'];
+			//$cid = $_GET['cid'];
+			//if (strstr
             $uid = Yii::app()->user->id;
             $model = new Status;
             $model->UID = $uid;
