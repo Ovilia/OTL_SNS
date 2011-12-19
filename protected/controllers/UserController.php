@@ -77,13 +77,24 @@ class UserController extends Controller
                 'pageSize'=>20,
             ),
         ));
+        $classmateProvider=new CActiveDataProvider('Takes', array(
+            'criteria'=>array(
+                'condition'=>"CID in (select CID from takes where UID = $id) and UID != $id",
+                'group'=>'UID',
+            ),
+            'pagination'=>array(
+                'pageSize'=>20,
+            ),
+        ));
         $fedUser = $fedDataProvider->getData();
         $feedUser = $feedDataProvider->getData();
+        $classmate = $classmateProvider->getData();
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 			'dataProvider'=>$dataProvider,
             'feedUser'=>$feedUser,
 			'fedUser'=>$fedUser,
+            'classmate'=>$classmate,
 		));
 
 	}
@@ -197,13 +208,24 @@ class UserController extends Controller
                 'pageSize'=>20,
             ),
         ));
+        $classmateProvider=new CActiveDataProvider('Takes', array(
+            'criteria'=>array(
+                'condition'=>"CID in (select CID from takes where UID = $id) and UID != $id",
+                'group'=>'UID',
+             ),
+            'pagination'=>array(
+                'pageSize'=>20,
+            ),
+        ));
         $fedUser = $fedDataProvider->getData();
         $feedUser = $feedDataProvider->getData();
+        $classmate = $classmateProvider->getData();
 		$this->render('index',array(
 			'model'=>$this->loadModel(Yii::app()->user->id),
 			'dataProvider'=>$dataProvider,
             'feedUser'=>$feedUser,
 			'fedUser'=>$fedUser,
+            'classmate'=>$classmate,
 		));
 	}
 

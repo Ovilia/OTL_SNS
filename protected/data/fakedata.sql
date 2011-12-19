@@ -23,21 +23,21 @@ insert into STATUS(UID, content) values(3, "Boring..");
 insert into STATUS(UID, content) values(3, "Bad!");
 
 ALTER table COMMENTS CHANGE COMID COMID int not null AUTO_INCREMENT;
-insert into COMMENTS(UID, SID, content) values(1, 15, "Agree");
-insert into COMMENTS(UID, SID, content) values(1, 1, "Disagree");
-insert into COMMENTS(UID, SID, content) values(1, 2, "Jiangyou..");
-insert into COMMENTS(UID, SID, content) values(1, 3, "Agree");
-insert into COMMENTS(UID, SID, content) values(1, 4, "Disagree");
-insert into COMMENTS(UID, SID, content) values(2, 5, "Disagree");
-insert into COMMENTS(UID, SID, content) values(2, 6, "Jiangyou..");
-insert into COMMENTS(UID, SID, content) values(2, 7, "Agree");
-insert into COMMENTS(UID, SID, content) values(2, 8, "Disagree");
-insert into COMMENTS(UID, SID, content) values(2, 9, "Jiangyou..");
-insert into COMMENTS(UID, SID, content) values(3, 10, "Jiangyou..");
-insert into COMMENTS(UID, SID, content) values(3, 11, "Agree");
-insert into COMMENTS(UID, SID, content) values(3, 12, "Disagree");
-insert into COMMENTS(UID, SID, content) values(3, 13, "Jiangyou..");
-insert into COMMENTS(UID, SID, content) values(3, 14, "Agree");
+insert into COMMENTS(UID, SID, content) values(1, 1, "Agree");
+insert into COMMENTS(UID, SID, content) values(1, 2, "Disagree");
+insert into COMMENTS(UID, SID, content) values(1, 3, "Jiangyou..");
+insert into COMMENTS(UID, SID, content) values(1, 4, "Agree");
+insert into COMMENTS(UID, SID, content) values(1, 5, "Disagree");
+insert into COMMENTS(UID, SID, content) values(2, 6, "Disagree");
+insert into COMMENTS(UID, SID, content) values(2, 7, "Jiangyou..");
+insert into COMMENTS(UID, SID, content) values(2, 8, "Agree");
+insert into COMMENTS(UID, SID, content) values(2, 9, "Disagree");
+insert into COMMENTS(UID, SID, content) values(2, 10, "Jiangyou..");
+insert into COMMENTS(UID, SID, content) values(3, 11, "Jiangyou..");
+insert into COMMENTS(UID, SID, content) values(3, 12, "Agree");
+insert into COMMENTS(UID, SID, content) values(3, 13, "Disagree");
+insert into COMMENTS(UID, SID, content) values(3, 14, "Jiangyou..");
+insert into COMMENTS(UID, SID, content) values(3, 15, "Agree");
 
 ALTER table MESSAGE CHANGE MID MID int not null AUTO_INCREMENT;
 ALTER table MESSAGE CHANGE ISREAD ISREAD bool not null default false;
@@ -48,8 +48,8 @@ insert into MESSAGE(UID, Use_UID, isRead, content) values(2, 3, false, "Ohaiyo")
 insert into MESSAGE(UID, Use_UID, isRead, content) values(3, 1, false, "Hi");
 insert into MESSAGE(UID, Use_UID, isRead, content) values(3, 2, false, "Ohaiyo");
 
-insert into FEEDS(FEEDER_ID, FED_ID) values(1, 2);
-insert into FEEDS(FEEDER_ID, FED_ID) values(1, 3);
+insert into FEEDS(FEEDER_ID, FED_ID) values(2, 1);
+insert into FEEDS(FEEDER_ID, FED_ID) values(3, 1);
 
 ALTER table TEACHER CHANGE TID TID int not null AUTO_INCREMENT;
 insert into TEACHER(teacher_name) values("teacher1");
@@ -584,4 +584,24 @@ insert into ATOMCLASS(CID, building_number, classroom, TIMEID) values("4", 3, "4
 insert into ATOMCLASS(CID, building_number, classroom, TIMEID) values("1", 1, "202", 159);
 insert into ATOMCLASS(CID, building_number, classroom, TIMEID) values("10", 4, "208", 10);
 insert into ATOMCLASS(CID, building_number, classroom, TIMEID) values("13", 3, "407", 99);
+
+insert into TEACHES(TID, CID) values(1, 1);
+insert into TEACHES(TID, CID) values(2, 2);
+insert into TEACHES(TID, CID) values(3, 3);
+insert into TEACHES(TID, CID) values(4, 4);
+insert into TEACHES(TID, CID) values(5, 5);
+insert into TEACHES(TID, CID) values(6, 6);
+insert into TEACHES(TID, CID) values(7, 7);
+insert into TEACHES(TID, CID) values(8, 8);
+insert into TEACHES(TID, CID) values(9, 9);
+insert into TEACHES(TID, CID) values(10, 10);
+insert into TEACHES(TID, CID) values(11, 11);
+insert into TEACHES(TID, CID) values(12, 12);
+insert into TEACHES(TID, CID) values(13, 13);
+insert into TEACHES(TID, CID) values(14, 14);
+insert into TEACHES(TID, CID) values(15, 15);
+insert into TEACHES(TID, CID) values(16, 16);
+insert into TEACHES(TID, CID) values(17, 17);
+insert into TEACHES(TID, CID) values(18, 18);
+insert into TEACHES(TID, CID) values(19, 19);
 
