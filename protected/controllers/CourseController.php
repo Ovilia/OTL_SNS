@@ -15,7 +15,7 @@ class CourseController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('view', 'search'),
+				'actions'=>array('view', 'search', 'tip'),
 				'roles'=>array('authenticated'),
 			),
 			array('allow',
@@ -28,6 +28,26 @@ class CourseController extends Controller
 		);
 	}
 
+    public function actionTip()
+    {
+        if (!isset($_POST['ajax'])) {
+			// Do nothing
+		} else {
+		    $name = $_POST['name'];
+		    $resultNum = 5;
+		    $courses = array();
+		    $courseResult = array();
+		    $courses = Course::model()->findAll("LOCATE($name, COURSE_NAME)>0 LIMIT $resultNum");
+		    foreach ($courses as $course) {
+				array_push($coursesResult, array(
+					'coursename'=>$course->COURSE_NAME));
+			}
+			echo CJSON::encode(array(
+				'courses' => $name,
+				));
+		}
+    }
+    
 	public function actionView($course_code, $year, $semester)
 	{
 		$course=$this->loadModel($course_code, $year, $semester);

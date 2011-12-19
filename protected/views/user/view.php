@@ -169,12 +169,25 @@ Yii::app()->clientScript->registerScript('comment', "
         });
     }
     
+    function sendContent(content) {
+        //alert("content:" + content);
+        $.ajax({
+            type:"POST",
+            url:"<?php echo CHtml::normalizeUrl(array('course/tip')); ?>",
+            data:"ajax='ajax'&name="+content,
+            dataType:"json",
+            success:function(result) {
+                alert(result['courses']);
+            }
+        });
+    }
+    
     $(document).ready(function(){
         $("#statusContent").keyup(function(){
             keywordval=$('#statusContent').val();
             //alert(keywordval);
             if (keywordval == null || keywordval == ''){
-                //$('#course_suggest').html('');
+                $('#status_search_suggest').html('');
                 return;
             }
             //indexOfSharp = keywordval.lastIndexOf('#', 0, keywordval.length - startIndex);
@@ -187,6 +200,9 @@ Yii::app()->clientScript->registerScript('comment', "
                     if (course.indexOf(' ') == -1)
                         sendCourseName(course);
                     //alert(course);
+                }
+                else if (content !== "") {
+                    sendContent(content);
                 }
                 return;
             }

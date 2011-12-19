@@ -35,12 +35,11 @@ $this->sidebar=array(
 ?>
 
 <h1>我的首页</h1>
-<p>说几句吧：</p>
 <div>
     <form>
-        <input type="text" name="contents" id="statusContent">
+        <textarea name="contents" id="statusContent" placeholder="说点什么吧..."></textarea>
         <?php echo CHtml::button('发状态', array('submit'=>array('status/publish'),
-            'class'=>'button small green')); ?>
+            'class'=>'button medium green')); ?>
     </form>
     <div class="search_suggest" id="status_search_suggest">
        Content of search suggest.
@@ -54,7 +53,7 @@ $this->sidebar=array(
                 $("#status_search_suggest").html('');
                 return;
             }
-            //TODO: add search result
+            // If current is 
         });
         $("#statusContent").blur(function(){
             $("#status_search_suggest").slideUp();
