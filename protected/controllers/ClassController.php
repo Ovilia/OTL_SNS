@@ -27,7 +27,7 @@ class ClassController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'rate'),
+				'actions'=>array('index','view','rate','tip'),
 				'roles'=>array('authenticated'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -40,6 +40,39 @@ class ClassController extends Controller
 		);
 	}
 
+    public function actionTip()
+    {
+        if (!isset($_POST['ajax'])) {
+			// Do nothing
+		} else {
+		    //echo 2;
+		    $course = $_POST['name'];
+		    $id = Yii::app()->user->id;
+    		$model=Course::model()->findByAttributes(array('COURSE_NAME'=>$course));
+    		if ($model === null)
+    		{
+    			echo -1;
+    			return;
+    		}
+    		else {
+    		    $classes = array();
+    		    $classResult = array();
+    		    $classes = AClass::model()->findAllByAttributes(array(),
+    		                                                    "COURSE_CODE =:code AND YEAR =:year AND SEMESTER =:semester",
+    		                                                    array('code'=>$model->COURSE_CODE, 'year'=>$model->YEAR, 'semester'=>$model->SEMESTER));
+    		    foreach ($classes as $aclass) {
+				    array_push($classResult, array('teachers'=>$aclass->teachers, 'cid'=>$aclass->CID));
+    			}
+    		    if ($classes === null)
+    		        echo -1;
+    		    else
+    		        echo CJSON::encode(array(
+    				    'classes' => $classResult,
+    				));
+    		}
+		}
+    }
+    
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
