@@ -63,8 +63,8 @@ class Teacher extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'TID' => 'Tid',
-			'TEACHER_NAME' => 'Teacher Name',
+			'TID' => '教师ID',
+			'TEACHER_NAME' => '教师姓名',
 		);
 	}
 
