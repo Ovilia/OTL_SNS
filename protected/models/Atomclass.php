@@ -132,27 +132,27 @@ class Atomclass extends CActiveRecord
 		return $string;
 	}
 
-	public function atomclassDuplicate($class_id, $time_id, $building, $classroom)
+	public function atomclassDuplicate($model)
 	{
 		return (Atomclass::model()->exists(
-			"CID=$class_id and
-			TIMEID=$time_id and
-			BUILDING_NUMBER=$building and
-			CLASSROOM=$classroom"));
+			"CID=$model->CID and
+			TIMEID=$model->TIMEID and
+			BUILDING_NUMBER=$model->BUILDING_NUMBER and
+			CLASSROOM=$model->CLASSROOM"));
 	}
 
-	public function classtimeOccupied($class_id, $time_id)
+	public function classtimeOccupied($atomclass)
 	{
 		return (Atomclass::model()->exists(
-			"CID=$class_id and
-			TIMEID=$time_id"));
+			"CID=$model->CID and
+			TIMEID=$model->TIMEID"));
 	}
 
-	public function classlocationOccupied($time_id, $building, $classroom)
+	public function classlocationOccupied($atomclass)
 	{
 		return (Atomclass::model()->exists(
-			"TIMEID=$time_id and
-			BUILDING_NUMBER=$building and
-			CLASSROOM=$classroom"));
+			"TIMEID=$model->TIMEID and
+			BUILDING_NUMBER=$model->BUILDING_NUMBER and
+			CLASSROOM=$model->CLASSROOM"));
 	}
 }
