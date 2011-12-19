@@ -38,9 +38,9 @@ $this->sidebar=array(
 <p>说几句吧：</p>
 <div>
     <form>
-        <input type="text" name="contents" id="statusContent">
+        <textarea name="contents" id="statusContent"></textarea>
         <?php echo CHtml::button('发状态', array('submit'=>array('status/publish'),
-            'class'=>'button small green')); ?>
+            'class'=>'button medium green')); ?>
     </form>
     <div class="search_suggest" id="status_search_suggest">
        Content of search suggest.

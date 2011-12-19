@@ -7,6 +7,15 @@ body
 	background: #EFEFEF;
 }
 
+textarea
+{
+    width: 540px;
+    height: 60px;
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: #dfa
+}
+
 .status_time
 {
     float: right;
