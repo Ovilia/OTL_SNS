@@ -53,7 +53,12 @@ class TeacherController extends Controller
 		{
 			$model->attributes=$_POST['Teacher'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->TID));
+			{
+				$this->redirect(array('choose',
+					'teacher_id'=>$model->TID,
+					'class_id'=>$class_id,
+				));
+			}
 		}
 
 		$this->renderPartial('_form',array(
