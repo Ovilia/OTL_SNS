@@ -51,7 +51,7 @@ class Teaches extends CActiveRecord
 	{
 		return array(
 			'teacher' => array(self::BELONGS_TO, 'Teacher', 'TID'),
-			'class' => array(self::BELNGS_TO, 'Class', 'CID'),
+			'class' => array(self::BELONGS_TO, 'Class', 'CID'),
 		);
 	}
 
@@ -85,5 +85,10 @@ class Teaches extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function teacherTeachingAlready($teaches)
+	{
+		return Teaches::model()->exists("CID=$teaches->CID and TID=$teaches->TID");
 	}
 }

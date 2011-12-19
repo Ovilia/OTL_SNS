@@ -77,6 +77,8 @@ class ClasslocationController extends Controller
 		$atomclass->TIMEID = $time_id;
 		$atomclass->BUILDING_NUMBER = $building;
 		$atomclass->CLASSROOM = $classroom;
+		
+		// If the atomclass ready exists.
 		if (Atomclass::model()->atomclassDuplicate($class_id, $time_id, $building, $classroom))
 		{
 			Yii::app()->user->setFlash('error',
@@ -87,6 +89,8 @@ class ClasslocationController extends Controller
 				'time_id'=>$time_id,
 			));
 		}
+
+		// If the class already has an atomclass in the given time.
 		if (Atomclass::model()->classtimeOccupied($class_id, $time_id))
 		{
 			Yii::app()->user->setFlash('error',
@@ -97,7 +101,9 @@ class ClasslocationController extends Controller
 				'time_id'=>$time_id,
 			));
 		}
-		if (Atomclass::model()->classlocationOccupied($time_id, $building, $classroom)
+
+		// If there is already a class taking this classroom in the given time.
+		if (Atomclass::model()->classlocationOccupied($time_id, $building, $classroom))
 		{
 			Yii::app()->user->setFlash('error',
 				"不好意思，这个教室在该时段已经被占用了哦!");
@@ -107,6 +113,10 @@ class ClasslocationController extends Controller
 				'time_id'=>$time_id,
 			));
 		}
+
+		// TODO: if the two time instances are not the same but have overlap.
+
+		// Everything is fine, just save it.
 		if ($atomclass->save())
 		{
 			$this->redirect(array(
@@ -114,6 +124,15 @@ class ClasslocationController extends Controller
 				'id'=>$class_id,
 			));
 		}
+
+		// This should never happen.
+		Yii::app()->user->setFlash('error',
+			"出错了！请联系OTL团队！"
+		);
+		$this->redirect(array(
+			'selectView',
+			'class_id'=>$class_id,
+		));
 	}
 }
 

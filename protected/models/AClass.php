@@ -140,7 +140,7 @@ class AClass extends CActiveRecord
 		if (!empty($this->atomclasses)) {
 			foreach ($this->atomclasses as $atom) {
 				$string .= $atom->classTimeToString() . ", ";
-				$string .= $atom->classLocationToString() . ";<br>";
+				$string .= $atom->classLocationToString() . "<br>";
 			}
 		} else {
 			$string = "暂无安排";
