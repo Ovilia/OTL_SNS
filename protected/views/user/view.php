@@ -58,6 +58,19 @@ Yii::app()->clientScript->registerScript(
 
 <h1><?php echo $model->USER_NAME; ?>的主页</h1>
 
+
+<p>说几句吧：</p>
+<div>
+   <form>
+        <input type="text" name="contents" id="statusContent">
+        <?php echo CHtml::button('发状态', array('submit'=>array('status/publish'),
+                                         'class'=>'button small green')); ?>
+   </form>
+   <div id="status_search_suggest">
+        Content of search suggest.
+   </div>
+</div><!-- status-form -->
+
 <?php
 
 // One can't feed or send message to himself
@@ -100,6 +113,21 @@ Yii::app()->clientScript->registerScript('comment', "
 ?>
 
 <script type='text/javascript'>
+    var startIndex = -1;
+    function setCid(cid) {
+        //origin = $("gCid")[0].innerHTML;
+        //if (gStatusContent === "-1") {
+        //    origin = $("#statusContent")[0].value;
+        //    $("#gCid").html(origin + cid);
+        //    gStatusContent = origin + cid;
+        //}
+        //else
+        //    $("#gCid").html(gStatusConent + cid + " ");
+        $("#statusContent")[0].value += cid + " ";
+        $("#statusContent")[0].focus().select();
+        
+    }
+    
     function submitComment(id){
             var commentID='#comment' + id;
     	    var contents=$(commentID).val();
@@ -130,11 +158,11 @@ Yii::app()->clientScript->registerScript('comment', "
             dataType:"json",
             success:function(result) {
                 //alert(result['classes'].CID);
-                $("#course_suggest").html("<div class='search_type'>哪个课程 " + course + "</div>");
+                $("#status_search_suggest").html("<div class='search_type'>哪个课程 " + course + "</div>");
                 for (i in result.classes) {
                     for (j in result.classes[i].teachers) {
-                        $("#course_suggest").append("<div class='course_suggest_result onclick='setCid(" + result.classes[i].cid+ ")'>教师：" + result.classes[i].teachers[j].TEACHERNAME + "</div>");
-                        alert(result.classes[i].teachers[0].TEACHER_NAME);
+                        $("#status_search_suggest").append("<div class='course_suggest_result' onclick='setCid(" + result.classes[i].cid+ ")'>教师：" + result.classes[i].teachers[j].TEACHER_NAME + "</div>");
+                        //alert(result.classes[i].teachers[0].TEACHER_NAME);
                     }
                 }
             }
@@ -149,17 +177,32 @@ Yii::app()->clientScript->registerScript('comment', "
                 //$('#course_suggest').html('');
                 return;
             }
-            if (keywordval.indexOf('#') != -1) {
-                content = keywordval.substr(keywordval.indexOf('#') + 1);
+            //indexOfSharp = keywordval.lastIndexOf('#', 0, keywordval.length - startIndex);
+            indexOfSharp = keywordval.lastIndexOf('#');
+            if (indexOfSharp != -1) {
+                content = keywordval.substr(indexOfSharp + 1);
                 spaceIndex = content.indexOf(' ');
                 if (spaceIndex != -1) {
                     course = content.substr(0, spaceIndex);
-                    sendCourseName(course);
+                    if (course.indexOf(' ') == -1)
+                        sendCourseName(course);
                     //alert(course);
                 }
                 return;
             }
             return;
+        });
+        $("#statusContent").focus(function(){
+            $("#status_search_suggest").slideDown();
+            if ($("#statusContent").val() == null ||
+                $("#statusContent").val() == ''){
+                $("#status_search_suggest").html('');
+                return;
+            }
+            //TODO: add search result
+        });
+        $("#statusContent").blur(function(){
+            $("#status_search_suggest").slideUp();
         });
     });
 </script>
