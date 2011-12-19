@@ -7,13 +7,21 @@ body
 	background: #EFEFEF;
 }
 
-textarea
+#statusContent
 {
     width: 540px;
     height: 60px;
     padding: 5px;
     margin-bottom: 10px;
-    background-color: #dfa
+    background-color: #dfa;
+    /* for border radius */
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+	/* for box shadow */
+	-webkit-box-shadow: inset 0px 0px 5px #cf6;
+	-moz-box-shadow: inset 0px 0px 5px #cf6;
+	box-shadow: inset 0px 0px 5px #cf6;
 }
 
 .status_time
@@ -41,6 +49,19 @@ textarea
     top: 25px;
     width: 174px;
     left: -5px;
+}
+
+.course_suggest_result
+{
+    background-color: #dfa;
+    float: left;
+    margin: 5px;
+    padding: 5px;
+    cursor: pointer;
+	/* for box shadow */
+	-webkit-box-shadow: 0px 0px 5px #333333;
+	-moz-box-shadow: 0px 0px 5px #333333;
+	box-shadow: 0px 0px 5px #333333;
 }
 
 .search_suggest
