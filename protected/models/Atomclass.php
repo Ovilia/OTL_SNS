@@ -141,14 +141,14 @@ class Atomclass extends CActiveRecord
 			CLASSROOM=$model->CLASSROOM"));
 	}
 
-	public function classtimeOccupied($atomclass)
+	public function classtimeOccupied($model)
 	{
 		return (Atomclass::model()->exists(
 			"CID=$model->CID and
 			TIMEID=$model->TIMEID"));
 	}
 
-	public function classlocationOccupied($atomclass)
+	public function classlocationOccupied($model)
 	{
 		return (Atomclass::model()->exists(
 			"TIMEID=$model->TIMEID and
