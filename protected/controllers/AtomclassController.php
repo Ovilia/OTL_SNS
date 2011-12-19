@@ -27,7 +27,7 @@ class AtomclassController extends Controller
 	{
 		return array(
 			array('allow',
-				'actions'=>array('admin', 'delete','test'),
+				'actions'=>array('admin', 'delete', 'update'),
 				'roles'=>array('admin')
 			),
 			array('deny',  // deny all users
@@ -45,12 +45,15 @@ class AtomclassController extends Controller
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
+			$model = $this->loadModel($id);
+			$class_id = $model->CID;
+
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$model->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin', 'class_id'=>$class_id));
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
@@ -83,9 +86,20 @@ class AtomclassController extends Controller
 		));
 	}
 
-	public function actionTest($size)
+	public function actionUpdate($id)
 	{
-		echo $size;
+		$model=$this->loadModel($id);
+
+		if (isset($_POST['Atomclass']))
+		{
+			$model->attributes=$_POST['Atomclass'];
+			if ($model->save())
+				$this->redirect(array('admin', 'class_id'=>$model->CID));
+		}
+
+		$this->render('update', array(
+			'model'=>$model,
+		));
 	}
 
 	/**

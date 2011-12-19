@@ -95,11 +95,7 @@ class Atomclass extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('ACID',$this->ACID);
-		$criteria->compare('CID',$this->CID);
-		$criteria->compare('BUILDING_NUMBER',$this->BUILDING_NUMBER,true);
-		$criteria->compare('CLASSROOM',$this->CLASSROOM,true);
-
+		// The order of $criteria->compare() is important.
 		if(!empty($this->possible_classtimes))
 		{
 			$op = 'AND';
@@ -109,6 +105,10 @@ class Atomclass extends CActiveRecord
 				$op = 'OR';
 			}
 		}
+		$criteria->compare('ACID',$this->ACID);
+		$criteria->compare('CID',$this->CID);
+		$criteria->compare('BUILDING_NUMBER',$this->BUILDING_NUMBER,true);
+		$criteria->compare('CLASSROOM',$this->CLASSROOM,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
