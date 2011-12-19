@@ -103,7 +103,7 @@ class ClasslocationController extends Controller
 		}
 
 		// If there is already a class taking this classroom in the given time.
-		if (Atomclass::model()->classlocationOccupied($atomclass)
+		if (Atomclass::model()->classlocationOccupied($atomclass))
 		{
 			Yii::app()->user->setFlash('error',
 				"不好意思，这个教室在该时段已经被占用了哦!");

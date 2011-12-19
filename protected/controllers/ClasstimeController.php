@@ -95,7 +95,10 @@ class ClasstimeController extends Controller
 
 	public function actionChoose($time_id, $class_id)
 	{
-		if (Atomclass::model()->classtimeOccupied($class_id, $time_id))
+		$atomclass=new Atomclass;
+		$atomclass->CID = $class_id;
+		$atomclass->TIMEID = $time_id;
+		if (Atomclass::model()->classtimeOccupied($atomclass))
 		{
 			Yii::app()->user->setFlash('error',
 				"不好意思，这门课在该时段已经有安排了哦!");

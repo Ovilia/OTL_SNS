@@ -18,6 +18,9 @@
  */
 class Atomclass extends CActiveRecord
 {
+
+	public $possible_classtimes=array();
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Atomclass the static model class
@@ -75,8 +78,8 @@ class Atomclass extends CActiveRecord
 		return array(
 			'ACID' => 'Acid',
 			'CID' => 'Cid',
-			'BUILDING_NUMBER' => 'Building Number',
-			'CLASSROOM' => 'Classroom',
+			'BUILDING_NUMBER' => '教学楼号',
+			'CLASSROOM' => '教室号',
 			'TIMEID' => 'Timeid',
 		);
 	}
@@ -94,9 +97,18 @@ class Atomclass extends CActiveRecord
 
 		$criteria->compare('ACID',$this->ACID);
 		$criteria->compare('CID',$this->CID);
-		$criteria->compare('BUILDING_NUMBER',$this->BUILDING_NUMBER);
+		$criteria->compare('BUILDING_NUMBER',$this->BUILDING_NUMBER,true);
 		$criteria->compare('CLASSROOM',$this->CLASSROOM,true);
-		$criteria->compare('TIMEID',$this->TIMEID);
+
+		if(!empty($this->possible_classtimes))
+		{
+			$op = 'AND';
+			foreach($this->possible_classtimes as $time)
+			{
+				$criteria->compare('TIMEID',$time->TIMEID,false,$op);
+				$op = 'OR';
+			}
+		}
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
