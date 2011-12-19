@@ -15,9 +15,18 @@ for ($i = 0; $i < $feedAmt; ++$i){
     $feed[$i]['UID'] = $feedUser[$i]->FED_ID;
 	$feed[$i]['email'] = User::model()->findByPk($feedUser[$i]->FED_ID)->EMAIL;
 }
+// Classmate
+$classmateData = array();
+$classmateAmt = count($classmate);
+for ($i = 0; $i < $classmateAmt; ++$i){
+    $classmateData[$i]['UID'] = $classmate[$i]->UID;
+    $classmateData[$i]['email'] = User::model()->findByPk($classmate[$i]->UID)->EMAIL;
+}
+
 $this->sidebar=array(
 	'fed'=>$fed,
 	'feed'=>$feed,
+    'classmate'=>$classmateData,
     'recentStatus'=>$recentStatus == null ? 'ta很懒，什么都没说' : $recentStatus[0]->CONTENT,
 	'UID'=>$model->UID,
 	'email'=>$model->EMAIL,
