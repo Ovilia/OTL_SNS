@@ -26,16 +26,22 @@ body
 	border: 1px solid #7cbd2f;
 }
 
-#search_suggest
+#nav_search_suggest
+{
+    position: absolute;
+    top: 25px;
+    width: 174px;
+    left: -5px;
+}
+
+.search_suggest
 {
     background: #EFEFEF;
     color: #333;
     padding: 5px;
+    margin: 5px;
     font-size: 12px;
     font-family: Arial;
-    position: absolute;
-    top: 25px;
-    width: 174px;
 	min-height: 16px;
     display: none;
 
@@ -55,14 +61,14 @@ body
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f0a3', endColorstr='#dbf043',GradientType=0 ); /* IE6-9 */
 }
 
-#search_suggest a
+.search_suggest a
 {
-    color: #333;
+    color: #333 !important;
 }
 
-#search_suggest a:hover
+.search_suggest a:hover
 {
-    color: #363;
+    color: #363 !important;
 }
 
 .search_suggest_result

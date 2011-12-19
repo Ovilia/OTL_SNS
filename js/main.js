@@ -1,16 +1,16 @@
 /* For search menu */
-var tip = function(q, for_q){
+var tip = function(q, for_q, suggest_id){
     q = document.getElementById(q);
     for_q = document.getElementById(for_q);
     q.onfocus = function(){
         for_q.style.display = 'none';
         q.style.backgroundPosition = "right -17px";
-        $("#search_suggest").slideDown();
+        $("#" + suggest_id).slideDown();
     }
     q.onblur = function(){
         if(!this.value) for_q.style.display = 'block';
         q.style.backgroundPosition = "right 0";
-        $("#search_suggest").slideUp();
+        $("#" + suggest_id).slideUp();
     }
     for_q.onclick = function(){
         this.style.display = 'none';

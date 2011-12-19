@@ -35,6 +35,34 @@ $this->sidebar=array(
 ?>
 
 <h1>我的首页</h1>
+<p>说几句吧：</p>
+<div>
+    <form>
+        <input type="text" name="contents" id="statusContent">
+        <?php echo CHtml::button('发状态', array('submit'=>array('status/publish'),
+            'class'=>'button small green')); ?>
+    </form>
+    <div class="search_suggest" id="status_search_suggest">
+       Content of search suggest.
+    </div>
+    <script type='text/javascript'>
+    $(document).ready(function(){
+        $("#statusContent").focus(function(){
+            $("#status_search_suggest").slideDown();
+            if ($("#statusContent").val() == null ||
+                $("#statusContent").val() == ''){
+                $("#status_search_suggest").html('');
+                return;
+            }
+            //TODO: add search result
+        });
+        $("#statusContent").blur(function(){
+            $("#status_search_suggest").slideUp();
+        });
+    });
+    </script>
+    
+</div><!-- status-form -->
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
