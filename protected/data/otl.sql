@@ -196,10 +196,10 @@ alter table ATOMCLASS add constraint FK_RELATIONSHIP_6 foreign key (BUILDING_NUM
       references CLASSLOCATION (BUILDING_NUMBER, CLASSROOM) on delete restrict on update restrict;
 
 alter table ATOMCLASS add constraint FK_RELATIONSHIP_7 foreign key (CID)
-      references CLASS (CID) on delete restrict on update restrict;
+      references CLASS (CID) on delete cascade on update restrict;
 
 alter table CLASS add constraint FK_INVOLVE foreign key (COURSE_CODE, YEAR, SEMESTER)
-      references COURSE (COURSE_CODE, YEAR, SEMESTER) on delete restrict on update restrict;
+      references COURSE (COURSE_CODE, YEAR, SEMESTER) on delete cascade on update restrict;
 
 alter table COMMENTS add constraint FK_COMMENTS foreign key (UID)
       references USER (UID) on delete restrict on update restrict;
@@ -232,5 +232,5 @@ alter table TEACHES add constraint FK_TEACHES foreign key (TID)
       references TEACHER (TID) on delete restrict on update restrict;
 
 alter table TEACHES add constraint FK_TEACHES2 foreign key (CID)
-      references CLASS (CID) on delete restrict on update restrict;
+      references CLASS (CID) on delete cascade on update restrict;
 

@@ -53,7 +53,11 @@ class ClasstimeController extends Controller
 
 	public function actionSelectView($class_id)
 	{
-		$model=new Classtime;
+		$model=new Classtime('search');
+		$model->unsetAttributes();
+		if(isset($_GET['Classtime']))
+			$model->attributes=$_GET['Classtime'];
+
 		$this->render('selectView', array(
 			'model'=>$model,
 			'class_id'=>$class_id
@@ -86,7 +90,11 @@ class ClasstimeController extends Controller
 
 	public function actionList($class_id)
 	{
-		$model=new Classtime;
+		$model=new Classtime('search');
+		$model->unsetAttributes();
+		if(isset($_GET['Classtime']))
+			$model->attributes=$_GET['Classtime'];
+
 		$this->renderPartial('_list', array(
 			'model'=>$model,
 			'class_id'=>$class_id,

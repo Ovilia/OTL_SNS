@@ -68,12 +68,12 @@ class User extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'UID' => 'Uid',
-			'USER_NAME' => 'User Name',
-			'EMAIL' => 'Email',
-			'PASSWORD' => 'Password',
-			'REGISTER_TIME' => 'Register Time',
-			'ISADMIN' => 'Is Admin?',
+			'UID' => '用户ID',
+			'USER_NAME' => '用户名',
+			'EMAIL' => '邮箱',
+			'PASSWORD' => '密码',
+			'REGISTER_TIME' => '注册时间',
+			'ISADMIN' => '有特权么?',
 		);
 	}
 

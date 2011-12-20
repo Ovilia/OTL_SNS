@@ -27,7 +27,7 @@ class TeacherController extends Controller
 	{
 		return array(
 			array('allow', 
-				'actions'=>array('selectView','list','create','choose','admin'),
+				'actions'=>array('selectView','list','create','choose','admin','update'),
 				'roles'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -128,6 +128,23 @@ class TeacherController extends Controller
 			$model->attributes=$_GET['Teacher'];
 
 		$this->render('admin',array(
+			'model'=>$model,
+			'class_id'=>$class_id,
+		));
+	}
+
+	public function actionUpdate($class_id, $teacher_id)
+	{
+		$model=$this->loadModel($teacher_id);
+
+		if (isset($_POST['Teacher']))
+		{
+			$model->attributes=$_POST['Teacher'];
+			if ($model->save())
+				$this->redirect(array('class/view','id'=>$class_id));
+		}
+
+		$this->render('update',array(
 			'model'=>$model,
 			'class_id'=>$class_id,
 		));

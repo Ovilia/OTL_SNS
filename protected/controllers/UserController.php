@@ -180,6 +180,7 @@ class UserController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+	    $this->layout = "//layouts/column1";
 		$model=$this->loadModel($id);
 
 		// Check if the user is authorized to update this profile.
@@ -285,6 +286,7 @@ class UserController extends Controller
 	 */
 	public function actionAdmin()
 	{
+	    $this->layout = "//layouts/column1";
 		$model=new User('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['User']))

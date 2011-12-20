@@ -23,5 +23,13 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 		'UID',
 		'USER_NAME',
+		array(
+			'class'=>'CLinkColumn',
+			'label'=>'管理资料',
+			'urlExpression'=>'CHtml::normalizeUrl(array(
+				"user/update",
+				"id"=>$data->UID,
+			))',
+		),
 	),
 )); ?>

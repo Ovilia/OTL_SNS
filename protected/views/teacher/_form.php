@@ -9,6 +9,13 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
+	<?php if(!$model->isNewRecord) { ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'TID'); ?>
+		<?php echo $form->textField($model, 'TID', array('readonly'=>'readonly')); ?>
+	</div>
+	<?php } ?>
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'TEACHER_NAME'); ?>
 		<?php echo $form->textField($model,'TEACHER_NAME',array('size'=>32,'maxlength'=>32)); ?>

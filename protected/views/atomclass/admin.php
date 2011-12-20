@@ -1,7 +1,8 @@
 <?php
+$this->pageTitle=Yii::app()->name . ' - 修改已有的课时';
+$this->renderPartial('_menu');
 $this->breadcrumbs=array(
-	'Atomclasses'=>array('index'),
-	'Manage',
+	'返回修改课程安排'=>array('class/update', 'id'=>$model->CID),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -18,7 +19,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>修改已有的课程安排</h1>
+<h1>修改已有的课时</h1>
 
 <?php echo CHtml::link('搜索','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
@@ -52,7 +53,8 @@ $('.search-form form').submit(function(){
 		'CLASSROOM',
 		array(
 			'class'=>'CButtonColumn',
-			'template'=>'{update}{delete}',
+			'template'=>'{delete}',
+			'deleteConfirmation'=>"你确定要删除这一课时？",
 		),
 	),
 )); ?>

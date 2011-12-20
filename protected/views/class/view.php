@@ -1,16 +1,35 @@
 <?php
+$this->pageTitle=Yii::app()->name . ' - 查看课程安排';
+$this->renderPartial('_menu');
 $this->breadcrumbs=array(
-	'Aclasses'=>array('index'),
-	$model->CID,
+	'返回浏览课程信息'=>array(
+		'course/view',
+		'course_code'=>$model->COURSE_CODE,
+		'year'=>$model->YEAR,
+		'semester'=>$model->SEMESTER,
+	),
 );
+?>
 
-$this->menu=array(
-	array('label'=>'List AClass', 'url'=>array('index')),
-	array('label'=>'Create AClass', 'url'=>array('create')),
-	array('label'=>'Update AClass', 'url'=>array('update', 'id'=>$model->CID)),
-	array('label'=>'Delete AClass', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->CID),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage AClass', 'url'=>array('admin')),
-);
+<?php
+// Display all flash messages.
+$flashMessages = Yii::app()->user->getFlashes();
+if ($flashMessages) {
+	echo '<ul class="flashes">';
+	foreach($flashMessages as $key => $message) {
+		echo '<li><div class="flash-' . $key . '">' . $message . "</div></li>\n";
+	}
+	echo '</ul>';
+}
+?>
+
+<?php
+// An animation for displaying flash messages.
+Yii::app()->clientScript->registerScript(
+		'flashMsgHideEffect',
+		'$(".flashes").animate({opacity: 1.0}, 3000).fadeOut("slow");',
+		CClientScript::POS_READY
+		);
 ?>
 
 <h1>课程<?php echo $model->course->COURSE_NAME; ?></h1>

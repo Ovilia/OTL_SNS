@@ -1,8 +1,5 @@
 <?php
 $this->pageTitle=Yii::app()->name . ' - 私信';
-$this->breadcrumbs=array(
-	$model->MID,
-);
 
 $this->menu=array(
 	array('label'=>'收件箱', 'url'=>array('inbox')),

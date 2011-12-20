@@ -103,7 +103,6 @@ class ClassController extends Controller
 		$model->COURSE_CODE = $course_code;
 		$model->YEAR = $year;
 		$model->SEMESTER = $semester;
-		$model->save();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -113,10 +112,15 @@ class ClassController extends Controller
 			$model->attributes=$_POST['AClass'];
 			// TODO: save classlocation and classtime
 			if($model->save())
+			{
+				Yii::app()->user->setFlash('success',
+					'恭喜你，你成功添加了如下课程安排！下面你可以为这门课程添加老师和课时了。'
+				);
 				$this->redirect(array('view','id'=>$model->CID));
+			}
 		}
 
-		$this->render('update',array(
+		$this->render('create',array(
 			'model'=>$model,
 			'atomclasses'=>$model->getAtomClasses(),
 		));
@@ -158,11 +162,25 @@ class ClassController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$model=$this->loadModel($id);
+			$course_code=$model->COURSE_CODE;
+			$year=$model->YEAR;
+			$semester=$model->SEMESTER;
+			$model->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			{
+				$this->redirect(isset($_POST['returnUrl']) ?
+					$_POST['returnUrl'] :
+					array(
+						'course/view',
+						'course_code'=>$course_code,
+						'year'=>$year,
+						'semester'=>$semester,
+					)
+				);
+			}
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
