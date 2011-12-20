@@ -26,6 +26,7 @@ if (Yii::app()->user->role==="admin")
 	$column=array(
 		'class'=>'CButtonColumn',
 		'template'=>'{edit}{delete}',
+		'deleteConfirmation'=>"你确定要删除这项课程安排吗？",
 		'buttons'=>array(
 			'edit'=>array(
 				'label'=>' 编辑 ',

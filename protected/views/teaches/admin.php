@@ -41,6 +41,7 @@ $('.search-form form').submit(function(){
 		array(
 			'class'=>'CButtonColumn',
 			'template'=>'{update}{delete}',
+			'deleteConfirmation'=>"你确定要把这位教师从这门课的任课教师中移除？",
 			'buttons'=>array(
 				'update'=>array(
 					'label'=>'编辑',
