@@ -1,12 +1,8 @@
 <?php
+$this->pageTitle=Yii::app()->name . ' - 管理教师';
+$this->renderPartial('_menu');
 $this->breadcrumbs=array(
-	'Teachers'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Teacher', 'url'=>array('index')),
-	array('label'=>'Create Teacher', 'url'=>array('create')),
+	'返回修改课程安排'=>array('class/update', 'id'=>$class_id),
 );
 
 Yii::app()->clientScript->registerScript('search', "

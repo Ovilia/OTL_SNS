@@ -1,12 +1,8 @@
 <?php
+$this->pageTitle=Yii::app()->name . ' - 修改课程安排';
+$this->renderPartial('_menu');
 $this->breadcrumbs=array(
-	'查找课程'=>array('search'),
-	$model->COURSE_CODE=>array('view','id'=>$model->CID),
-	'Update',
-);
-
-$this->menu=array(
-	array('label'=>'查找课程', 'url'=>array('course/search')),
+	'返回浏览课程安排'=>array('view', 'id'=>$model->CID),
 );
 ?>
 

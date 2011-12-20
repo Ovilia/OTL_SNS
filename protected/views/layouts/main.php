@@ -80,14 +80,13 @@
 
 <div class="container" id="page">
 	<?php
-	/*
 	if(isset($this->breadcrumbs))
 	{
 		$this->widget('zii.widgets.CBreadcrumbs', array(
+			'homeLink'=>false,
 			'links'=>$this->breadcrumbs,
 		));
 	}
-	*/
 	?>
 
 	<?php echo $content; ?>

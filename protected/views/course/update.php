@@ -1,8 +1,6 @@
 <?php
-
-$this->menu=array(
-	array('label'=>'查找课程', 'url'=>array('search')),
-);
+$this->pageTitle=Yii::app()->name . ' - 更新课程';
+$this->renderPartial('_menu');
 ?>
 
 <h1>更新课程</h1>

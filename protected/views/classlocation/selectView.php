@@ -1,4 +1,12 @@
 <?php
+$this->pageTitle=Yii::app()->name . ' - 选择教室';
+$this->renderPartial('_menu');
+$this->breadcrumbs=array(
+	'返回修改课程安排'=>array('class/update', 'id'=>$class_id),
+	'返回选择时间'=>array('classtime/selectView', 'class_id'=>$class_id),
+);
+?>
+<?php
 // Display all flash messages.
 $flashMessages = Yii::app()->user->getFlashes();
 if ($flashMessages) {
@@ -13,10 +21,10 @@ if ($flashMessages) {
 <?php
 // An animation for displaying flash messages.
 Yii::app()->clientScript->registerScript(
-	'flashMsgHideEffect',
-	'$(".flashes").animate({opacity: 1.0}, 3000).fadeOut("slow");',
-	CClientScript::POS_READY
-);
+		'flashMsgHideEffect',
+		'$(".flashes").animate({opacity: 1.0}, 3000).fadeOut("slow");',
+		CClientScript::POS_READY
+		);
 ?>
 
 <?php echo CHtml::ajaxButton("从已有的教室中选择",
@@ -31,11 +39,6 @@ Yii::app()->clientScript->registerScript(
 		'class_id'=>$class_id,
 		'time_id'=>$time_id),
 	array('update'=>'#classlocation-selector')
-); ?>
-或者
-<?php echo CHtml::link("返回上一步",
-	array('classtime/selectView',
-		'class_id'=>$class_id)
 ); ?>
 
 <div id="classlocation-selector">

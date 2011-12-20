@@ -1,4 +1,9 @@
 <?php
+$this->pageTitle=Yii::app()->name . ' - 查找课程';
+$this->renderPartial('_menu');
+?>
+
+<?php
 Yii::app()->clientScript->registerScript('search', "
 $('.search-form form').submit(function(){
 	$.fn.yiiGridView.update('course-grid', {

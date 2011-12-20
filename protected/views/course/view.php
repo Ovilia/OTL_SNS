@@ -1,39 +1,44 @@
 <?php
 $this->pageTitle=Yii::app()->name . ' - 查看课程';
-$this->menu=array(
-	array('label'=>'查找课程', 'url'=>array('search')),
-);
+$this->renderPartial('_menu');
 ?>
 
 <h1>课程</h1>
 
 <div id="course-form">
+
+<?php 
+// initial the attributes for CDetailView
+$attributes=array('COURSE_NAME', 'COURSE_CODE', 'YEAR', 'SEMESTER');
+if (Yii::app()->user->role==="admin")
+{
+	$attr=array(
+		'type'=>'raw',
+		'value'=>CHtml::link('编辑该课程', array(
+			'update',
+			'course_code'=>$course->COURSE_CODE,
+			'year'=>$course->YEAR,
+			'semester'=>$course->SEMESTER,
+		)),
+	);
+	array_push($attributes, $attr);
+
+	$attr=array(
+		'type'=>'raw',
+		'value'=>CHtml::link('为该课程添加一项安排', array(
+			'class/create',
+			'course_code'=>$course->COURSE_CODE,
+			'year'=>$course->YEAR,
+			'semester'=>$course->SEMESTER,
+		)),
+	);
+	array_push($attributes, $attr);
+}
+?>
+
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$course,
-	'attributes'=>array(
-		'COURSE_NAME',
-		'COURSE_CODE',
-		'YEAR',
-		'SEMESTER',
-		array(
-			'type'=>'raw',
-			'value'=>CHtml::link('编辑该课程', array(
-				'update',
-				'course_code'=>$course->COURSE_CODE,
-				'year'=>$course->YEAR,
-				'semester'=>$course->SEMESTER,
-			)),
-		),
-		array(
-			'type'=>'raw',
-			'value'=>CHtml::link('为该课程添加一项安排', array(
-				'class/create',
-				'course_code'=>$course->COURSE_CODE,
-				'year'=>$course->YEAR,
-				'semester'=>$course->SEMESTER,
-			)),
-		),
-	),
+	'attributes'=>$attributes,
 )); ?>
 </div>
 
