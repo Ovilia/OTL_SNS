@@ -1,4 +1,4 @@
-<div class="view">
+<div class="view" >
     <?php
     if ($data->ISREAD == 0){
         echo '<div class="notRead">';
@@ -23,6 +23,12 @@
 	<?php echo CHtml::encode($data->CONTENT); ?>
 	<br />
 
+    <?php 
+        echo CHtml::button('阅读', array(
+    	    'submit'=>array('message/view', 'id'=>$data->MID),
+            'class'=>'button green small'
+    	));
+	?>
     </div>
 
 </div>
