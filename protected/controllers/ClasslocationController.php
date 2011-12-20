@@ -26,7 +26,11 @@ class ClasslocationController extends Controller
 
 	public function actionSelectView($class_id, $time_id)
 	{
-		$model=new Classlocation;
+		$model=new Classlocation('search');
+		$model->unsetAttributes();
+		if(isset($_GET['Classlocation']))
+			$model->attributes=$_GET['Classlocation'];
+
 		$this->render('selectView', array(
 			'model'=>$model,
 			'class_id'=>$class_id,
@@ -36,7 +40,11 @@ class ClasslocationController extends Controller
 
 	public function actionList($class_id, $time_id)
 	{
-		$model=new Classlocation;
+		$model=new Classlocation('search');
+		$model->unsetAttributes();
+		if(isset($_GET['Classlocation']))
+			$model->attributes=$_GET['Classlocation'];
+
 		$this->renderPartial('_list', array(
 			'model'=>$model,
 			'class_id'=>$class_id,

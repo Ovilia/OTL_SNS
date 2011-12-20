@@ -27,7 +27,7 @@ class TeacherController extends Controller
 	{
 		return array(
 			array('allow', 
-				'actions'=>array('selectView','list','create','choose','admin'),
+				'actions'=>array('selectView','list','create','choose','admin','update'),
 				'roles'=>array('admin'),
 			),
 			array('deny',  // deny all users

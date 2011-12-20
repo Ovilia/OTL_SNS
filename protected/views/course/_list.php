@@ -24,13 +24,20 @@ $columns = array(
 if (Yii::app()->user->role==="admin")
 {
 	$column=array(
-			'class'=>'CLinkColumn',
-			'label'=>'编辑',
-			'urlExpression'=>'CHtml::normalizeUrl(array(
-					"class/update",
-					"id"=>$data->CID,
-					))',
-		     );
+		'class'=>'CButtonColumn',
+		'template'=>'{edit}{delete}',
+		'buttons'=>array(
+			'edit'=>array(
+				'label'=>' 编辑 ',
+				'url'=>'array("class/update", "id"=>$data->CID)',
+			),
+			'delete'=>array(
+				'label'=>' 删除 ',
+				'imageUrl'=>false,
+				'url'=>'array("class/delete", "id"=>$data->CID)',
+			),
+		),
+	);
 	array_push($columns, $column);
 }
 ?>

@@ -162,11 +162,25 @@ class ClassController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$model=$this->loadModel($id);
+			$course_code=$model->COURSE_CODE;
+			$year=$model->YEAR;
+			$semester=$model->SEMESTER;
+			$model->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			{
+				$this->redirect(isset($_POST['returnUrl']) ?
+					$_POST['returnUrl'] :
+					array(
+						'course/view',
+						'course_code'=>$course_code,
+						'year'=>$year,
+						'semester'=>$semester,
+					)
+				);
+			}
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');

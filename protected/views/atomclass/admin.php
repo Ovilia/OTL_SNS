@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle=Yii::app()->name . ' - 修改已有的课程安排';
+$this->pageTitle=Yii::app()->name . ' - 修改已有的课时';
 $this->renderPartial('_menu');
 $this->breadcrumbs=array(
 	'返回修改课程安排'=>array('class/update', 'id'=>$model->CID),

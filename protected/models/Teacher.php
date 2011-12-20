@@ -88,10 +88,9 @@ class Teacher extends CActiveRecord
 			{
 				$criteria->compare('TID',$tid,false,'OR');
 			}
+			$criteria->compare('TID',$this->TID);
+			$criteria->compare('TEACHER_NAME',$this->TEACHER_NAME,true);
 		}
-
-		$criteria->compare('TID',$this->TID);
-		$criteria->compare('TEACHER_NAME',$this->TEACHER_NAME,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
