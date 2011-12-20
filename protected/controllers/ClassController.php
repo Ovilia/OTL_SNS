@@ -81,9 +81,9 @@ class ClassController extends Controller
 	{
 	    $uid = Yii::app()->user->id;
 	    $takes=Takes::model()->findByAttributes(array('UID'=>$uid, 'CID'=>$id));
-	    $rate = -1;
+	    $rate = 0;
 	    if ($takes === null)
-	       $rate = 0;
+	       $rate = -1;
 	    else {
 	       $rate = $takes->RATE;
 	    }

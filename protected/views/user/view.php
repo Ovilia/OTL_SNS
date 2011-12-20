@@ -1,4 +1,3 @@
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/main.js"></script>
 <?php
 // Status
 $recentStatus = $dataProvider->getData();
@@ -58,19 +57,6 @@ Yii::app()->clientScript->registerScript(
 
 <h1><?php echo $model->USER_NAME; ?>的主页</h1>
 
-
-<p>说几句吧：</p>
-<div>
-   <form>
-        <input type="text" name="contents" id="statusContent">
-        <?php echo CHtml::button('发状态', array('submit'=>array('status/publish'),
-                                         'class'=>'button small green')); ?>
-   </form>
-   <div id="status_search_suggest">
-        Content of search suggest.
-   </div>
-</div><!-- status-form -->
-
 <?php
 
 // One can't feed or send message to himself
@@ -113,21 +99,6 @@ Yii::app()->clientScript->registerScript('comment', "
 ?>
 
 <script type='text/javascript'>
-    var startIndex = -1;
-    function setCid(cid) {
-        //origin = $("gCid")[0].innerHTML;
-        //if (gStatusContent === "-1") {
-        //    origin = $("#statusContent")[0].value;
-        //    $("#gCid").html(origin + cid);
-        //    gStatusContent = origin + cid;
-        //}
-        //else
-        //    $("#gCid").html(gStatusConent + cid + " ");
-        $("#statusContent")[0].value += cid + " ";
-        $("#statusContent")[0].focus().select();
-        
-    }
-    
     function submitComment(id){
             var commentID='#comment' + id;
     	    var contents=$(commentID).val();
@@ -140,87 +111,10 @@ Yii::app()->clientScript->registerScript('comment', "
                 success:function(result) {
                     if (result == 1)
                         alert(contents);
-                    else if (result == 0)
-                        alert("You have rated this class");
-                    else
-                        alert("You haven't take this class.");
                 }
             });
         	return false;
         }
-        
-    function sendCourseName(course) {
-        //alert("course:" + course);
-        $.ajax({
-            type:"POST",
-            url:"<?php echo CHtml::normalizeUrl(array('class/tip')); ?>",
-            data:"ajax='ajax'&name="+course,
-            dataType:"json",
-            success:function(result) {
-                //alert(result['classes'].CID);
-                $("#status_search_suggest").html("<div class='search_type'>哪个课程 " + course + "</div>");
-                for (i in result.classes) {
-                    for (j in result.classes[i].teachers) {
-                        $("#status_search_suggest").append("<div class='course_suggest_result' onclick='setCid(" + result.classes[i].cid+ ")'>教师：" + result.classes[i].teachers[j].TEACHER_NAME + "</div>");
-                        //alert(result.classes[i].teachers[0].TEACHER_NAME);
-                    }
-                }
-            }
-        });
-    }
-    
-    function sendContent(content) {
-        //alert("content:" + content);
-        $.ajax({
-            type:"POST",
-            url:"<?php echo CHtml::normalizeUrl(array('course/tip')); ?>",
-            data:"ajax='ajax'&name="+content,
-            dataType:"json",
-            success:function(result) {
-                alert(result['courses']);
-            }
-        });
-    }
-    
-    $(document).ready(function(){
-        $("#statusContent").keyup(function(){
-            keywordval=$('#statusContent').val();
-            //alert(keywordval);
-            if (keywordval == null || keywordval == ''){
-                $('#status_search_suggest').html('');
-                return;
-            }
-            //indexOfSharp = keywordval.lastIndexOf('#', 0, keywordval.length - startIndex);
-            indexOfSharp = keywordval.lastIndexOf('#');
-            if (indexOfSharp != -1) {
-                content = keywordval.substr(indexOfSharp + 1);
-                spaceIndex = content.indexOf(' ');
-                if (spaceIndex != -1) {
-                    course = content.substr(0, spaceIndex);
-                    if (course.indexOf(' ') == -1)
-                        sendCourseName(course);
-                    //alert(course);
-                }
-                else if (content !== "") {
-                    sendContent(content);
-                }
-                return;
-            }
-            return;
-        });
-        $("#statusContent").focus(function(){
-            $("#status_search_suggest").slideDown();
-            if ($("#statusContent").val() == null ||
-                $("#statusContent").val() == ''){
-                $("#status_search_suggest").html('');
-                return;
-            }
-            //TODO: add search result
-        });
-        $("#statusContent").blur(function(){
-            $("#status_search_suggest").slideUp();
-        });
-    });
 </script>
     
 <?php $this->widget('zii.widgets.CListView', array(

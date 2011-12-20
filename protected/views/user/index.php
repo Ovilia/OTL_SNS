@@ -32,6 +32,13 @@ $this->sidebar=array(
 	'email'=>$model->EMAIL,
 	'user_name'=>$model->USER_NAME,
 );
+Yii::app()->clientScript->registerScript('comment', "
+    $('.comment-button').click(function(){
+        formID = '#form' + this.id;
+    	$(formID).toggle();
+    	return false;
+    });
+");
 ?>
 
 <h1>我的首页</h1>
@@ -45,7 +52,87 @@ $this->sidebar=array(
        Content of search suggest.
     </div>
     <script type='text/javascript'>
+    function setCid(cid) {
+        var test = $("#statusContent")[0];
+        $("#statusContent")[0].focus();
+        $("#statusContent")[0].value += cid + " ";
+        
+    }
+    
+    function submitComment(id){
+            var commentID='#comment' + id;
+    	    var contents=$(commentID).val();
+        	$('#form' + id).toggle();
+        	$.ajax({
+                type:"POST",
+                url:"<?php echo CHtml::normalizeUrl(array('status/comment')); ?>",
+                data:"ajax='ajax'&sid="+id+"&content="+contents,
+                dataType:"json",
+                success:function(result) {
+                    if (result == 1)
+                        alert(contents);
+                }
+            });
+        	return false;
+        }
+        
+    function sendCourseName(course) {
+        $.ajax({
+            type:"POST",
+            url:"<?php echo CHtml::normalizeUrl(array('class/tip')); ?>",
+            data:"ajax='ajax'&name="+course,
+            dataType:"json",
+            success:function(result) {
+                $("#status_search_suggest").html("<div class='search_type'>哪个课程 " + course + "</div>");
+                for (i in result.classes) {
+                    for (j in result.classes[i].teachers) {
+                        $("#status_search_suggest").append("<div class='course_suggest_result' onclick='setCid(" + result.classes[i].cid+ ")'>教师：" + result.classes[i].teachers[j].TEACHER_NAME + "</div>");
+                    }
+                }
+            }
+        });
+    }
+    
+    function sendContent(content) {
+        $.ajax({
+            type:"POST",
+            url:"<?php echo CHtml::normalizeUrl(array('course/tip')); ?>",
+            data:"ajax='ajax'&name='" + content + "'",
+            dataType:"json",
+            success:function(result) {
+                $("#status_search_suggest").html("<div class='search_type'>哪个课程 " + content + "</div>");
+                for (i in result.courses) {
+                    $("#status_search_suggest").append("<div class='course_suggest_result'>名称：" + result.courses[i].COURSE_NAME + "</div>");
+                }
+            }
+        });
+    }
     $(document).ready(function(){
+        $("#statusContent").keyup(function(){
+            keywordval=$('#statusContent').val();
+            //alert(keywordval);
+            if (keywordval == null || keywordval == ''){
+                $('#status_search_suggest').html('');
+                return;
+            }
+            //indexOfSharp = keywordval.lastIndexOf('#', 0, keywordval.length - startIndex);
+            indexOfSharp = keywordval.lastIndexOf('#');
+            if (indexOfSharp != -1) {
+                content = keywordval.substr(indexOfSharp + 1);
+                spaceIndex = content.indexOf(' ');
+                if (spaceIndex != -1) {
+                    course = content.substr(0, spaceIndex);
+                    if (course.indexOf(' ') == -1)
+                        sendCourseName(course);
+                    //alert(course);
+                }
+                else if (content !== "") {
+                    sendContent(content);
+                }
+                return;
+            }
+            return;
+        });
         $("#statusContent").focus(function(){
             $("#status_search_suggest").slideDown();
             if ($("#statusContent").val() == null ||
