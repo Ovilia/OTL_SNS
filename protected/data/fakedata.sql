@@ -605,3 +605,12 @@ insert into TEACHES(TID, CID) values(17, 17);
 insert into TEACHES(TID, CID) values(18, 18);
 insert into TEACHES(TID, CID) values(19, 19);
 
+insert into TAKES(UID, CID) values(1, 6);
+insert into TAKES(UID, CID) values(1, 7);
+insert into TAKES(UID, CID) values(1, 8);
+insert into TAKES(UID, CID) values(1, 9);
+insert into TAKES(UID, CID) values(2, 11);
+insert into TAKES(UID, CID) values(2, 12);
+insert into TAKES(UID, CID) values(2, 13);
+insert into TAKES(UID, CID) values(2, 14);
+
