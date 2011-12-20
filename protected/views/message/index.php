@@ -1,8 +1,5 @@
 <?php
 $this->pageTitle=Yii::app()->name . " - $name";
-$this->breadcrumbs=array(
-	'Messages',
-);
 
 $this->menu=array(
 	array('label'=>'新私信', 'url'=>array('create')),
