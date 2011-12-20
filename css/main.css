@@ -3,8 +3,46 @@ body
 	margin: 0;
 	padding: 0;
 	color: #555;
-	font: normal 10pt Arial,Helvetica,sans-serif;
 	background: #EFEFEF;
+}
+
+#common_table
+{
+    width: 890px;
+    height: 480px;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #dfa;
+    /* for border radius */
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+	/* for box shadow */
+	-webkit-box-shadow: inset 0px 0px 15px #333;
+	-moz-box-shadow: inset 0px 0px 15px #333;
+	box-shadow: inset 0px 0px 15px #333;
+}
+
+td.common_td
+{
+    border-width: 1px;
+    border-style: inset;
+    border-color: #06450c;
+}
+
+#common_time_div
+{
+    max-height: 500px;
+}
+
+.time_block
+{
+    width: 108px;
+    height: 38px;
+    background-color: #360;
+    position: relative;
+    top: -64px;
+    left: 125px;
 }
 
 #statusContent

@@ -31,7 +31,7 @@ class UserController extends Controller
 				'roles'=>array('guest'),
 			),
 			array('allow', // allow authenticated user to perform 'create', 'update' and other actions
-				'actions'=>array('create','update','feed','unfeed','search','updateProfile','takes'),
+				'actions'=>array('create','update','feed','unfeed','search','updateProfile','takes','common','getCommon'),
 				'roles'=>array('authenticated'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -98,6 +98,57 @@ class UserController extends Controller
 		));
 
 	}
+
+    public function actionGetCommon()
+    {
+        if (isset($_POST['ajax'])){
+            $UID = split(",", $_POST['uid']);
+            $sql = '';
+            $UID_amt = count($UID);
+            $classtime = array();
+            for ($i = 0; $i < $UID_amt; ++$i){
+                $classtime[] = Classtime::model()->findAll("TIMEID in (select TIMEID from Atomclass where CID in (select CID from Takes where UID = $UID[$i]) and CID in (select CID from Class where year = " . Yii::app()->params['year'] . ")) and WEEK_OF_SEMESTER = " . Yii::app()->params['week_of_semester']);
+            }
+            //echo $data;
+            /*
+            $data = $dataProvider[0]->getData(); 
+            */
+            echo CJSON::encode(array(
+                'common'=>array($classtime),
+                'amt'=>$UID_amt,
+            ));
+        }
+    }
+
+    public function actionCommon()
+    {
+        $this->layout='//layouts/column1';
+        $id = Yii::app()->user->id;
+        $fedDataProvider=new CActiveDataProvider('Feeds', array(
+            'criteria'=>array(
+                'condition'=>"FED_ID=$id",
+                'order'=>'FEED_TIME DESC',
+            ),
+            'pagination'=>array(
+                'pageSize'=>20,
+            ),
+        ));
+        $feedDataProvider=new CActiveDataProvider('Feeds', array(
+            'criteria'=>array(
+                'condition'=>"FEEDER_ID=$id",
+                'order'=>'FEED_TIME DESC',
+            ),
+            'pagination'=>array(
+                'pageSize'=>20,
+            ),
+        ));
+        $feedUser = $feedDataProvider->getData();
+        $fedUser = $fedDataProvider->getData();
+        $this->render('common',array(
+            'feedUser'=>$feedUser,
+            'fedUser'=>$fedUser,
+        ));
+    }
 
 	/**
 	 * Creates a new model.

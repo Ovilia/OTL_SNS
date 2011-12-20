@@ -26,3 +26,5 @@ function comment(id){
 function show_comment(id){
     alert("Show " + id + "'s comment!");
 }
+
+
