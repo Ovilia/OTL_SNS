@@ -86,7 +86,7 @@ function getTime(percent){
     return hour + ":" + addZero(min) + ":" + addZero(sec);
 }
 
-function drawClass(dayOfWeek, start_percentOfDay, length_percentOfDay, time_id){
+function drawClass(dayOfWeek, start_percentOfDay, length_percentOfDay){
     var startStr = getTime(start_percentOfDay);
     var endStr = getTime(start_percentOfDay + length_percentOfDay);
     $("#common_time").append('<div class="time_block transparent_class" id="class_' + class_id + '"' + 'title="开始时间：' + startStr + '\n结束时间：' + endStr + '"' + '></div>');
@@ -148,7 +148,7 @@ function check_user(id){
                     var start = getPercent(result.common[0][i][j]['START_TIME']);
                     var length = getPercent(result.common[0][i][j]['END_TIME']) - start;
                     drawClass(result.common[0][i][j]['DAY_OF_WEEK'],
-                        start, length, result.common[0][i][j]['TIMEID']);
+                        start, length);
                 }
             }
         }
