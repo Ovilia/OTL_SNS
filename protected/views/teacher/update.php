@@ -1,18 +1,12 @@
 <?php
+$this->pageTitle=Yii::app()->name . ' - 编辑教师信息';
+$this->renderPartial('_menu');
 $this->breadcrumbs=array(
-	'Teachers'=>array('index'),
-	$model->TID=>array('view','id'=>$model->TID),
-	'Update',
+	"返回浏览教师信息"=>array('teacher/admin', 'class_id'=>$class_id),
 );
 
-$this->menu=array(
-	array('label'=>'List Teacher', 'url'=>array('index')),
-	array('label'=>'Create Teacher', 'url'=>array('create')),
-	array('label'=>'View Teacher', 'url'=>array('view', 'id'=>$model->TID)),
-	array('label'=>'Manage Teacher', 'url'=>array('admin')),
-);
 ?>
 
-<h1>Update Teacher <?php echo $model->TID; ?></h1>
+<h1>编辑教师#<?php echo $model->TID; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

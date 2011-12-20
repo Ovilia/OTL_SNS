@@ -39,6 +39,12 @@ $('.search-form form').submit(function(){
 			'class'=>'CButtonColumn',
 			'template'=>'{update}{delete}',
 			'buttons'=>array(
+				'update'=>array(
+					'label'=>'编辑',
+					'url'=>"array('teacher/update',
+						'class_id'=>$class_id," .
+						'"teacher_id"=>$data->TID)',
+				),
 				'delete'=>array(
 					'label'=>'删除',
 					'url'=>"array('teaches/delete',

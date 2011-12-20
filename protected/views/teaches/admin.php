@@ -44,8 +44,9 @@ $('.search-form form').submit(function(){
 			'buttons'=>array(
 				'update'=>array(
 					'label'=>'编辑',
-					'url'=>'array("teacher/update",
-						"id"=>$data->TID)',
+					'url'=>"array('teacher/update',
+						'class_id'=>$model->CID," .
+						'"teacher_id"=>$data->TID)',
 				),
 				'delete'=>array(
 					'label'=>'删除',

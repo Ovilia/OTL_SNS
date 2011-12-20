@@ -133,6 +133,23 @@ class TeacherController extends Controller
 		));
 	}
 
+	public function actionUpdate($class_id, $teacher_id)
+	{
+		$model=$this->loadModel($teacher_id);
+
+		if (isset($_POST['Teacher']))
+		{
+			$model->attributes=$_POST['Teacher'];
+			if ($model->save())
+				$this->redirect(array('class/view','id'=>$class_id));
+		}
+
+		$this->render('update',array(
+			'model'=>$model,
+			'class_id'=>$class_id,
+		));
+	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
