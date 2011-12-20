@@ -79,7 +79,7 @@ class ClasslocationController extends Controller
 		$atomclass->CLASSROOM = $classroom;
 		
 		// If the atomclass ready exists.
-		if (Atomclass::model()->atomclassDuplicate($class_id, $time_id, $building, $classroom))
+		if (Atomclass::model()->atomclassDuplicate($atomclass))
 		{
 			Yii::app()->user->setFlash('error',
 				"这门课已经安排在这里了，你不会是穿越来的吧？");
@@ -91,7 +91,7 @@ class ClasslocationController extends Controller
 		}
 
 		// If the class already has an atomclass in the given time.
-		if (Atomclass::model()->classtimeOccupied($class_id, $time_id))
+		if (Atomclass::model()->classtimeOccupied($atomclass))
 		{
 			Yii::app()->user->setFlash('error',
 				"不好意思，这门课在该时段已经有安排了哦!");
@@ -103,7 +103,7 @@ class ClasslocationController extends Controller
 		}
 
 		// If there is already a class taking this classroom in the given time.
-		if (Atomclass::model()->classlocationOccupied($time_id, $building, $classroom))
+		if (Atomclass::model()->classlocationOccupied($atomclass))
 		{
 			Yii::app()->user->setFlash('error',
 				"不好意思，这个教室在该时段已经被占用了哦!");

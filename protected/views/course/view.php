@@ -1,4 +1,5 @@
 <?php
+$this->pageTitle=Yii::app()->name . ' - 查看课程';
 $this->menu=array(
 	array('label'=>'查找课程', 'url'=>array('search')),
 );

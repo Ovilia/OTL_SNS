@@ -27,7 +27,7 @@ class TeacherController extends Controller
 	{
 		return array(
 			array('allow', 
-				'actions'=>array('selectView','list','create','choose'),
+				'actions'=>array('selectView','list','create','choose','admin'),
 				'roles'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -109,6 +109,26 @@ class TeacherController extends Controller
 		);
 		$this->redirect(array(
 			'selectView',
+			'class_id'=>$class_id,
+		));
+	}
+
+	public function actionAdmin($class_id)
+	{
+		$model=new Teacher('search');
+		$model->unsetAttributes();
+
+		$model->possible_TIDs = array();
+		$class=AClass::model()->findByPk($class_id);
+		foreach ($class->teachers as $teacher)
+		{
+			array_push($model->possible_TIDs, $teacher->TID);
+		}
+		if (isset($_GET['Teacher']))
+			$model->attributes=$_GET['Teacher'];
+
+		$this->render('admin',array(
+			'model'=>$model,
 			'class_id'=>$class_id,
 		));
 	}

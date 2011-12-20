@@ -1,12 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Teachers'=>array('index'),
+	'Atomclasses'=>array('index'),
 	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Teacher', 'url'=>array('index')),
-	array('label'=>'Create Teacher', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -15,7 +10,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('teacher-grid', {
+	$.fn.yiiGridView.update('atomclass-grid', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -23,24 +18,41 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>修改#<?php echo $class_id; ?>课程的已有教师信息</h1>
+<h1>修改已有的课程安排</h1>
 
 <?php echo CHtml::link('搜索','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
-	'model'=>$model,
+	'model'=>$model, 'time'=>$time,
 )); ?>
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'teacher-grid',
+	'id'=>'atomclass-grid',
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	//'filter'=>$model,
 	'columns'=>array(
-		'TID',
-		'TEACHER_NAME',
+		array(
+			'name'=>'周数',
+			'value'=>'$data->classtime->getWeekOfSemester()',
+		),
+		array(
+			'name'=>'日期',
+			'value'=>'$data->classtime->getDayOfWeek()',
+		),
+		array(
+			'name'=>'开始时间',
+			'value'=>'$data->classtime->START_TIME',
+		),
+		array(
+			'name'=>'结束时间',
+			'value'=>'$data->classtime->END_TIME',
+		),
+		'BUILDING_NUMBER',
+		'CLASSROOM',
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{update}{delete}',
 		),
 	),
 )); ?>

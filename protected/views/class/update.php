@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Aclasses'=>array('index'),
-	$model->CID=>array('view','id'=>$model->CID),
+	'查找课程'=>array('search'),
+	$model->COURSE_CODE=>array('view','id'=>$model->CID),
 	'Update',
 );
 
@@ -48,10 +48,11 @@ $this->menu=array(
 		array(
 			'type'=>'raw',
 			'label'=>"教师操作",
-			'value'=>CHtml::link("修改任课教师", array(
-					'teacher/selectView', 'class_id'=>$model->CID
+			'value'=>CHtml::link("添加任课教师", array(
+					'teacher/selectView', 'class_id'=>$model->CID,
 				)) . "<br>" .
 				CHtml::link("修改已有教师", array(
+					'teacher/admin', 'class_id'=>$model->CID,
 				)),
 		),
 		array(
@@ -61,7 +62,7 @@ $this->menu=array(
 					'classtime/selectView', 'class_id'=>$model->CID,
 				)) . "<br>" .
 				CHtml::link("修改已有课时", array(
-					'classtime/admin',
+					'atomclass/admin', 'class_id'=>$model->CID,
 				)),
 		),
 	),

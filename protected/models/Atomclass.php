@@ -18,6 +18,9 @@
  */
 class Atomclass extends CActiveRecord
 {
+
+	public $possible_classtimes=array();
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Atomclass the static model class
@@ -75,8 +78,8 @@ class Atomclass extends CActiveRecord
 		return array(
 			'ACID' => 'Acid',
 			'CID' => 'Cid',
-			'BUILDING_NUMBER' => 'Building Number',
-			'CLASSROOM' => 'Classroom',
+			'BUILDING_NUMBER' => '教学楼号',
+			'CLASSROOM' => '教室号',
 			'TIMEID' => 'Timeid',
 		);
 	}
@@ -92,11 +95,20 @@ class Atomclass extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		// The order of $criteria->compare() is important.
+		if(!empty($this->possible_classtimes))
+		{
+			$op = 'AND';
+			foreach($this->possible_classtimes as $time)
+			{
+				$criteria->compare('TIMEID',$time->TIMEID,false,$op);
+				$op = 'OR';
+			}
+		}
 		$criteria->compare('ACID',$this->ACID);
 		$criteria->compare('CID',$this->CID);
-		$criteria->compare('BUILDING_NUMBER',$this->BUILDING_NUMBER);
+		$criteria->compare('BUILDING_NUMBER',$this->BUILDING_NUMBER,true);
 		$criteria->compare('CLASSROOM',$this->CLASSROOM,true);
-		$criteria->compare('TIMEID',$this->TIMEID);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -132,27 +144,27 @@ class Atomclass extends CActiveRecord
 		return $string;
 	}
 
-	public function atomclassDuplicate($class_id, $time_id, $building, $classroom)
+	public function atomclassDuplicate($model)
 	{
 		return (Atomclass::model()->exists(
-			"CID=$class_id and
-			TIMEID=$time_id and
-			BUILDING_NUMBER=$building and
-			CLASSROOM=$classroom"));
+			"CID=$model->CID and
+			TIMEID=$model->TIMEID and
+			BUILDING_NUMBER=$model->BUILDING_NUMBER and
+			CLASSROOM=$model->CLASSROOM"));
 	}
 
-	public function classtimeOccupied($class_id, $time_id)
+	public function classtimeOccupied($model)
 	{
 		return (Atomclass::model()->exists(
-			"CID=$class_id and
-			TIMEID=$time_id"));
+			"CID=$model->CID and
+			TIMEID=$model->TIMEID"));
 	}
 
-	public function classlocationOccupied($time_id, $building, $classroom)
+	public function classlocationOccupied($model)
 	{
 		return (Atomclass::model()->exists(
-			"TIMEID=$time_id and
-			BUILDING_NUMBER=$building and
-			CLASSROOM=$classroom"));
+			"TIMEID=$model->TIMEID and
+			BUILDING_NUMBER=$model->BUILDING_NUMBER and
+			CLASSROOM=$model->CLASSROOM"));
 	}
 }

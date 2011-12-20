@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle=Yii::app()->name . ' - ' . $name;
+$this->pageTitle=Yii::app()->name . " - $name";
 $this->breadcrumbs=array(
 	'Messages',
 );

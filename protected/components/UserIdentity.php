@@ -39,9 +39,11 @@ class UserIdentity extends CUserIdentity
 					Yii::app()->authManager->save();
 				}
 			}
+
 			// store information in session
+			$this->setState('role', $role);
 			Yii::app()->session['email'] = $user->EMAIL;
-            Yii::app()->session['username'] = $user->USER_NAME;
+			Yii::app()->session['username'] = $user->USER_NAME;
 			$this->errorCode=self::ERROR_NONE;
 		}
 		return !$this->errorCode;

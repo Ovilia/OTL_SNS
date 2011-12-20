@@ -12,6 +12,9 @@
  */
 class Teacher extends CActiveRecord
 {
+
+	public $possible_TIDs = array();
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Teacher the static model class
@@ -78,6 +81,14 @@ class Teacher extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+
+		if (!empty($this->possible_TIDs))
+		{
+			foreach ($this->possible_TIDs as $tid)
+			{
+				$criteria->compare('TID',$tid,false,'OR');
+			}
+		}
 
 		$criteria->compare('TID',$this->TID);
 		$criteria->compare('TEACHER_NAME',$this->TEACHER_NAME,true);
