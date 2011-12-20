@@ -14,7 +14,23 @@
     
     <?php echo CHtml::link(CHtml::encode(User::model()->findByPk($data->UID)->USER_NAME), array('view', 'id' => $data->UID)); ?>
     ：
-	<?php echo CHtml::encode($data->CONTENT); ?>
+	<?php 
+	    $output = '';
+        $raw = $data->CONTENT;
+        $pos = strpos($raw, '#');
+        while ($pos !== false) {
+            $output .= substr($raw, 0, $pos);
+            $raw = substr($raw, $pos);
+            $pos = strpos($raw, ' ');
+            $course = substr($raw, 0, $pos);
+            $raw = substr($raw, $pos + 1);
+            $cid = substr($raw, 0, strpos($raw, ' '));
+            $output .= "<a href='".CHtml::normalizeUrl(array('class/view'))."/".$cid."'>".$course."</a>";
+            $raw = substr($raw, strpos($raw, ' '));
+            $pos = strpos($raw, '#');
+        }
+        echo $output.$raw;
+	?>
     <div class="status_time">
         <?php echo CHtml::encode($data->UPDATE_TIME); ?>
     </div>

@@ -17,13 +17,15 @@ $this->menu=array(
 
 <?php $this->renderPartial('_info', array('model'=>$model)); ?>
 
-<h2>Rate this class</h2>
-
 <script language="javascript">
 
 window.onload = function(){
    var star = <?php echo $star ?>;
-   ChangeState(star, false);
+   var test = $("#divStars")[0];
+   if (star == -1)
+       $("#divStars")[0].style.cssText="display:none";
+   else
+       ChangeState(star, false);
 }
 
 function ChangeState(index, isfixed){
@@ -66,6 +68,7 @@ function MouseOut(){
 -->
 </script>
 <div id="divStars">
+    <h2>Rate this class</h2>
 	<input type="image" name="imageField1" src="<?php echo Yii::app()->request->baseUrl; ?>/images/1.png" onClick="Click(1)" onMouseOver = "MouseOver(1)" onMouseOut="MouseOut()">
 	<input type="image" name="imageField2" src="<?php echo Yii::app()->request->baseUrl; ?>/images/1.png" onClick="Click(2)" onMouseOver = "MouseOver(2)" onMouseOut="MouseOut()">
 	<input type="image" name="imageField3" src="<?php echo Yii::app()->request->baseUrl; ?>/images/1.png" onClick="Click(3)" onMouseOver = "MouseOver(3)" onMouseOut="MouseOut()">

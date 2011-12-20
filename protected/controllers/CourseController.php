@@ -38,12 +38,12 @@ class CourseController extends Controller
 		    $courses = array();
 		    $courseResult = array();
 		    $courses = Course::model()->findAll("LOCATE($name, COURSE_NAME)>0 LIMIT $resultNum");
-		    foreach ($courses as $course) {
-				array_push($coursesResult, array(
-					'coursename'=>$course->COURSE_NAME));
-			}
+		    //foreach ($courses as $course) {
+			//	array_push($coursesResult, array(
+			//		'coursename'=>$course->COURSE_NAME));
+			//}
 			echo CJSON::encode(array(
-				'courses' => $name,
+				'courses' => $courses,
 				));
 		}
     }
