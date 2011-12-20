@@ -39,6 +39,14 @@ Yii::app()->clientScript->registerScript('comment', "
     	return false;
     });
 ");
+
+Yii::app()->clientScript->registerScript('showComment', "
+    $('.show-comment-button').click(function(){
+        commentsID = '#comments' + this.id.substr(4);
+    	$(commentsID).toggle();
+    	return false;
+    });
+");
 ?>
 
 <h1>我的首页</h1>

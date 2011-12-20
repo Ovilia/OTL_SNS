@@ -40,6 +40,13 @@
         <input id="comment<?php echo $data->SID ?>">
         <?php echo CHtml::button('确认',array('class'=>'button small green submit-button', 'id'=>'button'.$data->SID, 'onclick'=>'submitComment('.$data->SID.')')); ?>
     </div><!-- comment-form -->
-    <button class="button small gray" type="button" onclick="show_comment(<?php echo CHtml::encode($data->SID); ?>)">查看评论</button>
-
+    <button class="button small gray show-comment-button" type="button" id="show<?php echo CHtml::encode($data->SID); ?>">查看评论</button>
+    <div style="display:none" id="comments<?php echo $data->SID ?>">
+        <?php
+            foreach ($data->comments as $acomment) {
+                $commentUser = $acomment->user;
+			    echo "<p> $commentUser->USER_NAME : $acomment->CONTENT </p>";
+			}
+	    ?>
+	</div>
 </div>
