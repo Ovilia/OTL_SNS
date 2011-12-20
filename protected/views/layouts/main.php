@@ -49,6 +49,10 @@
             </div>
             <span class="heading-span">|</span>
             <div class="heading-nav">
+		<?php echo CHtml::link("公共时间", array("user/common")); ?>
+            </div>
+            <span class="heading-span">|</span>
+            <div class="heading-nav">
                 <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php?logout">登出</a>
             </div>
 

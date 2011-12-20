@@ -89,7 +89,7 @@ function getTime(percent){
 function drawClass(dayOfWeek, start_percentOfDay, length_percentOfDay, time_id){
     var startStr = getTime(start_percentOfDay);
     var endStr = getTime(start_percentOfDay + length_percentOfDay);
-    $("#common_time").append('<div class="time_block transparent_class" id="class_' + class_id + '"' + 'title="开始时间：' + startStr + '\n结束时间：' + endStr + '\n' + time_id + '"' + '></div>');
+    $("#common_time").append('<div class="time_block transparent_class" id="class_' + class_id + '"' + 'title="开始时间：' + startStr + '\n结束时间：' + endStr + '"' + '></div>');
     var width = parseInt($("#class_" + class_id).css("width"));
     var height = parseInt($("#class_" + class_id).css("height"));
     var old_left = parseInt($("#class_" + class_id).css("left"));
