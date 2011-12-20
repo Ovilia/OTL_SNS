@@ -33,7 +33,12 @@
             </div>
             <span class="heading-span">|</span>
             <div class="heading-nav">
-                <a href="#">好友</a>
+                <?php
+                    if (Yii::app()->user->role==="admin")
+                        echo CHtml::link("管理用户", array("user/search"));
+                    else
+                        echo CHtml::link("好友", array("user/search"));
+                ?>
             </div>
             <span class="heading-span">|</span>
             <div class="heading-nav">
