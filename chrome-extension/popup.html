@@ -1,0 +1,131 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script src="json2.js"></script>
+<script>
+    function myClass() {
+        var obj =
+        {
+            'id':-1,
+            'name':"none",
+            'teacher':"none"
+        }
+        obj.classtime = new Array();
+        return obj;
+    }
+    
+	function myClasstime() {
+        var obj =
+        {
+            'weekday':"none",
+            'startTime':-1,
+            'span':-1
+        }
+        return obj;
+    }
+    
+	function test() {
+        $.ajax({
+               type: "get",
+               url: "http://electsys0.sjtu.edu.cn/edu/newsboard/newsinside.aspx",
+               cache: false,
+               async: false,
+               success: function(msg) {
+                   var classInfo = msg.substring(msg.indexOf('<td style="border-width:1px;border-style:solid;">'));
+                   classInfo = classInfo.substring(0, classInfo.indexOf("/table"));
+                   
+                   // get all classes
+                   var totalClasses = new Array();
+                   var number = 0;
+                   var currentClassInfo = "1";
+                   while (currentClassInfo != "") {
+                       currentClassInfo = classInfo.substring(0, classInfo.substring(1).indexOf('<td style="border-width:1px;border-style:solid;">'));
+                       classInfo = classInfo.substring(classInfo.substring(1).indexOf('<td style="border-width:1px;border-style:solid;">') + 1);
+                       var currentClass = new myClass();
+                       currentClass.name = currentClassInfo.substring(49, currentClassInfo.indexOf("</td"));
+                       currentClass.name = currentClass.name.substring(0, currentClass.name.indexOf(" "));
+                       totalClasses[number] = currentClass;
+                       var href = currentClassInfo.substring(currentClassInfo.indexOf("href") + 5, currentClassInfo.indexOf("target"));
+                       totalClasses[number].id = href;
+                       number++;
+                   }
+                   // deal last one
+                   {
+                       currentClassInfo = classInfo;
+                       var currentClass = new myClass();
+                       currentClass.name = currentClassInfo.substring(49, currentClassInfo.indexOf("</td"));
+                       currentClass.name = currentClass.name.substring(0, currentClass.name.indexOf(" "));
+                       totalClasses[number - 1] = currentClass;
+                       var href = currentClassInfo.substring(currentClassInfo.indexOf("href") + 5, currentClassInfo.indexOf("target"));
+                       totalClasses[number - 1].id = href;
+                   }
+                   
+                   // get class time
+                   var classes = msg.substring(msg.indexOf("LessonTbl1_spanContent"));
+                   classes = classes.replace(/&nbsp;/g, " ");
+                   // eliminate Monday to Sunday columns
+                   classes = classes.substring(classes.indexOf("/tr") + 4);
+                   // get each row
+                   var classRows = new Array();
+                   for (i = 0; i < 14; ++i) {
+                       classRows[i] = classes.substring(0, classes.indexOf("/tr") + 4);
+                       classes = classes.substring(classes.indexOf("/tr") + 4);
+                       // eliminate first column
+                       classRows[i] = classRows[i].substring(classRows[i].indexOf("/td") + 3);
+                       for (j = 0; j < 7; ++j) {
+                           var singleClass = classRows[i].substring(classRows[i].indexOf("classmain"), classRows[i].indexOf("/td"));
+                           classRows[i] = classRows[i].substring(classRows[i].indexOf("/td") + 1);
+                           var className = singleClass.substring(singleClass.indexOf(">") + 1);
+                           className = className.substring(0, className.indexOf("（"));
+                           var k = 0;
+                           for (k = 0; k < number; ++k) {
+                               if (totalClasses[k].name == className)
+                               break;
+                           }
+                           if (k != number) {
+                               var classtime = new myClasstime();
+                               var classtimeNum = totalClasses[k].classtime.length;
+                               totalClasses[k].classtime[classtimeNum] = classtime;
+                               totalClasses[k].classtime[classtimeNum].weekday = j + 1;
+                               totalClasses[k].classtime[classtimeNum].startTime = i + 1;
+                               totalClasses[k].classtime[classtimeNum].span = singleClass.substring(singleClass.indexOf("rowspan=") + 8, singleClass.indexOf(">"));
+                           }
+                       }
+                   }
+                   
+                   /* get ID and teacher name */
+                   for (i = 0; i < totalClasses.length; ++i) {
+                       $.ajax({
+                              type: "get",
+                              url: "http://electsys0.sjtu.edu.cn/edu" + totalClasses[i].id.substring(3, totalClasses[i].id.length - 2),
+                              cache: false,
+                              async: false,
+                              success: function(msg) {
+                                  var teacher = msg.substring(msg.indexOf("姓名"));
+                                  teacher = teacher.substring(teacher.indexOf('xtdcolour2">') + 12);
+                                  totalClasses[i].teacher = teacher.substring(0, teacher.indexOf('\r'));
+                                  var classID = msg.substring(msg.indexOf("课程代码"));
+                                  // magic number
+                                  totalClasses[i].id = classID.substring(12, 17);
+                              },
+                              error: function(){}
+                              });
+                   }
+                   
+                   /* encode to json and transfer it to server */
+                   var json_text = JSON.stringify(totalClasses, null, 2);
+                   $.ajax({
+                          type: "POST",
+                          url: "http://localhost/test.php",
+                          datatype: 'json',
+                          data: json_text,
+                          success: function(){},
+                          error: function(){chrome.tabs.executeScript(null,{code:"alert('connect server error');"});}
+                          });
+               
+                    }
+        });
+        document.getElementById('button').innerHTML="OK!";
+        chrome.tabs.executeScript(null,{code:"alert('Done');"});
+        window.close();
+    }
+    </script>
+<div id="button" onclick="test()">GET DATA</div>
