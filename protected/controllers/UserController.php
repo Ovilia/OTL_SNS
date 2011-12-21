@@ -103,19 +103,18 @@ class UserController extends Controller
     {
         if (isset($_POST['ajax'])){
             $UID = split(",", $_POST['uid']);
-            $sql = '';
             $UID_amt = count($UID);
             $classtime = array();
-            for ($i = 0; $i < $UID_amt; ++$i){
-                $classtime[] = Classtime::model()->findAll("TIMEID in (select TIMEID from Atomclass where CID in (select CID from Takes where UID = $UID[$i]) and CID in (select CID from Class where year = " . Yii::app()->params['year'] . ")) and WEEK_OF_SEMESTER = " . Yii::app()->params['week_of_semester']);
+            if ($UID[0] != null){
+                for ($i = 0; $i < $UID_amt; ++$i){
+                    // class time of others
+                    $classtime[] = Classtime::model()->findAll("TIMEID in (select TIMEID from Atomclass where CID in (select CID from Takes where UID = $UID[$i]) and CID in (select CID from Class where year = " . Yii::app()->params['year'] . ")) and WEEK_OF_SEMESTER = " . Yii::app()->params['week_of_semester']);
+                }
             }
-            //echo $data;
-            /*
-            $data = $dataProvider[0]->getData(); 
-            */
+            // class time of yourself
+            $classtime[] = Classtime::model()->findAll("TIMEID in (select TIMEID from Atomclass where CID in (select CID from Takes where UID = " . Yii::app()->user->id . ") and CID in (select CID from Class where year = " . Yii::app()->params['year'] . ")) and WEEK_OF_SEMESTER = " . Yii::app()->params['week_of_semester']);
             echo CJSON::encode(array(
                 'common'=>array($classtime),
-                'amt'=>$UID_amt,
             ));
         }
     }

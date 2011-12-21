@@ -42,6 +42,10 @@ for ($i = 0; $i < $feedAmt; ++$i){
 </div>
 
 <script type="text/javascript">
+$(document).ready(function(){
+    UID = new Array();
+    sendAjax();
+});
 
 function getPercent(time){
     // get hour, minute, second from time string
@@ -86,10 +90,10 @@ function getTime(percent){
     return hour + ":" + addZero(min) + ":" + addZero(sec);
 }
 
-function drawClass(dayOfWeek, start_percentOfDay, length_percentOfDay){
+function drawClass(dayOfWeek, start_percentOfDay, length_percentOfDay,titlename){
     var startStr = getTime(start_percentOfDay);
     var endStr = getTime(start_percentOfDay + length_percentOfDay);
-    $("#common_time").append('<div class="time_block transparent_class" id="class_' + class_id + '"' + 'title="开始时间：' + startStr + '\n结束时间：' + endStr + '"' + '></div>');
+    $("#common_time").append('<div class="time_block transparent_class" id="class_' + class_id + '"' + 'title="开始时间：' + startStr + '\n结束时间：' + endStr + '\ntimeid' + titlename + '"' + '></div>');
     var width = parseInt($("#class_" + class_id).css("width"));
     var height = parseInt($("#class_" + class_id).css("height"));
     var old_left = parseInt($("#class_" + class_id).css("left"));
@@ -117,7 +121,6 @@ function check_user(id){
         $("#user_button" + id).val(0);
     }
 
-
     // Calculate clicked users
     UID = new Array();
     $(".user").each(function(){
@@ -126,11 +129,11 @@ function check_user(id){
             UID.push($(this).attr('id').substr(11));
         }
     });
-    if (UID[0] == null){
-        $("#common_time").html('');
-        return;
-    }
 
+    sendAjax();
+}
+
+function sendAjax(){
     // Get common time from db
     $.ajax({
         type:"POST",
@@ -148,7 +151,7 @@ function check_user(id){
                     var start = getPercent(result.common[0][i][j]['START_TIME']);
                     var length = getPercent(result.common[0][i][j]['END_TIME']) - start;
                     drawClass(result.common[0][i][j]['DAY_OF_WEEK'],
-                        start, length);
+                        start, length, result.common[0][i][j]['TIMEID']);
                 }
             }
         }
