@@ -5,6 +5,8 @@
         var obj =
         {
             'id':-1,
+            'year':2011,
+            'semester':2,
             'name':"none",
             'teacher':"none"
         }
@@ -105,6 +107,11 @@
                                   var classID = msg.substring(msg.indexOf("课程代码"));
                                   // magic number
                                   totalClasses[i].id = classID.substring(12, 17);
+                                  var year = msg.substring(msg.indexOf("学年"));
+                                  // magic number
+                                  totalClasses[i].year = year.substring(10, 14);
+                                  var semester = msg.substring(msg.indexOf("学期"));
+                                  totalClasses[i].semester = semester.substring(10, 11);
                               },
                               error: function(){}
                               });
@@ -114,7 +121,7 @@
                    var json_text = JSON.stringify(totalClasses, null, 2);
                    $.ajax({
                           type: "POST",
-                          url: "http://localhost/test.php",
+                          url: "http://127.0.0.1/test.php",
                           datatype: 'json',
                           data: json_text,
                           success: function(){},
