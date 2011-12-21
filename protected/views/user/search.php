@@ -17,19 +17,23 @@ $('.search-form form').submit(function(){
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php
+    $attributes = array('UID',
+		                'USER_NAME',
+            		   );
+            		   
+    if (Yii::app()->user->role==="admin") {
+        $attr = array('class'=>'CLinkColumn',
+            		  'label'=>'管理资料',
+            		  'urlExpression'=>'CHtml::normalizeUrl(array(
+            				"user/update",
+            				"id"=>$data->UID,
+            		  ))');
+        array_push($attributes, $attr);
+    }
+    
+    $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'user-grid',
 	'dataProvider'=>$model->search(),
-	'columns'=>array(
-		'UID',
-		'USER_NAME',
-		array(
-			'class'=>'CLinkColumn',
-			'label'=>'管理资料',
-			'urlExpression'=>'CHtml::normalizeUrl(array(
-				"user/update",
-				"id"=>$data->UID,
-			))',
-		),
-	),
+	'columns'=>$attributes,
 )); ?>

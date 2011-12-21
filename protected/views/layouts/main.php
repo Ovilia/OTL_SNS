@@ -35,11 +35,14 @@
                 <?php
                     if (Yii::app()->user->role==="admin")
                         echo CHtml::link("管理用户", array("user/search"));
-                    else
-                        echo CHtml::link("好友", array("user/search"));
                 ?>
             </div>
-            <span class="heading-span">|</span>
+            <span class="heading-span">
+                <?php
+                    if (Yii::app()->user->role==="admin")
+                        echo "|";
+                ?>
+            </span>
             <div class="heading-nav">
 		<?php echo CHtml::link("私信", array("message/inbox")); ?>
             </div>
