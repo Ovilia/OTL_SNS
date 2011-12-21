@@ -56,8 +56,8 @@ class Status extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'comments' => array(self::HAS_MANY, 'COMMENTS', 'SID'),
-			'user' => array(self::BELONGS_TO, 'USER', 'UID'),
+			'comments' => array(self::HAS_MANY, 'Comments', 'SID'),
+			'user' => array(self::BELONGS_TO, 'User', 'UID'),
 		);
 	}
 

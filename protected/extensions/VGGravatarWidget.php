@@ -47,7 +47,7 @@ class VGGravatarWidget extends CWidget
     /**
      * @var boolean - for debug off-line
      */
-    public $isOffLine = true;
+    public $isOffLine = false;
 
 	/**
 	 * @var string - Email we will use to generate the Gravatar Image  

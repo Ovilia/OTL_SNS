@@ -39,7 +39,7 @@ Yii::app()->clientScript->registerScript(
 <script language="javascript">
 
 window.onload = function(){
-   var star = <?php echo $star ?>;
+   var star = <?php if ($star !== null) echo $star; else echo 0; ?>;
    var test = $("#divStars")[0];
    if (star == -1)
        $("#divStars")[0].style.cssText="display:none";

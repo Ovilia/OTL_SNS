@@ -48,6 +48,10 @@
             </div>
             <span class="heading-span">|</span>
             <div class="heading-nav">
+        <?php echo CHtml::link('我的课程', array('user/takes', 'uid'=>Yii::app()->user->id)); ?>
+            </div>
+            <span class="heading-span">|</span>
+            <div class="heading-nav">
 		<?php echo CHtml::link("课程", array("course/search")); ?>
             </div>
             <span class="heading-span">|</span>
