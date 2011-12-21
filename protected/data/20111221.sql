@@ -28,3 +28,4 @@ insert into atomclass values(default,11,2,101,10);
 insert into atomclass values(default,12,2,105,11);
 update classtime set end_time = "20:00:00" where timeid = 6;
 update classtime set end_time = "16:00:00" where timeid = 104;
+update classtime set week_of_semester = 2 where week_of_semester < 5;

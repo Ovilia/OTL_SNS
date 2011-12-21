@@ -85,7 +85,7 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'hnkfliyao@gmail.com',
         'year'=>'2011',
-        'semester'=>'1',
+        'semester'=>'2',
         'week_of_semester'=>2,
 	),
 );
