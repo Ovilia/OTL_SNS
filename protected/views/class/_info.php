@@ -31,15 +31,37 @@ $attributes=array(
 		'value'=>$model->teachersToString(),
 	),
 );
+
+if (Takes::model()->exists("CID=$model->CID and UID=" . Yii::app()->user->id))
+{
+	$attr=array(
+		'type'=>'raw',
+		'value'=>"我在上这门课<br>" . 
+			CHtml::link("从我的课表中移除", array(
+				'takes/cancel', 'class_id'=>$model->CID,
+		)),
+	);
+	array_push($attributes, $attr);
+}
+else
+{
+	$attr=array(
+		'type'=>'raw',
+		'value'=>"我不在上这门课<br>" . 
+			CHtml::link("添加到我的课表", array(
+				'takes/add', 'class_id'=>$model->CID,
+		)),
+	);
+	array_push($attributes, $attr);
+}
+
 if (Yii::app()->user->role==="admin")
 {
 	$attr=array(
-		array(
-			'type'=>'raw',
-			'value'=>CHtml::link("修改课程安排", array(
-				'update', 'id'=>$model->CID,
-			)),
-		),
+		'type'=>'raw',
+		'value'=>CHtml::link("修改课程安排", array(
+			'update', 'id'=>$model->CID,
+		)),
 	);
 	array_push($attributes, $attr);
 }
