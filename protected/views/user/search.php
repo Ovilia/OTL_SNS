@@ -7,6 +7,7 @@ $('.search-form form').submit(function(){
 	return false;
 });
 ");
+$this->renderPartial('_menu');
 ?>
 
 <h1>用户</h1>
