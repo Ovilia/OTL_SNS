@@ -1,0 +1,25 @@
+{
+  "name": "第一个Chrome插件",
+  "version": "1.0",
+  "description": "get classes in electsys page",
+  "background_page": "background.html",
+  "permissions": [
+	"tabs", "http://*/*", "https://*/*"
+  ],
+  "options_page": "options.html",
+  "content_scripts": [
+	{
+	  "matches" : [
+		"http://*/*",
+		"https://*/*"
+	  ],
+	  "js": ["jquery.js", "myscript.js"],
+	  "run_at": "document_idle"
+	}
+  ],
+  "browser_action": {
+    "default_icon": "tecton.jpg",
+	"default_title": "OTL",
+	"popup": "popup.html"
+  }
+}

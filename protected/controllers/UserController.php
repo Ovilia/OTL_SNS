@@ -157,8 +157,7 @@ class UserController extends Controller
 	{
 		$model=new User;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->layout='//layouts/column2';
 
 		if(isset($_POST['User']))
 		{
