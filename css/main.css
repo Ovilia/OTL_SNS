@@ -30,9 +30,9 @@ td.common_td
     border-color: #06450c;
 }
 
-#common_time_div
+#common_time
 {
-    max-height: 500px;
+    max-height: 0px;
 }
 
 .time_block
