@@ -48,7 +48,7 @@ Yii::app()->clientScript->registerScript('showComment', "
     });
 ");
 ?>
-
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/json2.js"></script>
 <h1>我的首页</h1>
 <div>
     <form>
@@ -59,7 +59,39 @@ Yii::app()->clientScript->registerScript('showComment', "
     <div class="search_suggest" id="status_search_suggest">
        Content of search suggest.
     </div>
+    <button onclick="testData()">senddata
     <script type='text/javascript'>
+    function testData(){
+        var data = [{
+    "id": "SE323",
+    "year": "2011",
+    "semester": "2",
+    "name": "面向对象分析与设计",
+    "teacher": "陈昊鹏",
+    "classtime": [
+      {
+        "weekday": 3,
+        "startTime": 1,
+        "span": 2
+      },
+      {
+        "weekday": 1,
+        "startTime": 3,
+        "span": 2
+      }
+    ]
+  }
+];
+        var json_text = JSON.stringify(data, null, 2);
+        //alert(json_text);
+        $.ajax({
+                type:"POST",
+                url: "http://localhost/OTL_SNS/index.php/takes/import",
+                          datatype: 'json',
+                          data: "schedule=" + json_text,
+                          success: function(){alert("success");}
+            });
+    }
     function setCid(cid) {
         var test = $("#statusContent")[0];
         $("#statusContent")[0].focus();

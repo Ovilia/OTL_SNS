@@ -49,7 +49,7 @@ class CourseController extends Controller
     }
     
 	public function actionView($course_code, $year, $semester)
-	{
+	{  
 		$course=$this->loadModel($course_code, $year, $semester);
 		$classes=$course->getClasses();
 		$this->render('view', array(

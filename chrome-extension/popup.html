@@ -5,8 +5,8 @@
         var obj =
         {
             'id':-1,
-            'year':2011,
-            'semester':2,
+            'year':"2011",
+            'semester':"1",
             'name':"none",
             'teacher':"none"
         }
@@ -88,7 +88,8 @@
                                totalClasses[k].classtime[classtimeNum] = classtime;
                                totalClasses[k].classtime[classtimeNum].weekday = j + 1;
                                totalClasses[k].classtime[classtimeNum].startTime = i + 1;
-                               totalClasses[k].classtime[classtimeNum].span = singleClass.substring(singleClass.indexOf("rowspan=") + 8, singleClass.indexOf(">"));
+                               var span = singleClass.substring(singleClass.indexOf("rowspan=") + 8, singleClass.indexOf(">"));
+                               totalClasses[k].classtime[classtimeNum].span = parseInt(span);
                            }
                        }
                    }
@@ -121,10 +122,10 @@
                    var json_text = JSON.stringify(totalClasses, null, 2);
                    $.ajax({
                           type: "POST",
-                          url: "http://127.0.0.1/test.php",
+                          url: "http://localhost/OTL_SNS/index.php/takes/import",
                           datatype: 'json',
-                          data: json_text,
-                          success: function(){},
+                          data: "schedule=" + json_text,
+                          success: function(){chrome.tabs.executeScript(null,{code:"alert('success');"});},
                           error: function(){chrome.tabs.executeScript(null,{code:"alert('connect server error');"});}
                           });
                
@@ -132,7 +133,6 @@
         });
         document.getElementById('button').innerHTML="OK!";
         chrome.tabs.executeScript(null,{code:"alert('Done');"});
-        window.close();
     }
     </script>
 <div id="button" onclick="test()">GET DATA</div>

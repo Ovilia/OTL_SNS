@@ -60,60 +60,73 @@ class TakesController extends Controller
 	 */
 	public function actionImport()
 	{
+	    echo "in";
 		if (Yii::app()->request->isPostRequest)
 		{
 			if (isset($_POST['schedule']))
 			{
-				$schedules = $_POST['schedule'];
+				$schedules = CJSON::decode($_POST['schedule']);
 				foreach ($schedules as $schedule)
 				{
 					$timetable=array();
 					foreach ($schedule['classtime'] as $time)
 					{
-						$start_time=Classtime::model()->getStartFromSjtuTime(
+						$start_time=Classtime::model()->getStartTimeFromSjtuTime(
 							$time['startTime']);
-						$end_time=Classtime::model()->getEndFromSjtuTime(
-							$time['startTime']+$time['span']);
+						$end_time=Classtime::model()->getEndTimeFromSjtuTime(
+							$time['startTime']+$time['span'] - 1);
 						$weekday=$time['weekday'];
-						$classtime=Classtime::model()->find("START_TIME=$start_time and
-							END_TIME=$end_time and DAY_OF_WEEK=$weekday");
+						$classtime=Classtime::model()->find("START_TIME='$start_time' and
+							END_TIME='$end_time' and DAY_OF_WEEK=$weekday");
 						if (!($classtime===null))
 						{
 							array_push($timetable, $classtime->TIMEID);
 						}
+						else
+						  echo "xxx";
 					}
 
 					// Note: this piece of code would not process the duplications of teachers'
 					// name correctly.
-					$teacher_name=$_POST['teacher'];
-					$teacher=Teacher::model()->find("TEACHER_NAME=$teacher_name");
+					$teacher_name=$schedule['teacher'];
+					$teacher=Teacher::model()->find("TEACHER_NAME='$teacher_name'");
+					if ($teacher===null)
+					   continue;
 					$teacher_id=$teacher->TID;
 
-					$course_code=$_POST['id'];
-					$year=$_POST['year'];
-					$semester=$_POST['semester'];
+					$course_code=$schedule['id'];
+					$year=$schedule['year'];
+					$semester=$schedule['semester'];
 
-					$classes=AClass::model()->findAll("COURSE_CODE=$course_code and
+					$classes=AClass::model()->findAll("COURSE_CODE='$course_code' and
 						YEAR=$year and SEMESTER=$semester");
+				    echo "0";
 					foreach ($classes as $class)
 					{
+					    echo $class->CID."<br>\n";
 						$flag=false;
 						foreach($class->teachers as $class_teacher)
 						{
+						    echo "jinle";
 							if ($class_teacher->TID==$teacher_id)
 							{
 								$flag=true;
 								break;
 							}
+							else
+							     echo $class_teacher->TID;
 						}
+						
 						if($flag)
 						{
 							$flag=false;
 							foreach($class->atomclasses as $atomclass)
 							{
 								$flag=false;
+								print_r($timetable);
 								foreach($timetable as $time_id)
 								{
+								    
 									if ($time_id==$atomclass->TIMEID)
 									{
 										$flag=true;
@@ -121,16 +134,24 @@ class TakesController extends Controller
 									}
 								}
 								if(!$flag)
+								{
+								    echo "time$atomclass->TIMEID\n";
 									break;
+								}
 							}
 						}
+						else
+						  echo "a";
 						if($flag)
 						{
 							$takes=new Takes;
 							$takes->UID=Yii::app()->user->id;
 							$takes->CID=$class->CID;
 							$takes->save();
+							echo "success";
 						}
+						else
+						  echo "wrong";
 					}
 				}
 			}
