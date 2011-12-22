@@ -142,4 +142,20 @@ class Classtime extends CActiveRecord
 		}
 		return $options;
 	}
+
+	public function getStartTimeFromSjtuTime($time) {
+		$times=array("08:00:00", "08:55:00", "10:00:00", "10:55:00",
+			"12:00:00", "12:55:00", "14:00:00", "14:55:00",
+			"16:00:00", "16:55:00", "18:00:00", "18:55:00",
+			"19:50:00");
+		return $times[$time-1];
+	}
+
+	public function getEndTimeFromSjtuTime($time) {
+		$times=array("08:45:00", "09:40:00", "10:45:00", "11:40:00",
+			"12:45:00", "13:40:00", "14:45:00", "15:40:00",
+			"16:45:00", "17:40:00", "18:45:00", "19:40:00",
+			"20:35:00");
+		return $times[$time-1];
+	}
 }
