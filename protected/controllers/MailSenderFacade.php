@@ -3,7 +3,20 @@ include("Mailer.php");
 
 class MailSenderFacade
 {
-    static public function getRandString($length)
+    private $pMailer;
+    private $head;
+    private $body;
+    private $warning;
+    
+    function __construct($mail, $head, $body, $warning)
+    {
+        $this->pMailer = $mail;
+        $this->head = $head;
+        $this->body = $body;
+        $this->warning = $warning;
+    }
+    
+    public function getRandString($length)
     {
         $characters = "abcdefghijklmnopqrstuvwxyz0123456789";
         $char_length = strlen($characters);
@@ -14,15 +27,15 @@ class MailSenderFacade
         return $result;
     }
     
-    static public function sendMail($model)
+    public function sendMail($model)
     {
         $password = $this->getRandString(8);
-        $mailer = new $Mailer;
+        $mailer = new Mailer($this->pMailer);
         $mailer->setHead();
         $mailer->setFrom('admin@otl.com', 'OTL SNS');
         $mailer->setAddress($model->EMAIL);
-        $mailer->setSubject('demo', 'OTL SNS 重设密码');
-        $mailer->setBody($password);
+        $mailer->setSubject('demo', $this->head);
+        $mailer->setBody($this->head, $this->body, $this->warning, $password);
         if (!$mailer->send()){
             throw new CHttpException(400, 'Error in sending email.');
             return false;

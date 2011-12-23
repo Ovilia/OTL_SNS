@@ -60,7 +60,6 @@ class TakesController extends Controller
 	 */
 	public function actionImport()
 	{
-	    echo "in";
 		if (Yii::app()->request->isPostRequest)
 		{
 			if (isset($_POST['schedule']))
@@ -82,8 +81,6 @@ class TakesController extends Controller
 						{
 							array_push($timetable, $classtime->TIMEID);
 						}
-						else
-						  echo "xxx";
 					}
 
 					// Note: this piece of code would not process the duplications of teachers'
@@ -100,21 +97,17 @@ class TakesController extends Controller
 
 					$classes=AClass::model()->findAll("COURSE_CODE='$course_code' and
 						YEAR=$year and SEMESTER=$semester");
-				    echo "0";
+						
 					foreach ($classes as $class)
 					{
-					    echo $class->CID."<br>\n";
 						$flag=false;
 						foreach($class->teachers as $class_teacher)
 						{
-						    echo "jinle";
 							if ($class_teacher->TID==$teacher_id)
 							{
 								$flag=true;
 								break;
 							}
-							else
-							     echo $class_teacher->TID;
 						}
 						
 						if($flag)
@@ -135,13 +128,10 @@ class TakesController extends Controller
 								}
 								if(!$flag)
 								{
-								    echo "time$atomclass->TIMEID\n";
 									break;
 								}
 							}
 						}
-						else
-						  echo "a";
 						if($flag)
 						{
 							$takes=new Takes;
@@ -150,8 +140,6 @@ class TakesController extends Controller
 							$takes->save();
 							echo "success";
 						}
-						else
-						  echo "wrong";
 					}
 				}
 			}
