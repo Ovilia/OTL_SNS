@@ -1,5 +1,5 @@
 {
-  "name": "第一个Chrome插件",
+  "name": "OTL SNS Class Schedule Import Plugin",
   "version": "1.0",
   "description": "get classes in electsys page",
   "background_page": "background.html",
@@ -13,7 +13,7 @@
 		"http://*/*",
 		"https://*/*"
 	  ],
-	  "js": ["jquery.js", "myscript.js"],
+	  "js": ["jquery.js"],
 	  "run_at": "document_idle"
 	}
   ],
