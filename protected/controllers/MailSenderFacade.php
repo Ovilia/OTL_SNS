@@ -40,8 +40,8 @@ class MailSenderFacade
             throw new CHttpException(400, 'Error in sending email.');
             return false;
         }
-        
-        return true;
+        $model->PASSWORD = md5($password);
+        return $model;
     }
 }
 

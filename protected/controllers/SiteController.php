@@ -1,4 +1,5 @@
 <?php
+include("MailSenderFacade.php");
 
 class SiteController extends Controller
 {
@@ -189,17 +190,6 @@ class SiteController extends Controller
 		// display the login form
 		$this->render('index',array('model'=>$model));
 	}
-
-    public function getRandString($length)
-    {
-        $characters = "abcdefghijklmnopqrstuvwxyz0123456789";
-        $char_length = strlen($characters);
-        $result = "";
-        for ($i = 0; $i < $length; ++$i){
-            $result .= $characters[mt_rand(0, $char_length - 1)];
-        }
-        return $result;
-    }
     
     public function actionRegister()
     {
@@ -211,31 +201,18 @@ class SiteController extends Controller
 			$regForm->attributes=$_POST['RegisterForm'];
 			$user->USER_NAME = $regForm->username;
 			$user->EMAIL = $regForm->email;
-			$password = $this->getRandString(8);
-            $user->PASSWORD = md5($password);
 			$user->ISADMIN = "0";
-			
-            $message = '<div style="font-size: 20px;">OTL SNS 注册用户初始密码</div><br>您刚刚注册了新用户，请使用以下密码登录，并尽快修改默认生成的密码。感谢您对OTL SNS的支持！<div style="color:red">您的初始密码：';
-            $message .= $password;
-            $message .= '</div><br>请勿直接回复此邮件，联系我们：<br>hnkfliyao@gmail.com<br>tecton69@gmail.com<br>zwl.sjtu@gmail.com<br>';
-    
-            $mailer = Yii::createComponent('application.extensions.mailer.EMailer');
-            $mailer->Host = 'localhost';
-            $mailer->IsSMTP();
-            $mailer->IsHTML(true);
-            $mailer->From = 'admin@otl.com';
-            $mailer->AddAddress($regForm->email);
-            $mailer->FromName = 'OTL SNS';
-            $mailer->CharSet = 'UTF-8';
-            $mailer->Subject = Yii::t('demo', 'OTL SNS 注册用户初始密码');
-            $mailer->Body = $message;
-            if (!$mailer->Send()){
-                throw new CHttpException(400, 'Error in sending email.');
+            
+            $mailsender = new MailSenderFacade(Yii::createComponent('application.extensions.mailer.EMailer'),
+                                               'OTL SNS 注册用户初始密码',
+                                               '您刚刚注册了新用户，请使用以下密码登录，并尽快修改默认生成的密码。感谢您对OTL SNS的支持！',
+                                               '您的初始密码：');
+            $model = $mailsender->sendMail($user);
+            if (!$model->save()){
+                throw new CHttpException(400, 'Error in resetting password');
             }
-			if($user->save())
-				$this->redirect(Yii::app()->baseUrl);
-			else
-			    throw new CHttpException(400, 'Error in register');
+            else
+                $this->redirect(Yii::app()->baseUrl);
 		}
 
 		$this->render('register',array(

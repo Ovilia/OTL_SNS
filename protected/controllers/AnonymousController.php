@@ -37,7 +37,10 @@ class AnonymousController extends Controller
                                                'OTL SNS 重设密码',
                                                '您刚刚重设了密码，请使用以下密码登录，并尽快修改默认生成的密码。感谢您对OTL SNS的支持！',
                                                '您的新密码：');
-            $mailsender->sendMail($model);
+            $model = $mailsender->sendMail($model);
+            if (!$model->save()){
+                throw new CHttpException(400, 'Error in resetting password');
+            }
         }
         $this->render('SendPassword', array(
             'email'=>$email,
